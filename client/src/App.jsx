@@ -1,3 +1,6 @@
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+
 export default function App() {
   // state (état, données) de l'application
 
@@ -6,9 +9,10 @@ export default function App() {
   // affichage (render)
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-blue-600">
-        Hello world!
-      </h1>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+
+      </Routes>
     </>
   );
 }
