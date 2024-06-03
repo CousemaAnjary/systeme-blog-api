@@ -20,9 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    name: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    lastname: DataTypes.STRING,
+    firstname: DataTypes.STRING,
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
@@ -35,7 +37,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
-
-// npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
-// npx sequelize-cli db:migrate
-

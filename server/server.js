@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const path = require("path");
 const cookieParser = require("cookie-parser"); // Importer cookie-parser
 const addAuthState = require('./middlewares/addAuthState');
@@ -6,6 +7,13 @@ const webRoutes = require("./routes/web");
 const apiRoutes = require("./routes/api");
 
 const app = express();
+
+// Configuration de CORS pour permettre les requêtes depuis le frontend
+const corsOptions = {
+  origin: 'http://localhost:5174', // URL de votre frontend
+  credentials: true, // Permet d'inclure les cookies dans les requêtes
+};
+app.use(cors(corsOptions));
 
 // Définir le moteur de vue
 app.set("view engine", "ejs");
