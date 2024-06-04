@@ -17,6 +17,7 @@ router.get('/protected', auth, (req, res) => {
 // Routes d'API pour l'authentification
 router.post("/register", guest, RegisterUserController.store)
 router.post("/login", guest, AuthenticatedSessionController.store);
+router.post("/logout", auth, AuthenticatedSessionController.logout);
 
 
 // // Routes d'API pour les produits

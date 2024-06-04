@@ -15,7 +15,7 @@ export default function App() {
       <Routes>
         {/* Route Protégée */}
         <Route element={<PrivateRoute />}>
-
+         
         </Route>
 
         <Route path="/register" element={<Register />} />

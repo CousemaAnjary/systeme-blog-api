@@ -24,6 +24,19 @@ export const login = async (email, password) => {
     }
 }
 
+// Déconnecter un utilisateur.
+
+export const logout = async () => {
+    try {
+        // Envoi de la requête à l'API.
+        const response = await api.post('/logout');
+        return response.data;
+
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('Something went wrong');
+    }
+}
+
 // Route protégée pour les utilisateurs authentifiés.
 export const protectedRoute = async () => {
     try {

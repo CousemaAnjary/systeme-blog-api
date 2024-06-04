@@ -1,7 +1,7 @@
 const { User } = require('../../../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { secretKey } = require('../../../config'); 
+const { secretKey } = require('../../../config');
 
 module.exports = {
     async store(req, res) {
@@ -57,5 +57,11 @@ module.exports = {
             // Si une erreur se produit lors du processus, nous renvoyons une réponse d'erreur.
             return res.status(500).json({ error: "Erreur serveur" });
         }
+    },
+
+    async logout(req, res) {
+        // Effacer le cookie authToken
+        res.clearCookie('authToken');
+        return res.status(200).json({ message: "Déconnexion réussie" });
     }
 };
