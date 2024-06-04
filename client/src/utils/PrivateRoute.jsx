@@ -18,8 +18,6 @@ export default function PrivateRoute() {
     }, []);
 
     // affichage (render)
-    return (
-        isAuthenticated ? <Outlet /> : <Navigate to="/login" />
-    )
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 
 }

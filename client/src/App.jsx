@@ -15,12 +15,11 @@ export default function App() {
       <Routes>
         {/* Route Protégée */}
         <Route element={<PrivateRoute />}>
-         
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
 
       </Routes>
     </>
