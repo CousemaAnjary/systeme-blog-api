@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoutes from "./utils/PrivateRoutes";
 import Dashboard from "./pages/Dashboard";
 
 export default function App() {
@@ -14,8 +14,8 @@ export default function App() {
     <>
       <Routes>
         {/* Route Protégée */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="admin/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route path="/register" element={<Register />} />

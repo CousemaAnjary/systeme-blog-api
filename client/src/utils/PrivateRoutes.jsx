@@ -2,7 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { protectedRoute } from '../services/authService';
 
-export default function PrivateRoute() {
+export default function PrivateRoutes() {
     // state (état, données) de l'application
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
