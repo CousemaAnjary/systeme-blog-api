@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 export default function App() {
   // state (état, données) de l'application
@@ -12,14 +14,9 @@ export default function App() {
   return (
     <>
       <Routes>
-        {/* Route Protégée */}
-        {/* <Route element={<PrivateRoutes />}>
-         
-        </Route> */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-
+        <Route path="/register" element={<PublicRoute element={<Register />} />} />
+        <Route path="/login" element={<PublicRoute element={<Login />} />} />
+        <Route path="/admin/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
       </Routes>
     </>
   );

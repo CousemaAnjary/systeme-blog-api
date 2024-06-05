@@ -4,7 +4,8 @@ const { User } = require('../models');
 
 // Middleware pour vérifier si l'utilisateur est authentifié
 const auth = async (req, res, next) => {
-    const token = req.cookies.authToken; // Récupérer le token JWT depuis les cookies
+    // Récupérer le token JWT depuis les en-têtes d'autorisation
+    const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
 
     if (!token) {
         return res.status(401).json({ message: 'Pas de token, autorisation refusée' });
@@ -27,13 +28,19 @@ const auth = async (req, res, next) => {
 
 // Middleware pour vérifier si l'utilisateur est un invité (non connecté)
 const guest = (req, res, next) => {
-    const token = req.cookies.authToken; // Récupérer le token JWT depuis les cookies
+    // Récupérer le token JWT depuis les en-têtes d'autorisation
+    const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
 
     if (token) {
-        return res.status(400).json({ message: 'Déjà authentifié' });
+        try {
+            jwt.verify(token, secretKey); // Tenter de vérifier le token
+            return res.status(400).json({ message: 'Déjà authentifié' });
+        } catch (err) {
+            // Si le token est invalide, on laisse passer
+        }
     }
 
-    next(); // Passer au middleware suivant
+    next(); // Passer au middleware suivant si aucun token valide n'est trouvé
 };
 
 module.exports = { auth, guest };

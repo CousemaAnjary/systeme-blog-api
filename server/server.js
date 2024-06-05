@@ -11,7 +11,6 @@ const app = express();
 // Configuration de CORS pour permettre les requêtes depuis le frontend
 const corsOptions = {
   origin: 'http://localhost:5173', // URL de votre frontend
-  credentials: true, // Permet d'inclure les cookies dans les requêtes
 };
 app.use(cors(corsOptions));
 

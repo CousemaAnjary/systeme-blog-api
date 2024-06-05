@@ -6,13 +6,7 @@ const { auth, guest } = require('../middlewares/auth')
 const RegisterUserController = require("../controllers/Api/Auth/RegisterUserController")
 const AuthenticatedSessionController = require("../controllers/Api/Auth/AuthenticatedSessionController")
 
-// Définir une route protégée
-router.get('/protected', auth, (req, res) => {
-    res.json({
-        message: "Route protégée",
-        user: req.user
-    });
-});
+
 
 // Routes d'API pour l'authentification
 router.post("/register", guest, RegisterUserController.store)
