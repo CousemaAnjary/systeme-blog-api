@@ -1,9 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
-// Récupération de l'URL de base de l'API à partir des variables d'environnement
+// Récupérer l'URL de base de l'API à partir des variables d'environnement
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
-// Création d'une instance axios avec des configurations spécifiques
 const api = axios.create({
     baseURL: API_URL,
     headers: {

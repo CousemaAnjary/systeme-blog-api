@@ -4,6 +4,7 @@ import PublicRoute from "./components/routes/PublicRoute";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { UserProvider } from "./contexts/UserContext";
 
 export default function App() {
   // state (état, données) de l'application
@@ -13,20 +14,23 @@ export default function App() {
   // affichage (render)
   return (
     <>
-      <Routes>
-        {/* Route Publique */}
-        <Route element={<PublicRoute />}>
-          <Route path="/" />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Route>
+      <UserProvider>
+        <Routes>
+          {/* Route Publique */}
+          <Route element={<PublicRoute />}>
+            <Route path="/" />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
 
-        {/* Route Protégée */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-        </Route>
+          {/* Route Protégée */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+          </Route>
 
-      </Routes>
+        </Routes>
+      </UserProvider>
+
     </>
   );
 }

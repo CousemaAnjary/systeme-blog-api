@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import { login } from '../services/authService'
+import useAuth from '../hooks/useAuth';
 
 export default function LoginForm() {
     // state (état, données) de l'application
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { login } = useAuth();
     const navigate = useNavigate()
 
     // comportement

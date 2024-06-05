@@ -1,16 +1,16 @@
-import LogoutButton from "../components/LogoutButton";
+import useAuth from '../hooks/useAuth';
+import LogoutButton from '../components/LogoutButton';
 
-export default function Dashboard() {
-    // state (état, données) de l'application
+const Dashboard = () => {
+    const { user } = useAuth();
 
-    // comportement
-
-    // affichage (render)
     return (
         <div>
             <h1>Dashboard</h1>
-            <p>Welcome to the dashboard</p>
+            <p>Welcome, {user.firstName} {user.lastName}!</p>
             <LogoutButton />
         </div>
     );
-}
+};
+
+export default Dashboard;
