@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { login as loginService, logout as logoutService } from '../services/authService';
 import { isAuthenticated, removeToken } from '../utils/auth';
-import useUser from '../hooks/useUser'; // Importation correcte de useUser
+import useUser from '../hooks/useUser'; 
 
 // Hook personnalisé pour gérer l'authentification
 const useAuth = () => {
