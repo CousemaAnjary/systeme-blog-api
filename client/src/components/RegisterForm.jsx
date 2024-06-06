@@ -1,6 +1,13 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { register } from '../services/authService';
+import { useForm } from "react-hook-form"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+
+
 
 export default function RegisterForm() {
     // state (état, données) de l'application
@@ -9,6 +16,7 @@ export default function RegisterForm() {
     const [lastname, setLastname] = useState('');
     const [firstname, setFirstname] = useState('');
     const navigate = useNavigate();
+    const form = useForm()
 
     // comportement
     const handleRegister = async (e) => {
@@ -28,56 +36,104 @@ export default function RegisterForm() {
     // affichage (render)
     return (
         <>
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-                    <h2 className="text-2xl font-bold text-center">Register</h2>
-                    <form onSubmit={handleRegister} className="space-y-4">
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-700">Email:</label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className="w-full p-2 border border-gray-300 rounded"
+            <Form {...form}>
+                <form onSubmit={handleRegister}>
+                    <Card>
+                        {/* Header */}
+                        <CardHeader>
+                            <CardTitle>Inscription</CardTitle>
+                            <CardDescription>Veuillez vous inscrire pour accéder à votre compte</CardDescription>
+                        </CardHeader>
+
+                        {/* Content */}
+                        <CardContent>
+                            <FormField
+                                control={form.control}
+                                name="lastname"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Nom</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                value={lastname}
+                                                onChange={(e) => setLastname(e.target.value)}
+                                                placeholder="Entrez votre nom"
+                                                required
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-700">Password:</label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                className="w-full p-2 border border-gray-300 rounded"
+                            <FormField
+                                control={form.control}
+                                name="firstname"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Prénom</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                value={firstname}
+                                                onChange={(e) => setFirstname(e.target.value)}
+                                                placeholder="Entrez votre prénom"
+                                                required
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-700">Lastname:</label>
-                            <input
-                                type="text"
-                                value={lastname}
-                                onChange={(e) => setLastname(e.target.value)}
-                                required
-                                className="w-full p-2 border border-gray-300 rounded"
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Entrez votre email"
+                                                required
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-700">Firstname:</label>
-                            <input
-                                type="text"
-                                value={firstname}
-                                onChange={(e) => setFirstname(e.target.value)}
-                                required
-                                className="w-full p-2 border border-gray-300 rounded"
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Mot de passe</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                placeholder="Entrez votre mot de passe"
+                                                required
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <button type="submit" className="w-full py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600">
-                            Register
-                        </button>
-                    </form>
-                </div>
-            </div>
+
+                        </CardContent>
+
+                        {/* Footer */}
+                        <CardFooter>
+                            <Button type="submit">S'inscrire</Button>
+                        </CardFooter>
+                    </Card>
+                </form>
+            </Form>
+
         </>
     )
 

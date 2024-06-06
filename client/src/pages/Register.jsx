@@ -10,13 +10,10 @@ export default function Register() {
     // affichage (render)
     return (
         <>
-            <header></header>
+            <div className="h-screen w-screen flex justify-center items-center">
+                <RegisterForm />
+            </div>
 
-            <main>
-            <RegisterForm />
-            </main>
-
-            <footer></footer>
         </>
     );
 }
