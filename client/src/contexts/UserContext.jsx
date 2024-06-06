@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 // Création d'un nouveau contexte appelé UserContext
 const UserContext = createContext();
