@@ -8,13 +8,10 @@ export default function Login() {
     // affichage (render)
     return (
         <>
-            <header></header>
-
-            <main>
+            <div className="h-screen w-screen flex justify-center items-center">
                 <LoginForm />
-            </main>
+            </div>
 
-            <footer></footer>
         </>
     );
 }
