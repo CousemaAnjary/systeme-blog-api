@@ -52,6 +52,7 @@ const useAuth = () => {
             setAuth(false);
             // Réinitialisation des informations utilisateur dans le contexte
             setUser({ firstName: '', lastName: '' });
+            
         } catch (error) {
             console.error('Logout failed:', error);
             throw error; // Relance l'erreur pour la gestion en amont
