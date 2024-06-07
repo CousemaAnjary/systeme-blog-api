@@ -3,7 +3,11 @@ import Navbar from '../components/Navbar';
 
 
 const Dashboard = () => {
+    // state (état, données) de l'application
 
+    // comportement
+
+    // affichage (render)
     return (
         <>
             <Navbar />

@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
-import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import useAuth from '../hooks/useAuth';
+import UpdateFrofile from "@/components/UpdateFrofile";
 
 export default function Profile() {
     // state (état, données) de l'application
@@ -47,40 +47,36 @@ export default function Profile() {
                         {/* Actions utilisateur */}
                         <div className="ml-auto flex space-x-2">
                             <Button className="bg-blue-500 text-white">Ajouter à la story</Button>
-                            <Button>Modifier le profil</Button>
                         </div>
                     </div>
 
                     {/* Navigation du profil */}
-                    <Tabs defaultValue="publications" className="mt-6 ">
+                    <Tabs defaultValue="profile" className="mt-6 ">
                         <TabsList className="flex space-x-4 border-b bg-gray-800">
+                            <TabsTrigger value="profile" className="py-2 px-4 text-white hover:bg-gray-200">Profile</TabsTrigger>
                             <TabsTrigger value="publications" className="py-2 px-4 text-white hover:bg-gray-200">Publications</TabsTrigger>
-                            {/* <TabsTrigger value="apropos" className="py-2 px-4 hover:bg-gray-200">À propos</TabsTrigger> */}
                             <TabsTrigger value="amies" className="py-2 px-4 text-white hover:bg-gray-200">Ami(e)s</TabsTrigger>
                             <TabsTrigger value="photos" className="py-2 px-4 text-white hover:bg-gray-200">Photos</TabsTrigger>
                             <TabsTrigger value="videos" className="py-2 px-4 text-white hover:bg-gray-200">Vidéos</TabsTrigger>
                         </TabsList>
 
+                        <TabsContent value="profile">
+                            <UpdateFrofile />
+                        </TabsContent>
+
                         <TabsContent value="publications">
                             <div>Contenu des publications</div>
                         </TabsContent>
-                        <TabsContent value="apropos">
-                            <div>Contenu à propos</div>
-                        </TabsContent>
+
                         <TabsContent value="amies">
                             <div>Contenu des ami(e)s</div>
                         </TabsContent>
+
                         <TabsContent value="photos">
                             <div>Contenu des photos</div>
                         </TabsContent>
                         <TabsContent value="videos">
                             <div>Contenu des vidéos</div>
-                        </TabsContent>
-                        <TabsContent value="lieux">
-                            <div>Contenu des lieux</div>
-                        </TabsContent>
-                        <TabsContent value="plus">
-                            <div>Contenu supplémentaire</div>
                         </TabsContent>
                     </Tabs>
                 </div>
