@@ -34,5 +34,32 @@ module.exports = {
             console.error('Erreur lors de la mise à jour des informations utilisateur:', error);
             return res.status(500).json({ error: 'Erreur interne du serveur' });
         }
+    },
+
+    updateProfilePhoto: async (req, res) => {
+        const userId = req.user.id;
+        const photoPath = req.file.path;
+
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).json({ error: 'Utilisateur non trouvé' });
+            }
+
+            user.image = photoPath;
+
+            await user.save();
+
+            return res.status(200).json({
+                user: {
+                    id: user.id,
+                    image: user.image
+                },
+                message: 'Photo de profil mise à jour avec succès'
+            });
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour de la photo de profil:', error);
+            return res.status(500).json({ error: 'Erreur interne du serveur' });
+        }
     }
 }

@@ -43,6 +43,21 @@ export const updateUser = async (userData) => {
     }
 }
 
+export const updateUserPhoto = async (formData) => {
+    try {
+        const token = localStorage.getItem('userToken');
+        const response = await api.post('/update-profile-photo', formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('Something went wrong during updating profile photo');
+    }
+};
+
 // Déconnecter un utilisateur
 export const logout = async () => {
     try {

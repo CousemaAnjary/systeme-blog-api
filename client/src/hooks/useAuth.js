@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { login as loginService, logout as logoutService, updateUser as updateUserService } from '../services/authService';
+import { login as loginService, logout as logoutService, updateUser as updateUserService, updateUserPhoto as updateUserPhotoService } from '../services/authService';
 import { isAuthenticated, removeToken } from '../utils/auth';
 import useUser from '../hooks/useUser';
 
@@ -50,6 +50,19 @@ const useAuth = () => {
         }
     };
 
+    const updateUserPhoto = async (formData) => {
+        try {
+            const response = await updateUserPhotoService(formData);
+            if (response) {
+                localStorage.setItem('image', response.user.image);
+                setUser((prevUser) => ({ ...prevUser, image: response.user.image }));
+            }
+        } catch (error) {
+            console.error('Update user photo failed:', error);
+            throw error;
+        }
+    };
+
     const logout = async () => {
         try {
             await logoutService();
@@ -67,7 +80,8 @@ const useAuth = () => {
         user,
         login,
         logout,
-        updateUser
+        updateUser,
+        updateUserPhoto
     };
 };
 
