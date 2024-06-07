@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { login as loginService, logout as logoutService } from '../services/authService';
 import { isAuthenticated, removeToken } from '../utils/auth';
-import useUser from '../hooks/useUser'; 
+import useUser from '../hooks/useUser';
 
 // Hook personnalisé pour gérer l'authentification
 const useAuth = () => {
@@ -16,7 +16,8 @@ const useAuth = () => {
         if (auth) {
             setUser({
                 firstName: localStorage.getItem('firstName'),
-                lastName: localStorage.getItem('lastName')
+                lastName: localStorage.getItem('lastName'),
+                email: localStorage.getItem('email')
             });
         }
     }, [auth, setUser]);
@@ -32,7 +33,8 @@ const useAuth = () => {
                 // Mise à jour des informations utilisateur dans le contexte
                 setUser({
                     firstName: localStorage.getItem('firstName'),
-                    lastName: localStorage.getItem('lastName')
+                    lastName: localStorage.getItem('lastName'),
+                    email: localStorage.getItem('email')
                 });
             }
         } catch (error) {
@@ -51,20 +53,35 @@ const useAuth = () => {
             // Mise à jour de l'état d'authentification
             setAuth(false);
             // Réinitialisation des informations utilisateur dans le contexte
-            setUser({ firstName: '', lastName: '' });
-            
+            setUser({ firstName: '', lastName: '', email: '' });
+
         } catch (error) {
             console.error('Logout failed:', error);
             throw error; // Relance l'erreur pour la gestion en amont
         }
     };
 
+    // Fonction pour mettre à jour les informations utilisateur 
+    const updateUser = async (userData) => {
+        try {
+            // Implémenter la logique de mise à jour des données utilisateur
+            localStorage.setItem('firstName', userData.firstName);
+            localStorage.setItem('lastName', userData.lastName);
+            localStorage.setItem('email', userData.email);
+            setUser(userData);
+
+        } catch (error) {
+            console.error('Update user failed:', error);
+            throw error;
+        }
+    };
     // Retourne les fonctions et états pour gérer l'authentification
     return {
         isAuthenticated: auth,
         user,
         login,
-        logout
+        logout,
+        updateUser
     };
 };
 

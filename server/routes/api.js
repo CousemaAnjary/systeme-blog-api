@@ -5,6 +5,7 @@ const { auth, guest } = require('../middlewares/auth')
 // // Importation des contrôleurs
 const RegisterUserController = require("../controllers/Api/Auth/RegisterUserController")
 const AuthenticatedSessionController = require("../controllers/Api/Auth/AuthenticatedSessionController")
+const DashboardController = require("../controllers/Api/Backend/DashboardController")
 
 
 
@@ -12,6 +13,9 @@ const AuthenticatedSessionController = require("../controllers/Api/Auth/Authenti
 router.post("/register", guest, RegisterUserController.store)
 router.post("/login", guest, AuthenticatedSessionController.store);
 router.post("/logout", auth, AuthenticatedSessionController.logout);
+
+// Routes d'API pour dashboard
+router.put("/update-profile", auth, DashboardController.update);
 
 
 // // Routes d'API pour les produits
