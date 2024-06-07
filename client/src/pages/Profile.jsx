@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import useAuth from '../hooks/useAuth';
-import UpdateFrofile from "@/components/UpdateFrofile";
+import UpdateProfile from "@/components/UpdateProfile";
 
 export default function Profile() {
     // state (état, données) de l'application
@@ -34,7 +34,7 @@ export default function Profile() {
 
                         {/* Informations utilisateur */}
                         <div className="ml-4">
-                            <h1 className="text-2xl font-bold">{user.firstName} {user.lastName}</h1>
+                            <h1 className="text-2xl font-bold">{user.firstname} {user.lastname}</h1>
                             <p className="text-gray-600">402 ami(e)s</p>
                             {/* <div className="flex mt-2">
                                 <img className="w-8 h-8 rounded-full border-2 border-white" src="https://example.com/friend1.jpg" alt="Friend 1" />
@@ -61,7 +61,7 @@ export default function Profile() {
                         </TabsList>
 
                         <TabsContent value="profile">
-                            <UpdateFrofile />
+                            <UpdateProfile />
                         </TabsContent>
 
                         <TabsContent value="publications">

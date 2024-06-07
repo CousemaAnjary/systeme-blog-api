@@ -15,7 +15,7 @@ router.post("/login", guest, AuthenticatedSessionController.store);
 router.post("/logout", auth, AuthenticatedSessionController.logout);
 
 // Routes d'API pour dashboard
-router.put("/update-profile", auth, DashboardController.update);
+router.put("/updateProfile", auth, DashboardController.update);
 
 
 // // Routes d'API pour les produits

@@ -1,81 +1,67 @@
 import { useState, useEffect } from 'react';
-import { login as loginService, logout as logoutService } from '../services/authService';
+import { login as loginService, logout as logoutService, updateUser as updateUserService } from '../services/authService';
 import { isAuthenticated, removeToken } from '../utils/auth';
 import useUser from '../hooks/useUser';
 
 // Hook personnalisé pour gérer l'authentification
 const useAuth = () => {
-    // État local pour vérifier si l'utilisateur est authentifié
     const [auth, setAuth] = useState(isAuthenticated());
-
-    // Accès au contexte utilisateur pour obtenir et mettre à jour les informations utilisateur
     const { user, setUser } = useUser();
 
-    // useEffect pour mettre à jour l'utilisateur dans le contexte lorsque l'état d'authentification change
     useEffect(() => {
         if (auth) {
             setUser({
-                firstName: localStorage.getItem('firstName'),
-                lastName: localStorage.getItem('lastName'),
+                firstname: localStorage.getItem('firstname'),
+                lastname: localStorage.getItem('lastname'),
                 email: localStorage.getItem('email')
             });
         }
     }, [auth, setUser]);
 
-    // Fonction pour gérer la connexion de l'utilisateur
     const login = async (email, password) => {
         try {
-            // Appel du service de connexion
             const response = await loginService(email, password);
             if (response.token) {
-                // Mise à jour de l'état d'authentification
                 setAuth(true);
-                // Mise à jour des informations utilisateur dans le contexte
                 setUser({
-                    firstName: localStorage.getItem('firstName'),
-                    lastName: localStorage.getItem('lastName'),
+                    firstname: localStorage.getItem('firstname'),
+                    lastname: localStorage.getItem('lastname'),
                     email: localStorage.getItem('email')
                 });
             }
         } catch (error) {
             console.error('Login failed:', error);
-            throw error; // Relance l'erreur pour la gestion en amont
+            throw error;
         }
     };
 
-    // Fonction pour gérer la déconnexion de l'utilisateur
-    const logout = async () => {
-        try {
-            // Appel du service de déconnexion
-            await logoutService();
-            // Suppression du token et des informations utilisateur du localStorage
-            removeToken();
-            // Mise à jour de l'état d'authentification
-            setAuth(false);
-            // Réinitialisation des informations utilisateur dans le contexte
-            setUser({ firstName: '', lastName: '', email: '' });
-
-        } catch (error) {
-            console.error('Logout failed:', error);
-            throw error; // Relance l'erreur pour la gestion en amont
-        }
-    };
-
-    // Fonction pour mettre à jour les informations utilisateur 
     const updateUser = async (userData) => {
         try {
-            // Implémenter la logique de mise à jour des données utilisateur
-            localStorage.setItem('firstName', userData.firstName);
-            localStorage.setItem('lastName', userData.lastName);
-            localStorage.setItem('email', userData.email);
-            setUser(userData);
-
+            const response = await updateUserService(userData);
+            if (response) {
+                localStorage.setItem('firstname', userData.firstname);
+                localStorage.setItem('lastname', userData.lastname);
+                localStorage.setItem('email', userData.email);
+                setUser(userData);
+            }
         } catch (error) {
             console.error('Update user failed:', error);
             throw error;
         }
     };
-    // Retourne les fonctions et états pour gérer l'authentification
+
+    const logout = async () => {
+        try {
+            await logoutService();
+            removeToken();
+            setAuth(false);
+            setUser({ firstname: '', lastname: '', email: '' });
+        } catch (error) {
+            console.error('Logout failed:', error);
+            throw error;
+        }
+    };
+
     return {
         isAuthenticated: auth,
         user,

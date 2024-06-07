@@ -6,7 +6,7 @@ export const isAuthenticated = () => {
 
 export const removeToken = () => {
     localStorage.removeItem('userToken');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
+    localStorage.removeItem('firstname');
+    localStorage.removeItem('lastname');
     localStorage.removeItem('email');
 }

@@ -73,7 +73,7 @@ export default function Navbar() {
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Salut👋   {user.firstName}</DropdownMenuLabel>
+                            <DropdownMenuLabel>Salut👋 {user.firstname}</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
                                 <Link to="/admin/profile">

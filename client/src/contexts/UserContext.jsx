@@ -7,16 +7,16 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     // Initialisation de l'état utilisateur avec les données du localStorage
     const [user, setUser] = useState({
-        firstName: localStorage.getItem('firstName') || '', // Récupère 'firstName' depuis le localStorage ou utilise une chaîne vide si non défini
-        lastName: localStorage.getItem('lastName') || '', // Récupère 'lastName' depuis le localStorage ou utilise une chaîne vide si non défini
+        firstname: localStorage.getItem('firstname') || '', // Récupère 'firstname' depuis le localStorage ou utilise une chaîne vide si non défini
+        lastname: localStorage.getItem('lastname') || '', // Récupère 'lastname' depuis le localStorage ou utilise une chaîne vide si non défini
         email: localStorage.getItem('email') || '' // Récupère 'email' depuis le localStorage ou utilise une chaîne vide si non défini
     });
 
     // useEffect pour mettre à jour l'état utilisateur quand le composant est monté
     useEffect(() => {
         setUser({
-            firstName: localStorage.getItem('firstName') || '', // Met à jour 'firstName' avec la valeur du localStorage ou une chaîne vide
-            lastName: localStorage.getItem('lastName') || '', // Met à jour 'lastName' avec la valeur du localStorage ou une chaîne vide
+            firstname: localStorage.getItem('firstname') || '', // Met à jour 'firstname' avec la valeur du localStorage ou une chaîne vide
+            lastname: localStorage.getItem('lastname') || '', // Met à jour 'lastname' avec la valeur du localStorage ou une chaîne vide
             email: localStorage.getItem('email') || '' // Met à jour 'email' avec la valeur du localStorage ou une chaîne vide
         });
     }, []);
