@@ -52,13 +52,13 @@ export default function Profile() {
                     </div>
 
                     {/* Navigation du profil */}
-                    <Tabs defaultValue="publications" className="mt-6">
-                        <TabsList className="flex space-x-4 border-b">
-                            <TabsTrigger value="publications" className="py-2 px-4 hover:bg-gray-200">Publications</TabsTrigger>
+                    <Tabs defaultValue="publications" className="mt-6 ">
+                        <TabsList className="flex space-x-4 border-b bg-gray-800">
+                            <TabsTrigger value="publications" className="py-2 px-4 text-white hover:bg-gray-200">Publications</TabsTrigger>
                             {/* <TabsTrigger value="apropos" className="py-2 px-4 hover:bg-gray-200">À propos</TabsTrigger> */}
-                            <TabsTrigger value="amies" className="py-2 px-4 hover:bg-gray-200">Ami(e)s</TabsTrigger>
-                            <TabsTrigger value="photos" className="py-2 px-4 hover:bg-gray-200">Photos</TabsTrigger>
-                            <TabsTrigger value="videos" className="py-2 px-4 hover:bg-gray-200">Vidéos</TabsTrigger>
+                            <TabsTrigger value="amies" className="py-2 px-4 text-white hover:bg-gray-200">Ami(e)s</TabsTrigger>
+                            <TabsTrigger value="photos" className="py-2 px-4 text-white hover:bg-gray-200">Photos</TabsTrigger>
+                            <TabsTrigger value="videos" className="py-2 px-4 text-white hover:bg-gray-200">Vidéos</TabsTrigger>
                         </TabsList>
 
                         <TabsContent value="publications">
