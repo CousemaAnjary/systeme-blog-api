@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import useAuth from '../hooks/useAuth';
 import { Button } from "@/components/ui/button"
@@ -87,7 +87,7 @@ export default function LoginForm() {
 
                         {/* Footer */}
                         <CardFooter>
-                            <Button type="submit">Se connecter</Button>
+                            <Button className="w-full mb-2" type="submit">Se connecter</Button>
                         </CardFooter>
                     </Card>
                 </form>

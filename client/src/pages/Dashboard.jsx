@@ -1,19 +1,14 @@
-import useAuth from '../hooks/useAuth';
-import LogoutButton from '../components/LogoutButton';
+
 import Navbar from '../components/Navbar';
 
 
 const Dashboard = () => {
-    const { user } = useAuth();
 
     return (
         <>
             <Navbar />
-            <div>
-                <h1>Dashboard</h1>
-                <p>Welcome, {user.firstName} {user.lastName}!</p>
-                <LogoutButton />
-               
+            <div className='mt-5'>
+                <h1>Bienvenue sur dashboard</h1>
             </div>
         </>
 

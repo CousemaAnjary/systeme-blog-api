@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { UserProvider } from "./contexts/UserContext";
+import Profile from "./pages/Profile";
 
 export default function App() {
   // state (état, données) de l'application
@@ -26,6 +27,7 @@ export default function App() {
           {/* Route Protégée */}
           <Route element={<PrivateRoute />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/profile" element={<Profile />} />
           </Route>
 
         </Routes>
