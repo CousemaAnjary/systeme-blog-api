@@ -27,5 +27,6 @@ export const UserProvider = ({ children }) => {
     );
 };
 
+
 // Export du contexte UserContext pour utilisation dans d'autres fichiers
 export { UserContext };
