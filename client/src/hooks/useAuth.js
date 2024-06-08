@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login as loginService, logout as logoutService, updateUser as updateUserService, updateUserPhoto as updateUserPhotoService } from '../services/authService';
+import { login as loginService, logout as logoutService, updateUser as updateUserService, updateUserPhoto as updateUserPhotoService, updateCoverPhoto as updateCoverPhotoService } from '../services/authService';
 import { isAuthenticated, removeToken } from '../utils/auth';
 import useUser from '../hooks/useUser';
 
@@ -15,7 +15,8 @@ const useAuth = () => {
                 firstname: localStorage.getItem('firstname'),
                 lastname: localStorage.getItem('lastname'),
                 email: localStorage.getItem('email'),
-                image: localStorage.getItem('image')
+                image: localStorage.getItem('image'),
+                coverPhoto: localStorage.getItem('coverPhoto') // Charger la photo de couverture depuis le stockage local
             });
         } else {
             navigate('/login');
@@ -31,7 +32,8 @@ const useAuth = () => {
                     firstname: localStorage.getItem('firstname'),
                     lastname: localStorage.getItem('lastname'),
                     email: localStorage.getItem('email'),
-                    image: localStorage.getItem('image')
+                    image: localStorage.getItem('image'),
+                    coverPhoto: localStorage.getItem('coverPhoto') // Charger la photo de couverture depuis le stockage local
                 });
             }
         } catch (error) {
@@ -58,7 +60,7 @@ const useAuth = () => {
     const updateUserPhoto = async (formData) => {
         try {
             const response = await updateUserPhotoService(formData);
-            if (response && response.user && response.user.image) {
+            if (response) {
                 localStorage.setItem('image', response.user.image);
                 setUser((prevUser) => ({ ...prevUser, image: response.user.image }));
             }
@@ -68,12 +70,25 @@ const useAuth = () => {
         }
     };
 
+    const updateCoverPhoto = async (formData) => {
+        try {
+            const response = await updateCoverPhotoService(formData);
+            if (response) {
+                localStorage.setItem('coverPhoto', response.user.coverPhoto);
+                setUser((prevUser) => ({ ...prevUser, coverPhoto: response.user.coverPhoto }));
+            }
+        } catch (error) {
+            console.error('Update cover photo failed:', error);
+            throw error;
+        }
+    };
+
     const logout = async () => {
         try {
             await logoutService();
             removeToken();
             setAuth(false);
-            setUser({ firstname: '', lastname: '', email: '', image: '' });
+            setUser({ firstname: '', lastname: '', email: '', image: '', coverPhoto: '' });
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);
@@ -87,7 +102,8 @@ const useAuth = () => {
         login,
         logout,
         updateUser,
-        updateUserPhoto
+        updateUserPhoto,
+        updateCoverPhoto
     };
 };
 

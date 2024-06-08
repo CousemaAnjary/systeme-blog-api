@@ -119,3 +119,6 @@ Thumbs.db
 
 # Vim swap files
 *.swp
+
+# Ignore uploads directory
+uploads/

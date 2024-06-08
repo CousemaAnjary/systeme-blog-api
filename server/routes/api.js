@@ -29,6 +29,7 @@ router.post("/logout", auth, AuthenticatedSessionController.logout);
 // Routes d'API pour dashboard
 router.put("/updateProfile", auth, DashboardController.update);
 router.post("/updateProfilePhoto", auth, upload.single('photo'), DashboardController.updateProfilePhoto);
+router.post("/update-cover-photo", auth, upload.single('coverPhoto'), DashboardController.updateCoverPhoto);
 
 // // Routes d'API pour les produits
 // router.get('/products', auth, ProductController.index);

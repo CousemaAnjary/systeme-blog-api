@@ -9,7 +9,8 @@ export const UserProvider = ({ children }) => {
         firstname: localStorage.getItem('firstname') || '',
         lastname: localStorage.getItem('lastname') || '',
         email: localStorage.getItem('email') || '',
-        image: localStorage.getItem('image') || ''
+        image: localStorage.getItem('image') || '',
+        coverPhoto: localStorage.getItem('coverPhoto') || '' // Ajouter la photo de couverture
     });
 
     useEffect(() => {
@@ -17,7 +18,8 @@ export const UserProvider = ({ children }) => {
             firstname: localStorage.getItem('firstname') || '',
             lastname: localStorage.getItem('lastname') || '',
             email: localStorage.getItem('email') || '',
-            image: localStorage.getItem('image') || ''
+            image: localStorage.getItem('image') || '',
+            coverPhoto: localStorage.getItem('coverPhoto') || '' // Ajouter la photo de couverture
         });
     }, []);
 

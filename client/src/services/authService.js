@@ -21,6 +21,7 @@ export const login = async (email, password) => {
             localStorage.setItem('lastname', response.data.user.lastname);  // Stocker le nom de l'utilisateur
             localStorage.setItem('email', response.data.user.email);  // Stocker l'email de l'utilisateur
             localStorage.setItem('image', response.data.user.image || 'default_image_path');  // Stocker l'image de l'utilisateur ou une image par défaut si non définie
+            localStorage.setItem('coverPhoto', response.data.user.coverPhoto || 'default_cover_photo_path');  // Stocker la photo de couverture de l'utilisateur ou une photo par défaut si non définie
         }
         return response.data;
     } catch (error) {
@@ -59,6 +60,21 @@ export const updateUserPhoto = async (formData) => {
     }
 };
 
+export const updateCoverPhoto = async (formData) => {
+    try {
+        const token = localStorage.getItem('userToken');
+        const response = await api.post('/update-cover-photo', formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('Something went wrong during updating cover photo');
+    }
+};
+
 // Déconnecter un utilisateur
 export const logout = async () => {
     try {
@@ -68,6 +84,7 @@ export const logout = async () => {
         localStorage.removeItem('lastname');  // Supprimer le nom de localStorage
         localStorage.removeItem('email');  // Supprimer l'email de localStorage
         localStorage.removeItem('image');  // Supprimer l'image de localStorage
+        localStorage.removeItem('coverPhoto');  // Supprimer la photo de couverture de localStorage
         return response.data;
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during logout');

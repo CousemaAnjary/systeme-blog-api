@@ -23,7 +23,9 @@ module.exports = {
                     firstname: user.firstname,
                     lastname: user.lastname,
                     email: user.email,
-                    image: user.image
+                    image: user.image, // Inclure l'image de profil dans la réponse
+                    coverPhoto: user.coverPhoto // Inclure la photo de couverture dans la réponse
+
                 },
                 message: 'Informations utilisateur mises à jour avec succès'
             });
@@ -44,7 +46,7 @@ module.exports = {
             }
 
             user.image = photoPath;
-            
+
 
             await user.save();
 
@@ -57,6 +59,33 @@ module.exports = {
             });
         } catch (error) {
             console.error('Erreur lors de la mise à jour de la photo de profil:', error);
+            return res.status(500).json({ error: 'Erreur interne du serveur' });
+        }
+    },
+
+    // Nouvelle méthode pour mettre à jour la photo de couverture
+    updateCoverPhoto: async (req, res) => {
+        const userId = req.user.id;
+        const coverPhotoPath = `uploads/${req.file.filename}`;
+
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).json({ error: 'Utilisateur non trouvé' });
+            }
+
+            user.coverPhoto = coverPhotoPath;
+
+            await user.save();
+
+            return res.status(200).json({
+                user: {
+                    id: user.id,
+                    coverPhoto: user.coverPhoto
+                },
+                message: 'Photo de couverture mise à jour avec succès'
+            });
+        } catch (error) {
             return res.status(500).json({ error: 'Erreur interne du serveur' });
         }
     }

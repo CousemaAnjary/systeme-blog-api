@@ -8,9 +8,10 @@ import UpdateProfile from "@/components/UpdateProfile";
 import { useState, useRef } from 'react';
 
 export default function Profile() {
-    const { user, updateUserPhoto } = useAuth();
+    const { user, updateUserPhoto, updateCoverPhoto } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
+    const coverFileInputRef = useRef(null);
 
     const handleChangePhoto = () => {
         fileInputRef.current.click();
@@ -26,23 +27,52 @@ export default function Profile() {
         updateUserPhoto(formData).then(response => {
             console.log('Photo de profil mise à jour:', response);
             if (response && response.user && response.user.image) {
-                localStorage.setItem('image', response.user.image); // Mettre à jour le stockage local
-                window.location.reload(); // Recharger la page pour mettre à jour l'affichage
+                localStorage.setItem('image', response.user.image);
+                window.location.reload();
             }
         }).catch(err => {
             console.error('Erreur lors de la mise à jour de la photo:', err);
         });
     };
 
+    const handleChangeCoverPhoto = () => {
+        coverFileInputRef.current.click();
+    };
+
+    const handleCoverFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+
+        const formData = new FormData();
+        formData.append('coverPhoto', file);
+
+        updateCoverPhoto(formData).then(response => {
+            console.log('Photo de couverture mise à jour:', response);
+            if (response && response.user && response.user.coverPhoto) {
+                localStorage.setItem('coverPhoto', response.user.coverPhoto);
+                window.location.reload();
+            }
+        }).catch(err => {
+            console.error('Erreur lors de la mise à jour de la photo de couverture:', err);
+        });
+    };
+
     const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+    const coverPhotoURL = user.coverPhoto ? `http://localhost:3000/${user.coverPhoto}` : "https://example.com/cover-photo.jpg";
 
     return (
         <>
             <Navbar />
 
             <div className="bg-gray-100 min-h-screen">
-                <div className="relative h-64 bg-cover bg-center" style={{ backgroundImage: "url('https://example.com/cover-photo.jpg')" }}>
-                    <Button className="absolute bottom-4 right-4">Changer la photo de couverture</Button>
+                <div className="relative h-64 bg-cover bg-center" style={{ backgroundImage: `url('${coverPhotoURL}')` }}>
+                    <Button className="absolute bottom-4 right-4" onClick={handleChangeCoverPhoto}>Changer la photo de couverture</Button>
+                    <input
+                        type="file"
+                        ref={coverFileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleCoverFileChange}
+                    />
                 </div>
 
                 <div className="container mx-auto px-4 py-6">
