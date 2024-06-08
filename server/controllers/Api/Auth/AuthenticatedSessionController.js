@@ -40,7 +40,8 @@ module.exports = {
                     id: user.id,
                     email: user.email,
                     lastname: user.lastname,
-                    firstname: user.firstname
+                    firstname: user.firstname,
+                    image: user.image  // Assurez-vous que l'image est correctement renvoyée ici
                 },
                 token, // Token JWT à utiliser pour les requêtes authentifiées
                 message: "Connexion réussie",

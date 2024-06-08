@@ -12,11 +12,6 @@ export default function Profile() {
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
 
-    useEffect(() => {
-        console.log('Image utilisateur actuelle :', user.image);  // Ceci loguera l'image à chaque fois que 'user.image' change
-    }, [user.image]);  // Cette ligne assure que useEffect s'exécute chaque fois que user.image est modifié
-
-
     const handleChangePhoto = () => {
         fileInputRef.current.click();
     };

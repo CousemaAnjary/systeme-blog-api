@@ -12,7 +12,7 @@ const DashboardController = require("../controllers/Api/Backend/DashboardControl
 // Configuration de multer pour le téléchargement de fichiers
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        return cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`);
@@ -28,7 +28,7 @@ router.post("/logout", auth, AuthenticatedSessionController.logout);
 
 // Routes d'API pour dashboard
 router.put("/updateProfile", auth, DashboardController.update);
-router.post("/update-profile-photo", auth, upload.single('photo'), DashboardController.updateProfilePhoto);
+router.post("/updateProfilePhoto", auth, upload.single('photo'), DashboardController.updateProfilePhoto);
 
 // // Routes d'API pour les produits
 // router.get('/products', auth, ProductController.index);

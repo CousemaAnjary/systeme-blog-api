@@ -44,6 +44,7 @@ module.exports = {
             }
 
             user.image = photoPath;
+            
 
             await user.save();
 

@@ -20,7 +20,7 @@ export const login = async (email, password) => {
             localStorage.setItem('firstname', response.data.user.firstname); // Stocker le prénom de l'utilisateur
             localStorage.setItem('lastname', response.data.user.lastname);  // Stocker le nom de l'utilisateur
             localStorage.setItem('email', response.data.user.email);  // Stocker l'email de l'utilisateur
-            localStorage.setItem('image', response.data.user.image);  // Stocker l'image de l'utilisateur
+            localStorage.setItem('image', response.data.user.image || 'default_image_path');  // Stocker l'image de l'utilisateur ou une image par défaut si non définie
         }
         return response.data;
     } catch (error) {
@@ -47,7 +47,7 @@ export const updateUser = async (userData) => {
 export const updateUserPhoto = async (formData) => {
     try {
         const token = localStorage.getItem('userToken');
-        const response = await api.post('/update-profile-photo', formData, {
+        const response = await api.post('/updateProfilePhoto', formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data',
