@@ -4,12 +4,10 @@ const { auth, guest } = require('../middlewares/auth')
 const multer = require('multer');
 const path = require('path');
 
-
-// // Importation des contrôleurs
+// Importation des contrôleurs
 const RegisterUserController = require("../controllers/Api/Auth/RegisterUserController")
 const AuthenticatedSessionController = require("../controllers/Api/Auth/AuthenticatedSessionController")
 const DashboardController = require("../controllers/Api/Backend/DashboardController")
-
 
 // Configuration de multer pour le téléchargement de fichiers
 const storage = multer.diskStorage({
@@ -39,4 +37,3 @@ router.post("/update-profile-photo", auth, upload.single('photo'), DashboardCont
 // router.delete('/products/:id', auth, ProductController.delete);
 
 module.exports = router;
-

@@ -5,8 +5,6 @@ module.exports = {
         const userId = req.user.id;
         const { firstname, lastname, email } = req.body;
 
-        console.log('Données reçues pour la mise à jour :', req.body);
-
         try {
             const user = await User.findByPk(userId);
             if (!user) {
@@ -19,15 +17,13 @@ module.exports = {
 
             await user.save();
 
-            console.log('Utilisateur mis à jour :', user);
-
             return res.status(200).json({
                 user: {
                     id: user.id,
                     firstname: user.firstname,
                     lastname: user.lastname,
                     email: user.email,
-                    image: user.image  // Ajoutez cette ligne pour inclure l'image dans la réponse
+                    image: user.image
                 },
                 message: 'Informations utilisateur mises à jour avec succès'
             });
@@ -37,9 +33,9 @@ module.exports = {
         }
     },
 
-    updateProfilePhoto: async (req, res) => {
+    async updateProfilePhoto(req, res) {
         const userId = req.user.id;
-        const photoPath = `uploads/${req.file.filename}`;  // Stocker le chemin relatif de l'image
+        const photoPath = `uploads/${req.file.filename}`;
 
         try {
             const user = await User.findByPk(userId);
@@ -59,6 +55,7 @@ module.exports = {
                 message: 'Photo de profil mise à jour avec succès'
             });
         } catch (error) {
+            console.error('Erreur lors de la mise à jour de la photo de profil:', error);
             return res.status(500).json({ error: 'Erreur interne du serveur' });
         }
     }

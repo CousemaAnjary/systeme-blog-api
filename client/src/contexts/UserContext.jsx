@@ -5,7 +5,6 @@ const UserContext = createContext();
 
 // Composant fournisseur du contexte utilisateur (UserProvider)
 export const UserProvider = ({ children }) => {
-    // Initialisation de l'état utilisateur avec les données du localStorage
     const [user, setUser] = useState({
         firstname: localStorage.getItem('firstname') || '',
         lastname: localStorage.getItem('lastname') || '',
@@ -13,7 +12,6 @@ export const UserProvider = ({ children }) => {
         image: localStorage.getItem('image') || ''
     });
 
-    // useEffect pour mettre à jour l'état utilisateur quand le composant est monté
     useEffect(() => {
         setUser({
             firstname: localStorage.getItem('firstname') || '',

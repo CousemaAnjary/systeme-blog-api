@@ -5,12 +5,17 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Camera } from "lucide-react";
 import useAuth from '../hooks/useAuth';
 import UpdateProfile from "@/components/UpdateProfile";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Profile() {
     const { user, updateUserPhoto } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        console.log('Image utilisateur actuelle :', user.image);  // Ceci loguera l'image à chaque fois que 'user.image' change
+    }, [user.image]);  // Cette ligne assure que useEffect s'exécute chaque fois que user.image est modifié
+
 
     const handleChangePhoto = () => {
         fileInputRef.current.click();
@@ -25,6 +30,10 @@ export default function Profile() {
 
         updateUserPhoto(formData).then(response => {
             console.log('Photo de profil mise à jour:', response);
+            if (response && response.user && response.user.image) {
+                localStorage.setItem('image', response.user.image); // Mettre à jour le stockage local
+                window.location.reload(); // Recharger la page pour mettre à jour l'affichage
+            }
         }).catch(err => {
             console.error('Erreur lors de la mise à jour de la photo:', err);
         });

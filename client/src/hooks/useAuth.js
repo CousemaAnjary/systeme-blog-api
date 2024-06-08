@@ -4,7 +4,6 @@ import { login as loginService, logout as logoutService, updateUser as updateUse
 import { isAuthenticated, removeToken } from '../utils/auth';
 import useUser from '../hooks/useUser';
 
-// Hook personnalisé pour gérer l'authentification
 const useAuth = () => {
     const [auth, setAuth] = useState(isAuthenticated());
     const { user, setUser } = useUser();
@@ -16,7 +15,7 @@ const useAuth = () => {
                 firstname: localStorage.getItem('firstname'),
                 lastname: localStorage.getItem('lastname'),
                 email: localStorage.getItem('email'),
-                image: localStorage.getItem('image')  // Charger l'image depuis le stockage local
+                image: localStorage.getItem('image')
             });
         } else {
             navigate('/login');
@@ -32,7 +31,7 @@ const useAuth = () => {
                     firstname: localStorage.getItem('firstname'),
                     lastname: localStorage.getItem('lastname'),
                     email: localStorage.getItem('email'),
-                    image: localStorage.getItem('image')  // Charger l'image depuis le stockage local
+                    image: localStorage.getItem('image')
                 });
             }
         } catch (error) {
@@ -59,7 +58,7 @@ const useAuth = () => {
     const updateUserPhoto = async (formData) => {
         try {
             const response = await updateUserPhotoService(formData);
-            if (response) {
+            if (response && response.user && response.user.image) {
                 localStorage.setItem('image', response.user.image);
                 setUser((prevUser) => ({ ...prevUser, image: response.user.image }));
             }
@@ -74,7 +73,7 @@ const useAuth = () => {
             await logoutService();
             removeToken();
             setAuth(false);
-            setUser({ firstname: '', lastname: '', email: '', image: '' }); // Réinitialiser l'image aussi
+            setUser({ firstname: '', lastname: '', email: '', image: '' });
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);

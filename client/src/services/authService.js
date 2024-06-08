@@ -15,7 +15,6 @@ export const login = async (email, password) => {
     try {
         const response = await api.post('/login', { email, password });
 
-        // Si le serveur renvoie un token, stocker le token dans localStorage
         if (response.data.token) {
             localStorage.setItem('userToken', response.data.token);  // Stocker le token dans localStorage
             localStorage.setItem('firstname', response.data.user.firstname); // Stocker le prénom de l'utilisateur
