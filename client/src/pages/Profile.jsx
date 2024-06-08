@@ -112,10 +112,10 @@ export default function Profile() {
                             <h1 className="text-2xl font-bold">{user.lastname} {user.firstname}</h1>
                             <p className="text-gray-600">402 ami(e)s</p>
                         </div>
-
+{/* 
                         <div className="ml-auto flex space-x-2">
                             <Button className="bg-blue-500 text-white">Ajouter à la story</Button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <Tabs defaultValue="publications" className="mt-6">
