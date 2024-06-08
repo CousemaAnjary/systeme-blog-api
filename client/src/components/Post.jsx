@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ThumbsUp, ThumbsDown, Smile, Frown, Heart, MessageSquare } from "lucide-react"; // Import des icônes
+import useAuth from '../hooks/useAuth';
 
 export default function Post() {
-    const user = {
+    const usere = {
         name: 'John Doe',
         avatar: 'https://example.com/avatar.jpg',
         timestamp: 'Il y a 5 minutes',
@@ -10,7 +11,7 @@ export default function Post() {
 
     const comments = [
         {
-            user: {
+            usere: {
                 name: 'Jane Doe',
                 avatar: 'https://example.com/avatar2.jpg',
                 timestamp: 'Il y a 2 heures',
@@ -18,7 +19,7 @@ export default function Post() {
             content: 'Super post !',
         },
         {
-            user: {
+            usere: {
                 name: 'Laura Tornado',
                 avatar: 'https://example.com/avatar3.jpg',
                 timestamp: 'Il y a 3 heures',
@@ -26,7 +27,7 @@ export default function Post() {
             content: 'Je l\'adore, il ressemble à un ancien Grec',
         },
         {
-            user: {
+            usere: {
                 name: 'KaBur Timor Ori',
                 avatar: 'https://example.com/avatar4.jpg',
                 timestamp: 'Il y a 1 jour',
@@ -39,6 +40,7 @@ export default function Post() {
     const [newComment, setNewComment] = useState("");
     const [showReactions, setShowReactions] = useState(false); // État pour afficher les réactions
     const [reaction, setReaction] = useState(""); // État pour la réaction sélectionnée
+    const { user } = useAuth();
 
     const toggleComments = () => {
         setShowComments(!showComments);
@@ -112,13 +114,14 @@ export default function Post() {
         }
     };
 
+    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-4">
             <div className="flex items-center space-x-4">
-                <img className="w-10 h-10 rounded-full" src={user.avatar} alt={`${user.name} Avatar`} />
+                <img className="w-10 h-10 rounded-full" src={usere.avatar} alt={`${usere.name} Avatar`} />
                 <div>
-                    <h4 className="font-bold">{user.name}</h4>
-                    <p className="text-gray-500 text-sm">{user.timestamp}</p>
+                    <h4 className="font-bold">{usere.name}</h4>
+                    <p className="text-gray-500 text-sm">{usere.timestamp}</p>
                 </div>
             </div>
             <p className="mt-4">Une courte histoire d'amour 😆</p>
@@ -169,17 +172,17 @@ export default function Post() {
                     {comments.map((comment, index) => (
                         <div key={index} className="bg-white p-2 rounded-lg mb-2 shadow-sm">
                             <div className="flex items-center space-x-2">
-                                <img className="w-8 h-8 rounded-full" src={comment.user.avatar} alt={`${comment.user.name} Avatar`} />
+                                <img className="w-8 h-8 rounded-full" src={comment.usere.avatar} alt={`${comment.usere.name} Avatar`} />
                                 <div>
-                                    <h5 className="font-bold">{comment.user.name}</h5>
-                                    <p className="text-gray-500 text-xs">{comment.user.timestamp}</p>
+                                    <h5 className="font-bold">{comment.usere.name}</h5>
+                                    <p className="text-gray-500 text-xs">{comment.usere.timestamp}</p>
                                 </div>
                             </div>
                             <p className="mt-2">{comment.content}</p>
                         </div>
                     ))}
                     <div className="flex items-center space-x-4 mt-2">
-                        <img className="w-8 h-8 rounded-full" src={user.avatar} alt={`${user.name} Avatar`} />
+                        <img className="w-8 h-8 rounded-full" src={imageURL} />
                         <textarea
                             placeholder="Écrivez un commentaire..."
                             className="flex-1 bg-gray-200 rounded-full px-4 py-2 outline-none"
