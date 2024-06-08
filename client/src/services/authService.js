@@ -63,7 +63,7 @@ export const updateUserPhoto = async (formData) => {
 export const updateCoverPhoto = async (formData) => {
     try {
         const token = localStorage.getItem('userToken');
-        const response = await api.post('/update-cover-photo', formData, {
+        const response = await api.post('/updateCoverPhoto', formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data',

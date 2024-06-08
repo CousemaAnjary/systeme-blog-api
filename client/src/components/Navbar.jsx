@@ -28,7 +28,7 @@ export default function Navbar() {
 
     // affichage (render)
     return (
-        <nav className="bg-gray-800 p-3 shadow-md">
+        <nav className="bg-gray-800 p-3 shadow-md  sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo and Search */}
                 <div className="flex items-center space-x-4">
