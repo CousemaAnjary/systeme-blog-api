@@ -1,21 +1,74 @@
-
-import Navbar from '../components/Navbar';
-
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import CreatePost from "@/components/CreatePost";
+import Post from "@/components/Post";
 
 const Dashboard = () => {
-    // state (état, données) de l'application
+    const posts = [
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        {
+            user: { name: 'John Doe', avatar: 'https://example.com/avatar.jpg', timestamp: 'Il y a 5 minutes' },
+            content: 'Une courte histoire d\'amour 😆',
+            comments: 111,
+            likes: 6600,
+        },
+        // Ajoutez d'autres publications ici...
+    ];
 
-    // comportement
-
-    // affichage (render)
     return (
-        <>
+        <div className="bg-gray-200 min-h-screen">
             <Navbar />
-            <div className='mt-5'>
-                <h1>Bienvenue sur dashboard</h1>
-            </div>
-        </>
-
+            <Sidebar />
+            <main className="ml-96 ">
+                <div className="container mx-auto p-16">
+                    <CreatePost />
+                    {posts.map((post, index) => (
+                        <Post key={index} {...post} />
+                    ))}
+                </div>
+            </main>
+        </div>
     );
 };
 

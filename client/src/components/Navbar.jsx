@@ -28,7 +28,7 @@ export default function Navbar() {
 
     // affichage (render)
     return (
-        <nav className="bg-gray-800 p-3 shadow-md  sticky top-0 z-50">
+        <nav className="bg-gray-800 p-4 shadow-md  sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo and Search */}
                 <div className="flex items-center space-x-4">
@@ -44,7 +44,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Navigation Icons */}
-                <div className="flex items-center space-x-6 text-gray-400">
+                {/* <div className="flex items-center space-x-6 text-gray-400">
                     <Link to="/admin/dashboard" className="text-white px-11 py-3 ">
                         <Home size={26} />
                     </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
                         <Users size={26} />
                     </Link>
 
-                </div>
+                </div> */}
                 {/* User Options */}
                 <div className="flex items-center space-x-4">
 

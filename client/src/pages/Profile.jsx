@@ -6,10 +6,14 @@ import { Camera } from "lucide-react";
 import useAuth from '../hooks/useAuth';
 import UpdateProfile from "@/components/UpdateProfile";
 import { useState, useRef } from 'react';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 export default function Profile() {
     const { user, updateUserPhoto, updateCoverPhoto } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [lightboxImage, setLightboxImage] = useState('');
     const fileInputRef = useRef(null);
     const coverFileInputRef = useRef(null);
 
@@ -57,6 +61,11 @@ export default function Profile() {
         });
     };
 
+    const handleImageClick = (imageURL) => {
+        setLightboxImage(imageURL);
+        setIsOpen(true);
+    };
+
     const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
     const coverPhotoURL = user.coverPhoto ? `http://localhost:3000/${user.coverPhoto}` : "https://example.com/cover-photo.jpg";
 
@@ -65,7 +74,7 @@ export default function Profile() {
             <Navbar />
 
             <div className="bg-gray-100 min-h-screen">
-                <div className="relative h-64 bg-cover bg-center" style={{ backgroundImage: `url('${coverPhotoURL}')` }}>
+                <div className="relative h-64 bg-cover bg-center cursor-pointer" style={{ backgroundImage: `url('${coverPhotoURL}')` }} onClick={() => handleImageClick(coverPhotoURL)}>
                     <Button className="absolute bottom-4 right-4" onClick={handleChangeCoverPhoto}>Changer la photo de couverture</Button>
                     <input
                         type="file"
@@ -77,7 +86,7 @@ export default function Profile() {
 
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex items-center">
-                        <div className="relative w-32 h-32 -mt-16 border-4 border-white rounded-full">
+                        <div className="relative w-32 h-32 -mt-16 border-4 border-white rounded-full cursor-pointer" onClick={() => handleImageClick(imageURL)}>
                             <Avatar className="w-32 h-32 -mt-1 border-4 border-white rounded-full">
                                 <AvatarImage
                                     src={imageURL}
@@ -139,6 +148,14 @@ export default function Profile() {
                     </Tabs>
                 </div>
             </div>
+
+            {isOpen && (
+                <Lightbox
+                    open={isOpen}
+                    close={() => setIsOpen(false)}
+                    slides={[{ src: lightboxImage }]}
+                />
+            )}
         </>
     );
 }
