@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Camera } from "lucide-react";
 import useAuth from '../hooks/useAuth';
 import UpdateProfile from "@/components/UpdateProfile";
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Profile() {
     const { user, updateUserPhoto } = useAuth();

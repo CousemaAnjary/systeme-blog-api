@@ -23,6 +23,9 @@ export default function Navbar() {
             console.error('Logout failed:', error);
         }
     };
+
+    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+
     // affichage (render)
     return (
         <nav className="bg-gray-800 p-3 shadow-md">
@@ -68,7 +71,7 @@ export default function Navbar() {
                     <DropdownMenu>
                         <DropdownMenuTrigger>
                             <Avatar>
-                                <AvatarImage src="https://img.myloview.com.br/posters/user-icon-human-person-symbol-avatar-login-sign-700-258992648.jpg" alt="User" />
+                                <AvatarImage src={imageURL} />
                             </Avatar>
                         </DropdownMenuTrigger>
 
