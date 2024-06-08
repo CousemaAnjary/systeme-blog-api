@@ -21,6 +21,7 @@ export const login = async (email, password) => {
             localStorage.setItem('firstname', response.data.user.firstname); // Stocker le prénom de l'utilisateur
             localStorage.setItem('lastname', response.data.user.lastname);  // Stocker le nom de l'utilisateur
             localStorage.setItem('email', response.data.user.email);  // Stocker l'email de l'utilisateur
+            localStorage.setItem('image', response.data.user.image);  // Stocker l'image de l'utilisateur
         }
         return response.data;
     } catch (error) {
@@ -43,6 +44,7 @@ export const updateUser = async (userData) => {
     }
 }
 
+// Mettre à jour la photo de profil de l'utilisateur
 export const updateUserPhoto = async (formData) => {
     try {
         const token = localStorage.getItem('userToken');
@@ -66,9 +68,9 @@ export const logout = async () => {
         localStorage.removeItem('firstname');  // Supprimer le prénom de localStorage
         localStorage.removeItem('lastname');  // Supprimer le nom de localStorage
         localStorage.removeItem('email');  // Supprimer l'email de localStorage
+        localStorage.removeItem('image');  // Supprimer l'image de localStorage
         return response.data;
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during logout');
     }
 }
-

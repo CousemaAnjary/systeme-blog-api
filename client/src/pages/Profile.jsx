@@ -13,7 +13,6 @@ export default function Profile() {
     const fileInputRef = useRef(null);
 
     const handleChangePhoto = () => {
-        // Déclenche l'ouverture de la boîte de dialogue de sélection de fichier
         fileInputRef.current.click();
     };
 
@@ -21,17 +20,17 @@ export default function Profile() {
         const file = event.target.files[0];
         setSelectedFile(file);
 
-        // Logique pour envoyer le fichier au serveur
         const formData = new FormData();
         formData.append('photo', file);
 
         updateUserPhoto(formData).then(response => {
             console.log('Photo de profil mise à jour:', response);
-            // Mettez à jour l'avatar avec la nouvelle photo si nécessaire
         }).catch(err => {
             console.error('Erreur lors de la mise à jour de la photo:', err);
         });
     };
+
+    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
     return (
         <>
@@ -47,7 +46,7 @@ export default function Profile() {
                         <div className="relative w-32 h-32 -mt-16 border-4 border-white rounded-full">
                             <Avatar className="w-32 h-32 -mt-1 border-4 border-white rounded-full">
                                 <AvatarImage
-                                    src={user.image || "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"}
+                                    src={imageURL}
                                     alt="User"
                                     className="w-full h-full rounded-full"
                                 />

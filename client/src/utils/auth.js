@@ -9,4 +9,5 @@ export const removeToken = () => {
     localStorage.removeItem('firstname');
     localStorage.removeItem('lastname');
     localStorage.removeItem('email');
+    localStorage.removeItem('image');   
 }

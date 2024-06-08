@@ -26,7 +26,8 @@ module.exports = {
                     id: user.id,
                     firstname: user.firstname,
                     lastname: user.lastname,
-                    email: user.email
+                    email: user.email,
+                    image: user.image  // Ajoutez cette ligne pour inclure l'image dans la réponse
                 },
                 message: 'Informations utilisateur mises à jour avec succès'
             });
@@ -38,7 +39,7 @@ module.exports = {
 
     updateProfilePhoto: async (req, res) => {
         const userId = req.user.id;
-        const photoPath = req.file.path;
+        const photoPath = `uploads/${req.file.filename}`;  // Stocker le chemin relatif de l'image
 
         try {
             const user = await User.findByPk(userId);
@@ -58,7 +59,6 @@ module.exports = {
                 message: 'Photo de profil mise à jour avec succès'
             });
         } catch (error) {
-            console.error('Erreur lors de la mise à jour de la photo de profil:', error);
             return res.status(500).json({ error: 'Erreur interne du serveur' });
         }
     }
