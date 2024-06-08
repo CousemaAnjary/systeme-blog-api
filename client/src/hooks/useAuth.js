@@ -16,7 +16,7 @@ const useAuth = () => {
                 firstname: localStorage.getItem('firstname'),
                 lastname: localStorage.getItem('lastname'),
                 email: localStorage.getItem('email'),
-                image: localStorage.getItem('image') // Ajoutez l'image au contexte utilisateur
+                image: localStorage.getItem('image')  // Charger l'image depuis le stockage local
             });
         } else {
             navigate('/login');
@@ -27,17 +27,12 @@ const useAuth = () => {
         try {
             const response = await loginService(email, password);
             if (response.token) {
-                localStorage.setItem('userToken', response.token);
-                localStorage.setItem('firstname', response.user.firstname);
-                localStorage.setItem('lastname', response.user.lastname);
-                localStorage.setItem('email', response.user.email);
-                localStorage.setItem('image', response.user.image); // Stockez l'image dans le localStorage
                 setAuth(true);
                 setUser({
-                    firstname: response.user.firstname,
-                    lastname: response.user.lastname,
-                    email: response.user.email,
-                    image: response.user.image // Mettez à jour le contexte utilisateur avec l'image
+                    firstname: localStorage.getItem('firstname'),
+                    lastname: localStorage.getItem('lastname'),
+                    email: localStorage.getItem('email'),
+                    image: localStorage.getItem('image')  // Charger l'image depuis le stockage local
                 });
             }
         } catch (error) {
@@ -79,7 +74,7 @@ const useAuth = () => {
             await logoutService();
             removeToken();
             setAuth(false);
-            setUser({ firstname: '', lastname: '', email: '', image: '' });
+            setUser({ firstname: '', lastname: '', email: '', image: '' }); // Réinitialiser l'image aussi
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);

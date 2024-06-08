@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 // Définir les fichiers statiques
 app.use(express.static(path.join(__dirname, "public")));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Cette ligne sert le dossier uploads
 
 
 // Ajouter le middleware pour injecter l'état de connexion

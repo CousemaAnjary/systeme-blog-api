@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Camera } from "lucide-react"; // Importer l'icône d'appareil photo
+import { Camera } from "lucide-react";
 import useAuth from '../hooks/useAuth';
 import UpdateProfile from "@/components/UpdateProfile";
 import { useState, useRef } from 'react';
