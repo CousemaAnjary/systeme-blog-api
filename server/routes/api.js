@@ -8,6 +8,7 @@ const path = require('path');
 const RegisterUserController = require("../controllers/Api/Auth/RegisterUserController")
 const AuthenticatedSessionController = require("../controllers/Api/Auth/AuthenticatedSessionController")
 const DashboardController = require("../controllers/Api/Backend/DashboardController")
+const PublicationController = require("../controllers/Api/Backend/PublicationController")
 
 // Configuration de multer pour le téléchargement de fichiers
 const storage = multer.diskStorage({
@@ -33,7 +34,7 @@ router.post("/updateCoverPhoto", auth, upload.single('coverPhoto'), DashboardCon
 
 // Routes d'API pour les publications
 // router.get("/publications", auth, DashboardController.index);
- router.post("/publication", auth, DashboardController.store);
+ router.post("/publication", auth, PublicationController.store);
 
 
 module.exports = router;
