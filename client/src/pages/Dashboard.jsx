@@ -1,51 +1,41 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import CreatePost from "@/components/CreatePost";
 import PostCard from "@/components/PostCard";
-import { useState } from "react";
+
+const staticPosts = [
+    {
+        title: "Des super sushis que j’ai mangé dans le sud du Japon",
+        category: "Cuisine",
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+        image: "https://media-cdn.tripadvisor.com/media/photo-s/14/46/be/e7/sousi.jpg",
+        userImage: "https://img.freepik.com/psd-gratuit/personne-celebrant-son-orientation-sexuelle_23-2150115662.jpg",
+        userName: "John Doe",
+        comments: [
+            {
+                user: {
+                    avatar: "https://example.com/avatar1.jpg",
+                    name: "Jane Doe",
+                    timestamp: "Il y a 2 heures"
+                },
+                content: "Super publication !"
+            },
+            {
+                user: {
+                    avatar: "https://example.com/avatar2.jpg",
+                    name: "John Smith",
+                    timestamp: "Il y a 3 heures"
+                },
+                content: "J'adore cette photo."
+            }
+        ],
+        likes: 45
+    },
+    // Ajoutez plus de publications ici...
+];
 
 const Dashboard = () => {
-    const [posts] = useState([
-        {
-            title: "Des super sushis que j’ai mangé dans le sud du Japon",
-            category: "Cuisine",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ...",
-            image: "/path/to/sushi.jpg",
-            userImage: "https://example.com/user1.jpg",
-            userName: "John Doe",
-            commentsCount: 2,
-            likesCount: 45
-        },
-        {
-            title: "Jump dans la vie, ou alors jump dans l'eau",
-            category: "Loisirs",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ...",
-            image: "/path/to/jump.jpg",
-            userImage: "https://example.com/user2.jpg",
-            userName: "Jane Doe",
-            commentsCount: 3,
-            likesCount: 30
-        },
-        {
-            title: "Jardiner pour s’aérer la tête et profiter de la nature",
-            category: "Jardinage",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ...",
-            image: "/path/to/gardening.jpg",
-            userImage: "https://example.com/user3.jpg",
-            userName: "Jim Doe",
-            commentsCount: 4,
-            likesCount: 60
-        },
-        {
-            title: "Un paysage à couper le souffle en Italie",
-            category: "Voyage",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ...",
-            image: "/path/to/italy.jpg",
-            userImage: "https://example.com/user4.jpg",
-            userName: "Jack Doe",
-            commentsCount: 1,
-            likesCount: 20
-        }
-    ]);
+    const [posts] = useState(staticPosts);
 
     return (
         <div className="bg-gray-200 min-h-screen">
@@ -54,17 +44,7 @@ const Dashboard = () => {
                 <CreatePost />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {posts.map((post, index) => (
-                        <PostCard
-                            key={index}
-                            title={post.title}
-                            category={post.category}
-                            content={post.content}
-                            image={post.image}
-                            userImage={post.userImage}
-                            userName={post.userName}
-                            commentsCount={post.commentsCount}
-                            likesCount={post.likesCount}
-                        />
+                        <PostCard key={index} {...post} />
                     ))}
                 </div>
             </main>

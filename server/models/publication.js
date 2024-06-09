@@ -28,7 +28,9 @@ module.exports = (sequelize, DataTypes) => {
   Publication.init({
     user_id: DataTypes.INTEGER,
     content: DataTypes.TEXT,
-    image: DataTypes.STRING
+    image: DataTypes.STRING,
+    title: DataTypes.STRING,
+    category: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Publication',

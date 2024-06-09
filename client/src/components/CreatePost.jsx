@@ -5,9 +5,12 @@ import useAuth from '../hooks/useAuth';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose, } from "@/components/ui/dialog";
 import { createPublication } from '../services/publicationService';
 
+const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage"]; // Données statiques pour les catégories
+
 export default function CreatePost() {
-    // state (état, données) de l'application
+    const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
     const [file, setFile] = useState(null);
 
     const { user } = useAuth();
@@ -18,7 +21,9 @@ export default function CreatePost() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('user_id', user.userId);
+        formData.append('title', title);
         formData.append('content', content);
+        formData.append('category', category);
         if (file) {
             formData.append('image', file);
         }
@@ -28,7 +33,9 @@ export default function CreatePost() {
 
             if (response) {
                 setIsOpen(false);
+                setTitle('');
                 setContent('');
+                setCategory('');
                 setFile(null);
                 navigate(0); // Recharger la page pour voir la nouvelle publication (vous pouvez améliorer cela avec un état global)
             }
@@ -59,10 +66,10 @@ export default function CreatePost() {
                     />
                 </div>
                 <div className="flex justify-between mt-4">
-                    <button className="flex items-center space-x-2 text-gray-400 hover:text-blue-500">
+                    {/* <button className="flex items-center space-x-2 text-gray-400 hover:text-blue-500">
                         <Video size={20} />
                         <span>Vidéo en direct</span>
-                    </button>
+                    </button> */}
                     <button className="flex items-center space-x-2 text-gray-400 hover:text-green-500">
                         <Camera size={20} />
                         <span>Photo/vidéo</span>
@@ -87,12 +94,29 @@ export default function CreatePost() {
                                 <h2 className="text-lg font-semibold">{user.firstname} {user.lastname}</h2>
                             </div>
                         </div>
+                        <input
+                            type="text"
+                            placeholder="Titre"
+                            className="w-full bg-gray-100 rounded-lg p-2 outline-none mb-4"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
                         <textarea
                             placeholder={`Quoi de neuf, ${user.firstname} ?`}
                             className="w-full h-24 bg-gray-100 rounded-lg p-2 outline-none mb-4"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
+                        <select
+                            className="w-full bg-gray-100 rounded-lg p-2 outline-none mb-4"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">Choisir une catégorie</option>
+                            {categories.map((cat, index) => (
+                                <option key={index} value={cat}>{cat}</option>
+                            ))}
+                        </select>
                         <div className="flex justify-center items-center mb-4">
                             <div className="w-full border border-dashed border-gray-400 rounded-lg p-4 flex flex-col items-center">
                                 <input type="file" onChange={handleFileChange} className="hidden" id="fileUpload" />

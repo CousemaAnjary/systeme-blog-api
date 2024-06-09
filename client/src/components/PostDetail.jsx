@@ -11,8 +11,8 @@ const PostDetail = () => {
         title: "Des super sushis que j’ai mangé dans le sud du Japon",
         category: "Cuisine",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere ex non ultricies dapibus. Nam sodales ut ipsum nec scelerisque. In quis viverra turpis. Cras porta, dolor id sagittis molestie, diam dui mattis nisl, ac gravida ligula nunc non justo. Nulla volutpat facilisis semper. Fusce condimentum sem nec turpis congue congue. Nulla porttitor sollicitudin sem, vitae finibus purus varius non.",
-        image: "/path/to/sushi.jpg",
-        userImage: "https://example.com/user1.jpg",
+        image: "https://media-cdn.tripadvisor.com/media/photo-s/14/46/be/e7/sousi.jpg",
+        userImage: "https://img.freepik.com/psd-gratuit/personne-celebrant-son-orientation-sexuelle_23-2150115662.jpg",
         userName: "John Doe",
         createdAt: "03.09.2024",
         comments: [
