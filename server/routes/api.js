@@ -31,10 +31,9 @@ router.put("/updateProfile", auth, DashboardController.update);
 router.post("/updateProfilePhoto", auth, upload.single('photo'), DashboardController.updateProfilePhoto);
 router.post("/updateCoverPhoto", auth, upload.single('coverPhoto'), DashboardController.updateCoverPhoto);
 
-// // Routes d'API pour les produits
-// router.get('/products', auth, ProductController.index);
-// router.post('/products', auth, ProductController.store);
-// router.put('/products/:id', auth, ProductController.update);
-// router.delete('/products/:id', auth, ProductController.delete);
+// Routes d'API pour les publications
+// router.get("/publications", auth, DashboardController.index);
+ router.post("/publication", auth, DashboardController.store);
+
 
 module.exports = router;
