@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Publication, {
+        foreignKey: 'user_id',
+        as: 'publications'
+      });
+      User.hasMany(models.Commentaire, {
+        foreignKey: 'user_id',
+        as: 'commentaires'
+      });
+      User.hasMany(models.Reaction, {
+        foreignKey: 'user_id',
+        as: 'reactions'
+      });
     }
 
     validPassword(password) {
