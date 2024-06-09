@@ -17,3 +17,22 @@ export const createPublication = async (publicationData) => {
         throw error.response ? error.response.data : new Error('Something went wrong during creating publication');
     }
 };
+
+// Récupérer toutes les publications
+
+export const getPublications = async () => {
+
+    const token = localStorage.getItem('userToken');
+
+    try {
+        const response = await api.get('/publications', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error during getting publications:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during getting publications');
+    }
+};

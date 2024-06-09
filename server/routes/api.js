@@ -45,6 +45,8 @@ router.post("/updateProfilePhoto", auth, upload.single('photo'), DashboardContro
 router.post("/updateCoverPhoto", auth, upload.single('coverPhoto'), DashboardController.updateCoverPhoto);
 
 // Routes d'API pour les publications
+router.get("/publications", auth, PublicationController.index);
 router.post("/publication", auth, uploadPublication.single('image'), PublicationController.store);
+
 
 module.exports = router;

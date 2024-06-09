@@ -1,4 +1,4 @@
-const { Publication } = require('../../../models');
+const { Publication, User } = require('../../../models');
 
 module.exports = {
     async store(req, res) {
@@ -30,6 +30,25 @@ module.exports = {
             });
         } catch (error) {
             console.error('Erreur lors de la création de la publication:', error);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
+
+    async index(req, res) {
+        try {
+            const publications = await Publication.findAll({
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['firstname', 'image']
+                    }
+                ],
+                order: [['createdAt', 'DESC']]
+            });
+            return res.status(200).json({ publications });
+        } catch (error) {
+            console.error('Erreur lors de la récupération des publications:', error);
             return res.status(500).json({ error: "Erreur serveur" });
         }
     }
