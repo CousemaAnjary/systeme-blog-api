@@ -1,27 +1,40 @@
 import { useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageSquare } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent,CardDescription,CardFooter,CardHeader,CardTitle} from "@/components/ui/card";
+ 
+ 
+  
+  
+  
+  
 
-const PostCard = ({ title, category, content, image, userImage, userName, comments = [], likes = 0 }) => {
+
+const PostCard = ({ title, category, content, image, userImage, userName, likes, comments }) => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/admin/showPost`);
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md cursor-pointer" onClick={handleClick}>
-            {image && <img src={image} alt="Publication" className="rounded-t-lg w-full h-48 object-cover" />}
-            <div className="p-4">
-                <div className="flex items-center space-x-2">
-                    <img className="w-10 h-10 rounded-full" src={userImage} alt={`${userName} Avatar`} />
-                    <div>
-                        <h4 className="font-bold">{userName}</h4>
-                    </div>
+        <Card className="shadow-md">
+            {image && <img src={image} alt="Publication" className="rounded-t-lg w-full h-48 object-cover cursor-pointer" onClick={handleClick} />}
+            <CardContent>
+                <div className="flex items-center space-x-2 mb-2 mt-2">
+                    <Avatar>
+                        <AvatarImage src={userImage} alt="User Avatar" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <div className="text-lg font-semibold">{userName}</div>
                 </div>
-                <span className="inline-block px-3 py-1 text-sm font-semibold text-pink-800 bg-pink-200 rounded-full mt-2">{category}</span>
-                <h2 className="mt-2 text-lg font-semibold">{title}</h2>
-                <p className="mt-2 text-gray-600">{content}</p>
+
+                <Badge className=" px-3 py-1 bg-pink-600 font-bold  mt-2 ">{category}</Badge>
+                <CardTitle className="mt-2">{title}</CardTitle>
+                <CardDescription className="leading-7 mt-2">{content}</CardDescription>
+
                 <div className="flex justify-between items-center mt-4">
-                    <button className="flex items-center space-x-1 text-gray-400 hover:text-blue-500">
+                    <button className="flex items-center space-x-1 text-gray-400">
                         <ThumbsUp size={20} />
                         <span>{likes} J’aime</span>
                     </button>
@@ -30,8 +43,11 @@ const PostCard = ({ title, category, content, image, userImage, userName, commen
                         <span>{comments.length} commentaires</span>
                     </div>
                 </div>
-            </div>
-        </div>
+            </CardContent>
+        </Card>
+
+
+
     );
 };
 

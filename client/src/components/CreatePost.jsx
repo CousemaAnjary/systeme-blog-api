@@ -92,7 +92,7 @@ export default function CreatePost() {
                         <span>Humeur/activité</span>
                     </Button>
                 </div>
-                
+
             </div>
 
             <Dialog open={isOpen} onOpenChange={closeModal}>
@@ -112,7 +112,7 @@ export default function CreatePost() {
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <div>
-                                    <h2 className="text-lg font-semibold">{user.firstname} {user.lastname}</h2>
+                                    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{user.firstname} {user.lastname}</h4>
                                 </div>
                             </div>
 

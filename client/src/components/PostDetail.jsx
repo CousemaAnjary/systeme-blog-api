@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageSquare } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import { Button } from "./ui/button";
 
 const PostDetail = () => {
     const { title } = useParams();
@@ -62,57 +66,67 @@ const PostDetail = () => {
     return (
         <div className="bg-gray-200 min-h-screen p-8">
             <button onClick={() => navigate(-1)} className="text-blue-500 mb-4">← Retour au blog</button>
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <Card className="shadow-md">
                 {post.image && <img src={post.image} alt="Publication" className="rounded-t-lg w-full h-64 object-cover mb-4" />}
-                <div className="flex items-center space-x-4 mb-4">
-                    <img className="w-10 h-10 rounded-full" src={post.userImage} alt={`${post.userName} Avatar`} />
-                    <div>
-                        <h4 className="font-bold">{post.userName}</h4>
-                        <p className="text-gray-500 text-sm">{post.createdAt}</p>
-                    </div>
-                </div>
-                <span className="inline-block px-3 py-1 text-sm font-semibold text-pink-800 bg-pink-200 rounded-full mb-4">{post.category}</span>
-                <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
-                <p className="text-gray-700 mb-6">{post.content}</p>
-                <div className="flex justify-between items-center mb-6">
-                    <button onClick={handleLikeClick} className="flex items-center space-x-1 text-gray-400 hover:text-blue-500">
-                        <ThumbsUp size={20} />
-                        <span>{likes} J’aime</span>
-                    </button>
-                    <div className="text-gray-500">{comments.length} commentaires</div>
-                </div>
-                <div className="bg-gray-100 p-4 rounded-lg">
-                    {comments.map((comment, index) => (
-                        <div key={index} className="bg-white p-2 rounded-lg mb-2 shadow-sm">
-                            <div className="flex items-center space-x-2">
-                                <img className="w-8 h-8 rounded-full" src={comment.user.avatar} alt={`${comment.user.name} Avatar`} />
-                                <div>
-                                    <h5 className="font-bold">{comment.user.name}</h5>
-                                    <p className="text-gray-500 text-xs">{comment.user.timestamp}</p>
-                                </div>
-                            </div>
-                            <p className="mt-2">{comment.content}</p>
+                <CardContent>
+                    <div className="flex items-center space-x-4 mb-4">
+                        <Avatar>
+                            <AvatarImage src={post.userImage} alt={`${post.userName} Avatar`} />
+                            <AvatarFallback>JD</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <h4 className="font-bold">{post.userName}</h4>
+                            <p className="text-gray-500 text-sm">{post.createdAt}</p>
                         </div>
-                    ))}
-                    <div className="flex items-center space-x-4 mt-2">
-                        <img className="w-8 h-8 rounded-full" src="https://example.com/user1.jpg" alt="Votre Avatar" />
-                        <textarea
-                            placeholder="Écrivez un commentaire..."
-                            className="flex-1 bg-gray-200 rounded-full px-4 py-2 outline-none"
-                            value={newComment}
-                            onChange={handleCommentChange}
-                            rows="1"
-                        />
-                        <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded-full"
-                            onClick={handleCommentSubmit}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            Envoyer
-                        </button>
                     </div>
-                </div>
-            </div>
+                    <Badge className="inline-block px-3 py-1 text-sm font-semibold text-pink-800 bg-pink-200 rounded-full mb-4">{post.category}</Badge>
+                    <CardTitle className="text-2xl font-bold mb-4">{post.title}</CardTitle>
+                    <CardDescription className="text-gray-700 mb-6">{post.content}</CardDescription>
+                    <div className="flex justify-between items-center mb-6">
+                        <button onClick={handleLikeClick} className="flex items-center space-x-1 text-gray-400 hover:text-blue-500">
+                            <ThumbsUp size={20} />
+                            <span>{likes} J’aime</span>
+                        </button>
+                        <div className="text-gray-500">{comments.length} commentaires</div>
+                    </div>
+                    <div className="bg-gray-100 p-4 rounded-lg">
+                        {comments.map((comment, index) => (
+                            <div key={index} className="bg-white p-2 rounded-lg mb-2 shadow-sm">
+                                <div className="flex items-center space-x-2">
+                                    <Avatar>
+                                        <AvatarImage className="w-8 h-8 rounded-full" src={comment.user.avatar} alt={`${comment.user.name} Avatar`} />
+                                        <AvatarFallback>U</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <h5 className="font-bold">{comment.user.name}</h5>
+                                        <p className="text-gray-500 text-xs">{comment.user.timestamp}</p>
+                                    </div>
+                                </div>
+                                <p className="mt-2">{comment.content}</p>
+                            </div>
+                        ))}
+                        <div className="flex items-center space-x-4 mt-2">
+                            <Avatar>
+                                <AvatarImage className="w-8 h-8 rounded-full" src="https://example.com/user1.jpg" alt="Votre Avatar" />
+                                <AvatarFallback>AV</AvatarFallback>
+                            </Avatar>
+                            <textarea
+                                placeholder="Écrivez un commentaire..."
+                                className="flex-1 bg-gray-200 rounded-full px-4 py-2 outline-none"
+                                value={newComment}
+                                onChange={handleCommentChange}
+                                rows="1"
+                            />
+                            <Button
+                                className="bg-blue-500 text-white rounded-full"
+                                onClick={handleCommentSubmit}
+                            >
+                                Envoyer
+                            </Button>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     );
 };
