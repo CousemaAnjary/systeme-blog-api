@@ -11,4 +11,5 @@ export const removeToken = () => {
     localStorage.removeItem('email');
     localStorage.removeItem('image');  // Supprimer l'image du stockage local
     localStorage.removeItem('coverPhoto');  // Supprimer la photo de couverture du stockage local
+    localStorage.removeItem('userId');  // Supprimer l'identifiant de l'utilisateur du stockage local
 }

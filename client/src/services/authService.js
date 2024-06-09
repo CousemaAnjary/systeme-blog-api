@@ -17,6 +17,7 @@ export const login = async (email, password) => {
 
         if (response.data.token) {
             localStorage.setItem('userToken', response.data.token);  // Stocker le token dans localStorage
+            localStorage.setItem('userId', response.data.user.id);  // Stocker l'ID de l'utilisateur dans localStorage (pour les requêtes ultérieures
             localStorage.setItem('firstname', response.data.user.firstname); // Stocker le prénom de l'utilisateur
             localStorage.setItem('lastname', response.data.user.lastname);  // Stocker le nom de l'utilisateur
             localStorage.setItem('email', response.data.user.email);  // Stocker l'email de l'utilisateur

@@ -1,12 +1,9 @@
 const { Publication } = require('../../../models');
 
-
 module.exports = {
-
     async store(req, res) {
-
-        // Récupération des données de la requête (content, image, user_id)
-        const { content, image, user_id } = req.body;
+        const { content, user_id } = req.body;
+        const image = req.file ? req.file.path : null;
 
         // Vérification de la présence de content et user_id
         if (!content || !user_id) {
@@ -32,9 +29,8 @@ module.exports = {
                 message: "Publication créée avec succès"
             });
         } catch (error) {
-            // Gestion des erreurs serveur
+            console.error('Erreur lors de la création de la publication:', error);
             return res.status(500).json({ error: "Erreur serveur" });
         }
-
     }
-}
+};

@@ -16,7 +16,8 @@ const useAuth = () => {
                 lastname: localStorage.getItem('lastname'),
                 email: localStorage.getItem('email'),
                 image: localStorage.getItem('image'),
-                coverPhoto: localStorage.getItem('coverPhoto') // Charger la photo de couverture depuis le stockage local
+                coverPhoto: localStorage.getItem('coverPhoto'), // Charger la photo de couverture depuis le stockage local
+                userId: localStorage.getItem('userId') // Charger l'identifiant de l'utilisateur depuis le stockage local
             });
         } else {
             navigate('/login');
@@ -33,7 +34,8 @@ const useAuth = () => {
                     lastname: localStorage.getItem('lastname'),
                     email: localStorage.getItem('email'),
                     image: localStorage.getItem('image'),
-                    coverPhoto: localStorage.getItem('coverPhoto') // Charger la photo de couverture depuis le stockage local
+                    coverPhoto: localStorage.getItem('coverPhoto'), // Charger la photo de couverture depuis le stockage local
+                    userId: localStorage.getItem('userId') // Charger l'identifiant de l'utilisateur depuis le stockage local
                 });
             }
         } catch (error) {
@@ -49,6 +51,8 @@ const useAuth = () => {
                 localStorage.setItem('firstname', userData.firstname);
                 localStorage.setItem('lastname', userData.lastname);
                 localStorage.setItem('email', userData.email);
+                // localStorage.setItem('userId', userData.id); // Mettre à jour l'identifiant de l'utilisateur
+
                 setUser(userData);
             }
         } catch (error) {
@@ -88,7 +92,7 @@ const useAuth = () => {
             await logoutService();
             removeToken();
             setAuth(false);
-            setUser({ firstname: '', lastname: '', email: '', image: '', coverPhoto: '' });
+            setUser({ firstname: '', lastname: '', email: '', image: '', coverPhoto: '', userId: '' });
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);
