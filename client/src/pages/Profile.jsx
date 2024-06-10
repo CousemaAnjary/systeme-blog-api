@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Camera } from "lucide-react";
+import { Camera, Pencil } from "lucide-react";
 import useAuth from '../hooks/useAuth';
 import UpdateProfile from "@/components/UpdateProfile";
 import { useState, useRef } from 'react';
@@ -112,10 +112,11 @@ export default function Profile() {
                             <h1 className="text-2xl font-bold">{user.lastname} {user.firstname}</h1>
                             <p className="text-gray-600">402 ami(e)s</p>
                         </div>
-{/* 
+
                         <div className="ml-auto flex space-x-2">
-                            <Button className="bg-blue-500 text-white">Ajouter à la story</Button>
-                        </div> */}
+
+                            <Button className="bg-blue-500 text-white"><Pencil className="mr-2 h-4 w-4" /> Modifier le profil</Button>
+                        </div>
                     </div>
 
                     <Tabs defaultValue="publications" className="mt-6">

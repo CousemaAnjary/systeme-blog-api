@@ -1,13 +1,12 @@
 import { useState } from "react"
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import useAuth from '../hooks/useAuth';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-
-
+import imageLogin from '../assets/images/login.svg'
 
 export default function LoginForm() {
     // state (état, données) de l'application
@@ -23,7 +22,7 @@ export default function LoginForm() {
 
         try {
             await login(email, password)
-            // Authentification réussie, rediriger vers la page  tableau de bord
+            // Authentification réussie, rediriger vers la page tableau de bord
             navigate('/admin/dashboard')
 
         } catch (err) {
@@ -33,66 +32,85 @@ export default function LoginForm() {
     };
     // affichage (render)
     return (
-        <>
-
-            <Form {...form}>
-                <form onSubmit={handleLogin}>
-                    <Card>
-                        {/* Header */}
-                        <CardHeader>
-                            <CardTitle>Connéxion</CardTitle>
-                            <CardDescription>Veuillez vous connecter pour accéder à votre compte</CardDescription>
-                        </CardHeader>
-
-                        {/* Content */}
-                        <CardContent>
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={() => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="email"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                placeholder="Entrez votre email"
-                                                required
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={() => (
-                                    <FormItem>
-                                        <FormLabel>Mot de passe</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="password"
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                placeholder="Entrez votre mot de passe"
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </CardContent>
-
-                        {/* Footer */}
-                        <CardFooter>
-                            <Button className="w-full mb-2" type="submit">Se connecter</Button>
-                        </CardFooter>
-                    </Card>
-                </form>
-            </Form>
-
-        </>
+        <Form {...form}>
+            <form onSubmit={handleLogin}>
+                <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+                    <div className="flex items-center justify-center py-12">
+                        <div className="mx-auto grid w-[350px] gap-6">
+                            <div className="grid gap-2 text-center">
+                                <h1 className="text-3xl font-bold text-blue-950">Connexion</h1>
+                                <p className="text-balance text-muted-foreground">
+                                    Entrez votre email ci-dessous pour vous connecter à votre compte
+                                </p>
+                            </div>
+                            <div className="grid gap-4">
+                                <div className="grid gap-2">
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={() => (
+                                            <FormItem>
+                                                <FormLabel>Email</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        type="email"
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        placeholder="Entrez votre email"
+                                                        required
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="flex items-center">
+                                        <Label htmlFor="password">Mot de passe</Label>
+                                        <Link to="#" className="ml-auto inline-block text-sm underline">   Mot de passe oublié ? </Link>
+                                    </div>
+                                    <FormField
+                                        control={form.control}
+                                        name="password"
+                                        render={() => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <Input
+                                                        type="password"
+                                                        value={password}
+                                                        onChange={(e) => setPassword(e.target.value)}
+                                                        placeholder="Entrez votre mot de passe"
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                                <Button type="submit" className="w-full bg-blue-600">
+                                    Se connecter
+                                </Button>
+                            </div>
+                            <div className="mt-4 text-center text-sm">
+                                Vous n'avez pas de compte ?{" "}
+                                <Link to="/register" className="underline">
+                                    S'inscrire
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="hidden lg:block">
+                        <img
+                            src={imageLogin}
+                            alt="Image"
+                            width="920"
+                            height="080"
+                            className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                        />
+                    </div>
+                </div>
+            </form>
+        </Form>
     )
 }

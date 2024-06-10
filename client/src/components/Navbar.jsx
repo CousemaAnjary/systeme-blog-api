@@ -1,6 +1,6 @@
 import { Key, LogOut, Settings, User, Users, MessageSquareMore, Search, Home, Bell, Video } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
@@ -72,6 +72,7 @@ export default function Navbar() {
                         <DropdownMenuTrigger>
                             <Avatar>
                                 <AvatarImage src={imageURL} />
+                                <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
 
