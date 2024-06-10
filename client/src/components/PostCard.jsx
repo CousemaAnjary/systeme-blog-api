@@ -64,9 +64,11 @@ const PostCard = () => {
                             <ThumbsUp size={20} />
                             <span>45 J’aime</span>
                         </button>
+                    
                         <div className="flex items-center space-x-1 text-gray-400">
                             <MessageSquare size={20} />
                             <span>3 commentaires</span>
+                            
                         </div>
                     </CardFooter>
                 </Card>
