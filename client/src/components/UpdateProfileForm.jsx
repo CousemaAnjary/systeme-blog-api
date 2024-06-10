@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import useAuth from '../hooks/useAuth';
 
-export default function UpdateProfile() {
+export default function UpdateProfileForm() {
     const { user, updateUser } = useAuth();
     const [firstname, setFirstname] = useState(user.firstname);
     const [lastname, setLastname] = useState(user.lastname);
@@ -25,6 +25,7 @@ export default function UpdateProfile() {
             navigate('/admin/dashboard');
         } catch (err) {
             console.error('Erreur lors de la mise à jour:', err);
+
         }
     };
 

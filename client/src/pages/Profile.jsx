@@ -1,19 +1,22 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Camera, Pencil } from "lucide-react";
 import useAuth from '../hooks/useAuth';
-import UpdateProfile from "@/components/UpdateProfile";
 import { useState, useRef } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import UpdateProfileForm from "@/components/UpdateProfileForm";
+import UpdatePasswordForm from "@/components/UpdatePasswordForm";
 
 export default function Profile() {
     const { user, updateUserPhoto, updateCoverPhoto } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [lightboxImage, setLightboxImage] = useState('');
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const fileInputRef = useRef(null);
     const coverFileInputRef = useRef(null);
 
@@ -114,15 +117,15 @@ export default function Profile() {
                         </div>
 
                         <div className="ml-auto flex space-x-2">
-
-                            <Button className="bg-blue-500 text-white"><Pencil className="mr-2 h-4 w-4" /> Modifier le profil</Button>
+                            <Button className="bg-blue-500 text-white" onClick={() => setIsDialogOpen(true)}>
+                                <Pencil className="mr-2 h-4 w-4" /> Modifier le profil
+                            </Button>
                         </div>
                     </div>
 
                     <Tabs defaultValue="publications" className="mt-6">
                         <TabsList className="flex space-x-4 border-b bg-gray-800">
                             <TabsTrigger value="publications" className="py-2 px-4 text-white hover:bg-gray-200">Publications</TabsTrigger>
-                            <TabsTrigger value="profile" className="py-2 px-4 text-white hover:bg-gray-200">Profile</TabsTrigger>
                             <TabsTrigger value="amies" className="py-2 px-4 text-white hover:bg-gray-200">Ami(e)s</TabsTrigger>
                             <TabsTrigger value="photos" className="py-2 px-4 text-white hover:bg-gray-200">Photos</TabsTrigger>
                             <TabsTrigger value="videos" className="py-2 px-4 text-white hover:bg-gray-200">Vidéos</TabsTrigger>
@@ -130,10 +133,6 @@ export default function Profile() {
 
                         <TabsContent value="publications">
                             <div>Contenu des publications</div>
-                        </TabsContent>
-
-                        <TabsContent value="profile">
-                            <UpdateProfile />
                         </TabsContent>
 
                         <TabsContent value="amies">
@@ -157,6 +156,27 @@ export default function Profile() {
                     slides={[{ src: lightboxImage }]}
                 />
             )}
+
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Modifier le profil</DialogTitle>
+                        <DialogClose />
+                    </DialogHeader>
+                    <Tabs defaultValue="profile">
+                        <TabsList className="flex space-x-4 border-b">
+                            <TabsTrigger value="profile">Modifier le profil</TabsTrigger>
+                            <TabsTrigger value="password">Modifier le mot de passe</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="profile">
+                            <UpdateProfileForm />
+                        </TabsContent>
+                        <TabsContent value="password">
+                            <UpdatePasswordForm />
+                        </TabsContent>
+                    </Tabs>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

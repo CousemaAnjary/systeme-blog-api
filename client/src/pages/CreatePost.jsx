@@ -60,16 +60,6 @@ export default function CreatePost() {
             <div className="container mx-auto p-6">
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-3xl font-bold mb-6">Créer une publication</h2>
-                    <div className="flex items-center space-x-4 mb-4">
-                        <Avatar>
-                            <AvatarImage src={imageURL} alt="User Avatar" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{user.firstname} {user.lastname}</h4>
-                        </div>
-                    </div>
-
                     <Form {...form}>
                         <form onSubmit={handleCreatePost} className="p-4">
                             <FormField

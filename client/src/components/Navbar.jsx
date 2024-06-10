@@ -1,4 +1,4 @@
-import { Key, LogOut, Settings, User, Users, MessageSquareMore, Search, Home, Bell, Video } from "lucide-react"
+import {LogOut, Settings, User, MessageSquareMore, Search, Bell } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -84,12 +84,6 @@ export default function Navbar() {
                                     <DropdownMenuItem>
                                         <User className="mr-2 h-4 w-4" />
                                         <span> Profile</span>
-                                    </DropdownMenuItem>
-                                </Link>
-                                <Link to="#">
-                                    <DropdownMenuItem>
-                                        <Key className="mr-2 h-4 w-4" />
-                                        <span>Modifier mot de passe</span>
                                     </DropdownMenuItem>
                                 </Link>
                                 <Link to="#">
