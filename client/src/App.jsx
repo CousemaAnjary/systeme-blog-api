@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { UserProvider } from "./contexts/UserContext";
 import Profile from "./pages/Profile";
 import ShowPost from "./pages/ShowPost";
+import CreatePost from "./pages/CreatePost";
 
 export default function App() {
   // state (état, données) de l'application
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/showPost" element={<ShowPost />} />
             <Route path="/admin/profile" element={<Profile />} />
+            <Route path="/admin/createPost" element={<CreatePost />} />
           </Route>
 
         </Routes>
