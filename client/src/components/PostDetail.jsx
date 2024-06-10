@@ -56,7 +56,7 @@ const PostDetail = () => {
     }
 
     return (
-        <div className="bg-gray-200 min-h-screen p-8">
+        <div className="bg-gray-200 min-h-screen p-4">
             <button onClick={() => navigate(-1)} className="text-blue-500 mb-4">← Retour au blog</button>
             <Card className="shadow-md">
                 {post.image && <img src={`http://localhost:3000/${post.image}`} alt="Publication" className="rounded-t-lg w-full h-64 object-cover mb-4" />}

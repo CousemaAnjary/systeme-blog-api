@@ -53,9 +53,9 @@ export default function CreatePost() {
     const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className="bg-gray-100 min-h-screen ">
             <Navbar />
-            <div className="container mx-auto p-6">
+            <div className="container mx-auto p-8 mt-4">
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-3xl font-bold mb-6">Créer une publication</h2>
                     <Form {...form}>
