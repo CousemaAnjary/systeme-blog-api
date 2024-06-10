@@ -38,7 +38,7 @@ export default function LoginForm() {
                     <div className="flex items-center justify-center py-12">
                         <div className="mx-auto grid w-[350px] gap-6">
                             <div className="grid gap-2 text-center">
-                                <h1 className="text-3xl font-bold text-blue-950">Connexion</h1>
+                                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-gray-700">FriendZy</h1>
                                 <p className="text-balance text-muted-foreground">
                                     Entrez votre email ci-dessous pour vous connecter à votre compte
                                 </p>
