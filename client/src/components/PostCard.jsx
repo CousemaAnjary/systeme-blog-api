@@ -55,7 +55,8 @@ const PostCard = () => {
                             </div>
                         </div>
 
-                        <Badge className="px-3 py-1 bg-pink-600 font-bold mt-2">{post.category}</Badge>
+                        <Badge className="px-3 py-1 bg-cyan-900 font-bold mt-2">{post.category}</Badge>
+
                         <CardTitle className="mt-2">{post.title}</CardTitle>
                         <CardDescription className="leading-7 mt-2" dangerouslySetInnerHTML={{ __html: truncateText(post.content, 200) }} />
                     </CardContent>

@@ -6,7 +6,7 @@ const Dashboard = () => {
     return (
         <div className="bg-gray-200 min-h-screen">
             <Navbar />
-            <main className="container mx-auto p-16">
+            <main className="container mx-auto p-10">
                 <CreatePost />
                 <PostCard />
             </main>
