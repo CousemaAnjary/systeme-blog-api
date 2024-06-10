@@ -85,6 +85,7 @@ export default function CreatePost() {
                                 <QuillEditor
                                     content={content}
                                     setContent={setContent}
+                                    placeholder="Écrivez votre contenu ici..."
                                 />
                             </FormItem>
 

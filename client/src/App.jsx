@@ -10,33 +10,24 @@ import ShowPost from "./pages/ShowPost";
 import CreatePost from "./pages/CreatePost";
 
 export default function App() {
-  // state (état, données) de l'application
-
-  // comportement
-
-  // affichage (render)
   return (
-    <>
-      <UserProvider>
-        <Routes>
-          {/* Route Publique */}
-          <Route element={<PublicRoute />}>
-            <Route path="/" />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
+    <UserProvider>
+      <Routes>
+        {/* Public Routes */}
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
 
-          {/* Route Protégée */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/showPost" element={<ShowPost />} />
-            <Route path="/admin/profile" element={<Profile />} />
-            <Route path="/admin/createPost" element={<CreatePost />} />
-          </Route>
-
-        </Routes>
-      </UserProvider>
-
-    </>
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/showPost/:id" element={<ShowPost />} />
+          <Route path="/admin/profile" element={<Profile />} />
+          <Route path="/admin/createPost" element={<CreatePost />} />
+        </Route>
+      </Routes>
+    </UserProvider>
   );
 }

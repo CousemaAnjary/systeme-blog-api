@@ -5,13 +5,11 @@ module.exports = {
         const { title, content, category, user_id } = req.body;
         const image = req.file ? req.file.path : null;
 
-        // Vérification de la présence de content et user_id
         if (!content || !user_id) {
             return res.status(400).json({ error: "Tous les champs sont obligatoires" });
         }
 
         try {
-            // Création d'une publication
             const publication = await Publication.create({
                 content,
                 image,
@@ -20,7 +18,6 @@ module.exports = {
                 category
             });
 
-            // Renvoi d'une réponse réussie avec la publication créée
             return res.status(201).json({
                 publication: {
                     id: publication.id,
@@ -53,6 +50,32 @@ module.exports = {
             return res.status(200).json({ publications });
         } catch (error) {
             console.error('Erreur lors de la récupération des publications:', error);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
+
+    async show(req, res) {
+        const { id } = req.params;
+
+        try {
+            const publication = await Publication.findOne({
+                where: { id },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['firstname', 'image']
+                    }
+                ]
+            });
+
+            if (!publication) {
+                return res.status(404).json({ error: "Publication non trouvée" });
+            }
+
+            return res.status(200).json({ publication });
+        } catch (error) {
+            console.error('Erreur lors de la récupération de la publication:', error);
             return res.status(500).json({ error: "Erreur serveur" });
         }
     }

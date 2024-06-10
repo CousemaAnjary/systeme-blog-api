@@ -1,8 +1,6 @@
 import api from './apiConfig';
 
-// Créer une nouvelle publication
 export const createPublication = async (publicationData) => {
-
     const token = localStorage.getItem('userToken');
 
     try {
@@ -18,10 +16,7 @@ export const createPublication = async (publicationData) => {
     }
 };
 
-// Récupérer toutes les publications
-
 export const getPublications = async () => {
-
     const token = localStorage.getItem('userToken');
 
     try {
@@ -34,5 +29,21 @@ export const getPublications = async () => {
     } catch (error) {
         console.error('Error during getting publications:', error);
         throw error.response ? error.response.data : new Error('Something went wrong during getting publications');
+    }
+};
+
+export const getPublication = async (id) => {
+    const token = localStorage.getItem('userToken');
+
+    try {
+        const response = await api.get(`/publication/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error during getting publication:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during getting publication');
     }
 };
