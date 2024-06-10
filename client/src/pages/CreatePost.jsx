@@ -2,10 +2,8 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import useAuth from '../hooks/useAuth';
-import { Camera, Video, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { createPublication } from '../services/publicationService';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -13,7 +11,7 @@ import Navbar from "@/components/Navbar";
 import QuillEditor from "@/components/QuillEditor"; // Assurez-vous que le chemin est correct
 
 export default function CreatePost() {
-    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage"];
+    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage", "Bien-être", "Décoration", "Bricolage", "Informatique", "Sport", "Actualités", "Autres"];
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');

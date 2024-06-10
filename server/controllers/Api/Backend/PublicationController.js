@@ -2,7 +2,7 @@ const { Publication, User } = require('../../../models');
 
 module.exports = {
     async store(req, res) {
-        const { content, user_id } = req.body;
+        const { title, content, category, user_id } = req.body;
         const image = req.file ? req.file.path : null;
 
         // Vérification de la présence de content et user_id
@@ -15,7 +15,9 @@ module.exports = {
             const publication = await Publication.create({
                 content,
                 image,
-                user_id
+                user_id,
+                title,
+                category
             });
 
             // Renvoi d'une réponse réussie avec la publication créée
@@ -24,6 +26,8 @@ module.exports = {
                     id: publication.id,
                     content: publication.content,
                     image: publication.image,
+                    title: publication.title,
+                    category: publication.category,
                     user_id: publication.user_id
                 },
                 message: "Publication créée avec succès"
