@@ -10,6 +10,8 @@ const AuthenticatedSessionController = require("../controllers/Api/Auth/Authenti
 const DashboardController = require("../controllers/Api/Backend/DashboardController");
 const PublicationController = require("../controllers/Api/Backend/PublicationController");
 const CommentaireController = require("../controllers/Api/Backend/CommentController");
+const LikeController = require("../controllers/Api/Backend/LikeController");
+
 
 // Configuration de multer pour le téléchargement de fichiers
 const storage = multer.diskStorage({
@@ -49,10 +51,14 @@ router.post("/updateCoverPhoto", auth, upload.single('coverPhoto'), DashboardCon
 router.get("/publications", auth, PublicationController.index);
 router.post("/publication", auth, uploadPublication.single('image'), PublicationController.store);
 router.get("/publication/:id", auth, PublicationController.show);
+router.post("/search", auth, PublicationController.search);
 
 // Routes d'API pour les commentaires
 router.post("/commentaire", auth, CommentaireController.store);
 router.get("/commentaires/:publication_id", auth, CommentaireController.getByPublication);
+
+// Routes d'API pour les likes
+router.post("/like", auth, LikeController.like);
 
 
 module.exports = router;

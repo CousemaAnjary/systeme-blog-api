@@ -46,4 +46,21 @@ export const getPublication = async (id) => {
         console.error('Error during getting publication:', error);
         throw error.response ? error.response.data : new Error('Something went wrong during getting publication');
     }
+
+};
+
+export const searchPublications = async (query) => {
+    const token = localStorage.getItem('userToken');
+
+    try {
+        const response = await api.post('/search', { query }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la recherche:', error);
+        throw error.response ? error.response.data : new Error('Quelque chose s\'est mal passé lors de la recherche');
+    }
 };

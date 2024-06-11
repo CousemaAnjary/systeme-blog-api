@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { ThumbsUp} from "lucide-react";
+import { ThumbsUp } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { getPublication } from "@/services/publicationService";
 import { createCommentaire, getCommentaires } from "@/services/commentaireService";
+import { toggleLike } from "@/services/likeService";
 import useAuth from '../hooks/useAuth';
 
 const PostDetail = () => {
@@ -16,6 +17,7 @@ const PostDetail = () => {
 
     const [post, setPost] = useState(null);
     const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [comments, setComments] = useState([]);
 
@@ -25,6 +27,7 @@ const PostDetail = () => {
                 const postData = await getPublication(id);
                 setPost(postData.publication);
                 setLikes(postData.publication.likes || 0);
+                setLiked(postData.publication.liked); // Le backend doit inclure cette information
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
@@ -71,7 +74,15 @@ const PostDetail = () => {
         }
     };
 
-    const handleLikeClick = () => setLikes(likes + 1);
+    const handleLikeClick = async () => {
+        try {
+            const response = await toggleLike({ user_id: user.userId, publication_id: post.id });
+            setLikes(response.liked ? likes + 1 : likes - 1);
+            setLiked(response.liked);
+        } catch (error) {
+            console.error('Erreur lors de la gestion du like:', error);
+        }
+    };
 
     if (!post) {
         return <div>Chargement...</div>;
@@ -100,7 +111,7 @@ const PostDetail = () => {
                     <CardDescription className="text-gray-700 mb-6" dangerouslySetInnerHTML={{ __html: post.content }} />
                     <div className="flex justify-between items-center mb-6">
                         <button onClick={handleLikeClick} className="flex items-center space-x-1 text-gray-400 hover:text-blue-500">
-                            <ThumbsUp size={20} />
+                            <ThumbsUp size={20} className={liked ? 'text-blue-500' : ''} />
                             <span>{likes} J’aime</span>
                         </button>
                         <div className="text-gray-500">{comments.length} commentaires</div>
