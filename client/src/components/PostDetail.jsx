@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { ThumbsUp, MessageSquare } from "lucide-react";
+import { ThumbsUp} from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { getPublication } from "@/services/publicationService";
+import { createCommentaire, getCommentaires } from "@/services/commentaireService";
 import useAuth from '../hooks/useAuth';
 
 const PostDetail = () => {
@@ -15,39 +16,60 @@ const PostDetail = () => {
 
     const [post, setPost] = useState(null);
     const [likes, setLikes] = useState(0);
-
-    const staticComments = [
-        {
-            user: {
-                avatar: "https://example.com/avatar1.jpg",
-                name: "Jane Doe",
-                timestamp: "Il y a 2 heures"
-            },
-            content: "Super publication !"
-        },
-        {
-            user: {
-                avatar: "https://example.com/avatar2.jpg",
-                name: "John Smith",
-                timestamp: "Il y a 3 heures"
-            },
-            content: "J'adore cette photo."
-        }
-    ];
+    const [newComment, setNewComment] = useState("");
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const data = await getPublication(id);
-                setPost(data.publication);
-                setLikes(data.publication.likes || 0);
+                const postData = await getPublication(id);
+                setPost(postData.publication);
+                setLikes(postData.publication.likes || 0);
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
         };
 
+        const fetchComments = async () => {
+            try {
+                const commentData = await getCommentaires(id);
+                setComments(commentData.commentaires);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des commentaires:', error);
+            }
+        };
+
         fetchPost();
+        fetchComments();
     }, [id]);
+
+    const handleCommentChange = (e) => setNewComment(e.target.value);
+
+    const handleCommentSubmit = async () => {
+        if (newComment.trim() !== "") {
+            try {
+                const newCommentData = {
+                    user_id: user.userId,
+                    publication_id: post.id,
+                    content: newComment
+                };
+                const response = await createCommentaire(newCommentData);
+                const comment = {
+                    user: {
+                        avatar: `http://localhost:3000/${user.image}`,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        timestamp: "Maintenant"
+                    },
+                    content: response.commentaire.content
+                };
+                setComments([...comments, comment]);
+                setNewComment("");
+            } catch (error) {
+                console.error('Erreur lors de la création du commentaire:', error);
+            }
+        }
+    };
 
     const handleLikeClick = () => setLikes(likes + 1);
 
@@ -81,18 +103,18 @@ const PostDetail = () => {
                             <ThumbsUp size={20} />
                             <span>{likes} J’aime</span>
                         </button>
-                        <div className="text-gray-500">{staticComments.length} commentaires</div>
+                        <div className="text-gray-500">{comments.length} commentaires</div>
                     </div>
                     <div className="bg-gray-100 p-4 rounded-lg">
-                        {staticComments.map((comment, index) => (
+                        {comments.map((comment, index) => (
                             <div key={index} className="bg-white p-2 rounded-lg mb-2 shadow-sm">
                                 <div className="flex items-center space-x-2">
                                     <Avatar>
-                                        <AvatarImage className="w-8 h-8 rounded-full" src={comment.user.avatar} alt={`${comment.user.name} Avatar`} />
+                                        <AvatarImage className="w-8 h-8 rounded-full" src={`http://localhost:3000/${comment.user.image}`} />
                                         <AvatarFallback>U</AvatarFallback>
                                     </Avatar>
                                     <div>
-                                        <h5 className="font-bold">{comment.user.name}</h5>
+                                        <h5 className="font-bold">{comment.user.firstname} {comment.user.lastname}</h5>
                                         <p className="text-gray-500 text-xs">{comment.user.timestamp}</p>
                                     </div>
                                 </div>
@@ -107,10 +129,13 @@ const PostDetail = () => {
                             <textarea
                                 placeholder="Écrivez un commentaire..."
                                 className="flex-1 bg-gray-200 rounded-full px-4 py-2 outline-none"
+                                value={newComment}
+                                onChange={handleCommentChange}
                                 rows="1"
                             />
                             <Button
                                 className="bg-blue-500 text-white rounded-full"
+                                onClick={handleCommentSubmit}
                             >
                                 Envoyer
                             </Button>
