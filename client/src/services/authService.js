@@ -1,9 +1,9 @@
 import api from './apiConfig';
 
 // Inscrire un nouvel utilisateur
-export const register = async (email, password, lastname, firstname) => {
+export const register = async (dataRegister) => {
     try {
-        const response = await api.post('/register', { email, password, lastname, firstname });
+        const response = await api.post('/register', dataRegister);
         return response.data;
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during registration');

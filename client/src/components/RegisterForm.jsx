@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 
 
 export default function RegisterForm() {
-    // state (état, données) de l'application
+    // STATE (état, données) de l'application
     const navigate = useNavigate()
     const form = useForm()
 
@@ -18,14 +18,18 @@ export default function RegisterForm() {
     const [lastname, setLastname] = useState('')
     const [firstname, setFirstname] = useState('')
 
+    // Rassemblement des données dans un objet
+    const dataRegister = { email, password, lastname, firstname }
 
-    // comportement (méthodes, fonctions) de l'application
+
+    // COMPORTEMENT (méthodes, fonctions) de l'application
     const handleRegister = async (e) => {
+        // Empêcher le rechargement de la page
         e.preventDefault();
 
         try {
-            await register(email, password, lastname, firstname);
-            // Inscription réussie, rediriger vers la page de connexion ou le tableau de bord
+            await register(dataRegister);
+            // Inscription réussie, rediriger vers la page de connexion
             navigate('/login');
 
         } catch (err) {
@@ -34,8 +38,8 @@ export default function RegisterForm() {
         }
     }
 
-    
-    // affichage (render) de l'application
+
+    // AFFICHAGE (render) de l'application
     return (
         <>
             <Form {...form}>
