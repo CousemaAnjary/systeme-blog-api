@@ -5,7 +5,7 @@ module.exports = {
         // Récupération des données de la requête
         const { email, password, lastname, firstname } = req.body;
 
-        // Validation des données
+        // Vérification de la présence de l'email, du mot de passe, du nom et du prénom
         if (!email || !password || !lastname || !firstname) {
             return res.status(400).json({ error: "Tous les champs sont obligatoires" });
         }

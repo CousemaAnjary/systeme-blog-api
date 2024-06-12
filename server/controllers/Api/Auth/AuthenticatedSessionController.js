@@ -4,14 +4,13 @@ const jwt = require('jsonwebtoken');
 const { secretKey } = require('../../../config');
 
 module.exports = {
-    // Fonction asynchrone pour gérer la connexion des utilisateurs
     async store(req, res) {
         // Récupération des données de la requête (email et mot de passe)
         const { email, password } = req.body;
 
         // Vérification de la présence de l'email et du mot de passe
         if (!email || !password) {
-            return res.status(400).json({ error: "Tous les champs sont obligatoires" });
+            return res.status(400).json({ error: "Tous les champs sont obligatoires" })
         }
 
         try {
@@ -20,7 +19,7 @@ module.exports = {
 
             // Si aucun utilisateur n'est trouvé, renvoyer une erreur
             if (!user) {
-                return res.status(400).json({ error: "Email ou mot de passe incorrect" });
+                return res.status(400).json({ error: "Email ou mot de passe incorrect" })
             }
 
             // Vérification du mot de passe avec bcrypt
@@ -28,11 +27,11 @@ module.exports = {
 
             // Si le mot de passe est invalide, renvoyer une erreur
             if (!isPasswordValid) {
-                return res.status(400).json({ error: "Email ou mot de passe incorrect" });
+                return res.status(400).json({ error: "Email ou mot de passe incorrect" })
             }
 
             // Génération d'un token JWT
-            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' })
 
             // Renvoi d'une réponse réussie avec les informations de l'utilisateur et le token
             return res.status(200).json({
@@ -41,21 +40,21 @@ module.exports = {
                     email: user.email,
                     lastname: user.lastname,
                     firstname: user.firstname,
-                    image: user.image , // Assurez-vous que l'image est correctement renvoyée ici
-                    coverPhoto: user.coverPhoto // Assurez-vous que la photo de couverture est correctement renvoyée ici
+                    image: user.image , 
+                    coverPhoto: user.coverPhoto 
                 },
                 token, // Token JWT à utiliser pour les requêtes authentifiées
                 message: "Connexion réussie",
             });
         } catch (error) {
             // Gestion des erreurs serveur
-            return res.status(500).json({ error: "Erreur serveur" });
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
     // Fonction asynchrone pour gérer la déconnexion des utilisateurs
     async logout(req, res) {
         // Renvoyer un message de déconnexion réussie
-        return res.status(200).json({ message: "Déconnexion réussie" });
+        return res.status(200).json({ message: "Déconnexion réussie" })
     }
 };
