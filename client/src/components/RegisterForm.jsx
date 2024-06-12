@@ -1,23 +1,25 @@
 import { useState } from "react"
-import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../services/authService';
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from '../services/authService'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 
 
 export default function RegisterForm() {
     // state (état, données) de l'application
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const form = useForm()
 
-    // comportement
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [lastname, setLastname] = useState('')
+    const [firstname, setFirstname] = useState('')
+
+
+    // comportement (méthodes, fonctions) de l'application
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -32,7 +34,8 @@ export default function RegisterForm() {
         }
     }
 
-    // affichage (render)
+    
+    // affichage (render) de l'application
     return (
         <>
             <Form {...form}>
