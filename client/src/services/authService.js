@@ -12,6 +12,7 @@ export const register = async (dataRegister) => {
     }
 }
 
+
 // Authentifier un utilisateur
 export const login = async (email, password) => {
     try {
