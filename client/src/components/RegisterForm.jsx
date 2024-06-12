@@ -8,7 +8,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 
-
 export default function RegisterForm() {
     // state (état, données) de l'application
     const [email, setEmail] = useState('');
