@@ -3,8 +3,10 @@ import api from './apiConfig';
 // Inscrire un nouvel utilisateur
 export const register = async (dataRegister) => {
     try {
-        const response = await api.post('/register', dataRegister);
-        return response.data;
+        // Appel à l'API pour enregistrer un nouvel utilisateur
+        const response = await api.post('/register', dataRegister)
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during registration');
     }
@@ -13,18 +15,22 @@ export const register = async (dataRegister) => {
 // Authentifier un utilisateur
 export const login = async (email, password) => {
     try {
-        const response = await api.post('/login', { email, password });
+        // Appel à l'API pour authentifier un utilisateur
+        const response = await api.post('/login', { email, password })
 
+        // Si la réponse de l'API contient un token JWT 
         if (response.data.token) {
-            localStorage.setItem('userToken', response.data.token);  // Stocker le token dans localStorage
-            localStorage.setItem('userId', response.data.user.id);  // Stocker l'ID de l'utilisateur dans localStorage (pour les requêtes ultérieures
-            localStorage.setItem('firstname', response.data.user.firstname); // Stocker le prénom de l'utilisateur
-            localStorage.setItem('lastname', response.data.user.lastname);  // Stocker le nom de l'utilisateur
-            localStorage.setItem('email', response.data.user.email);  // Stocker l'email de l'utilisateur
-            localStorage.setItem('image', response.data.user.image || 'default_image_path');  // Stocker l'image de l'utilisateur ou une image par défaut si non définie
-            localStorage.setItem('coverPhoto', response.data.user.coverPhoto || 'default_cover_photo_path');  // Stocker la photo de couverture de l'utilisateur ou une photo par défaut si non définie
+            // Stocker le token JWT dans localStorage etc
+            localStorage.setItem('userToken', response.data.token)
+            localStorage.setItem('userId', response.data.user.id)
+            localStorage.setItem('firstname', response.data.user.firstname)
+            localStorage.setItem('lastname', response.data.user.lastname)
+            localStorage.setItem('email', response.data.user.email)
+            localStorage.setItem('image', response.data.user.image)
+            localStorage.setItem('coverPhoto', response.data.user.coverPhoto)
         }
-        return response.data;
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during login');
     }

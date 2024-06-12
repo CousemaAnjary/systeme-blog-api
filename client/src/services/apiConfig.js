@@ -12,13 +12,17 @@ const api = axios.create({
 
 // Ajouter un intercepteur de requête pour inclure le token JWT dans les en-têtes d'authentification
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('userToken');
+    // Récupérer le token JWT de localStorage
+    const token = localStorage.getItem('userToken')
+
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        // Ajouter le token JWT aux en-têtes d'authentification
+        config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
+
 }, (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error)
 });
 
 export default api;
