@@ -6,7 +6,7 @@ const { secretKey } = require('../../../config');
 module.exports = {
     async store(req, res) {
         // Récupération des données de la requête (email et mot de passe)
-        const { email, password } = req.body;
+        const { email, password } = req.body
 
         // Vérification de la présence de l'email et du mot de passe
         if (!email || !password) {
@@ -15,7 +15,7 @@ module.exports = {
 
         try {
             // Recherche d'un utilisateur par email
-            const user = await User.findOne({ where: { email } });
+            const user = await User.findOne({ where: { email } })
 
             // Si aucun utilisateur n'est trouvé, renvoyer une erreur
             if (!user) {
@@ -23,7 +23,7 @@ module.exports = {
             }
 
             // Vérification du mot de passe avec bcrypt
-            const isPasswordValid = await bcrypt.compare(password, user.password);
+            const isPasswordValid = await bcrypt.compare(password, user.password)
 
             // Si le mot de passe est invalide, renvoyer une erreur
             if (!isPasswordValid) {
