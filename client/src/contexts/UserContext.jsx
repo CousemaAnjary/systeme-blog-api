@@ -5,26 +5,29 @@ const UserContext = createContext();
 
 // Composant fournisseur du contexte utilisateur (UserProvider)
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({
-        userId: localStorage.getItem('userId') || '', // Ajouter l'identifiant de l'utilisateur
-        firstname: localStorage.getItem('firstname') || '',
-        lastname: localStorage.getItem('lastname') || '',
-        email: localStorage.getItem('email') || '',
-        image: localStorage.getItem('image') || '',
-        coverPhoto: localStorage.getItem('coverPhoto') || ''// Ajouter la photo de couverture
 
+    // Utilisation du hook useState pour initialiser les données utilisateur
+    const [user, setUser] = useState({
+        userId: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        image: '',
+        coverPhoto: ''
     });
 
     useEffect(() => {
-        setUser({
-            userId: localStorage.getItem('userId') || '', // Ajouter l'identifiant de l'utilisateur
+        // Récupérer les données utilisateur depuis le localStorage uniquement lors de l'initialisation
+        const userData = {
+            userId: localStorage.getItem('userId') || '',
             firstname: localStorage.getItem('firstname') || '',
             lastname: localStorage.getItem('lastname') || '',
             email: localStorage.getItem('email') || '',
             image: localStorage.getItem('image') || '',
-            coverPhoto: localStorage.getItem('coverPhoto') || '', // Ajouter la photo de couverture
-
-        });
+            coverPhoto: localStorage.getItem('coverPhoto') || ''
+        };
+        // Mettre à jour les données utilisateur dans le contexte
+        setUser(userData);
     }, []);
 
     return (

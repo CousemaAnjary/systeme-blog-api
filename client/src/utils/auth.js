@@ -5,11 +5,11 @@ export const isAuthenticated = () => {
 }
 
 export const removeToken = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('firstname');
-    localStorage.removeItem('lastname');
-    localStorage.removeItem('email');
-    localStorage.removeItem('image');  // Supprimer l'image du stockage local
-    localStorage.removeItem('coverPhoto');  // Supprimer la photo de couverture du stockage local
-    localStorage.removeItem('userId');  // Supprimer l'identifiant de l'utilisateur du stockage local
+    localStorage.removeItem('userToken')
+    localStorage.removeItem('firstname')
+    localStorage.removeItem('lastname')
+    localStorage.removeItem('email')
+    localStorage.removeItem('image')
+    localStorage.removeItem('coverPhoto')  
+    localStorage.removeItem('userId')
 }
