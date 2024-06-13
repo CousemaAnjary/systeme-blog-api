@@ -1,77 +1,94 @@
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Camera, Pencil } from "lucide-react";
-import useAuth from '../hooks/useAuth';
-import { useState, useRef } from 'react';
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import UpdateProfileForm from "@/components/UpdateProfileForm";
-import UpdatePasswordForm from "@/components/UpdatePasswordForm";
+import useAuth from '../hooks/useAuth'
+import Navbar from "@/components/Navbar"
+import { useState, useRef } from 'react'
+import { Camera, Pencil } from "lucide-react"
+import 'yet-another-react-lightbox/styles.css'
+import { Button } from "@/components/ui/button"
+import Lightbox from 'yet-another-react-lightbox'
+import UpdateProfileForm from "@/components/UpdateProfileForm"
+import UpdatePasswordForm from "@/components/UpdatePasswordForm"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
 
 export default function Profile() {
-    const { user, updateUserPhoto, updateCoverPhoto } = useAuth();
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [lightboxImage, setLightboxImage] = useState('');
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const fileInputRef = useRef(null);
-    const coverFileInputRef = useRef(null);
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const { user, updateUserPhoto, updateCoverPhoto } = useAuth()
 
+    const fileInputRef = useRef(null)
+    const coverFileInputRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [lightboxImage, setLightboxImage] = useState('')
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+    const coverPhotoURL =  `http://localhost:3000/${user.coverPhoto}` 
+
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
     const handleChangePhoto = () => {
-        fileInputRef.current.click();
-    };
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
-
-        const formData = new FormData();
-        formData.append('photo', file);
-
-        updateUserPhoto(formData).then(response => {
-            console.log('Photo de profil mise à jour:', response);
-            if (response && response.user && response.user.image) {
-                localStorage.setItem('image', response.user.image);
-                window.location.reload();
-            }
-        }).catch(err => {
-            console.error('Erreur lors de la mise à jour de la photo:', err);
-        });
-    };
+        // Ouvrir la fenêtre de dialogue pour choisir un fichier
+        fileInputRef.current.click()
+    }
 
     const handleChangeCoverPhoto = () => {
-        coverFileInputRef.current.click();
-    };
+        coverFileInputRef.current.click()
+    }
 
-    const handleCoverFileChange = (event) => {
-        const file = event.target.files[0];
+    const handleFileChange = (e) => {
+        // Récupérer le fichier sélectionné
+        const file = e.target.files[0]
+        setSelectedFile(file) // Mettre à jour le fichier sélectionné
+
+        // Créer un objet FormData pour envoyer le fichier au serveur
+        const formData = new FormData()
+        formData.append('photo', file) // Ajouter le fichier à l'objet FormData
+
+        updateUserPhoto(formData).then(response => {
+            if (response && response.user && response.user.image) {
+                // Mettre à jour l'image de profil dans le stockage local
+                localStorage.setItem('image', response.user.image)
+                window.location.reload() // Recharger la page pour afficher la nouvelle image
+            }
+
+        }).catch(err => {
+            console.error('Erreur lors de la mise à jour de la photo:', err)
+        })
+    }
+
+    const handleCoverFileChange = (e) => {
+        const file = e.target.files[0]
         setSelectedFile(file);
 
-        const formData = new FormData();
-        formData.append('coverPhoto', file);
+        const formData = new FormData()
+        formData.append('coverPhoto', file)
 
         updateCoverPhoto(formData).then(response => {
-            console.log('Photo de couverture mise à jour:', response);
             if (response && response.user && response.user.coverPhoto) {
-                localStorage.setItem('coverPhoto', response.user.coverPhoto);
-                window.location.reload();
+                // Mettre à jour la photo de couverture dans le stockage local
+                localStorage.setItem('coverPhoto', response.user.coverPhoto)
+                window.location.reload()
             }
+
         }).catch(err => {
             console.error('Erreur lors de la mise à jour de la photo de couverture:', err);
-        });
-    };
+        })
+    }
 
+    // Ouvrir la lightbox pour afficher l'image en plein écran
     const handleImageClick = (imageURL) => {
-        setLightboxImage(imageURL);
-        setIsOpen(true);
-    };
+        setLightboxImage(imageURL) // Mettre à jour l'URL de l'image
+        setIsOpen(true) // Ouvrir la lightbox
+    }
 
-    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
-    const coverPhotoURL = user.coverPhoto ? `http://localhost:3000/${user.coverPhoto}` : "https://example.com/cover-photo.jpg";
 
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <>
             <Navbar />
@@ -92,10 +109,12 @@ export default function Profile() {
                         <div className="relative w-32 h-32 -mt-16 border-4 border-white rounded-full cursor-pointer" onClick={() => handleImageClick(imageURL)}>
                             <Avatar className="w-32 h-32 -mt-1 border-4 border-white rounded-full">
                                 <AvatarImage
-                                    src={imageURL}
+                                    src={`http://localhost:3000/${user.image}`}
                                     alt="User"
                                     className="w-full h-full rounded-full"
                                 />
+                                <AvatarFallback >CA </AvatarFallback>
+
                             </Avatar>
                             <button
                                 onClick={handleChangePhoto}

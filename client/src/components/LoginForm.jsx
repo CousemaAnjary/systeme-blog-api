@@ -17,6 +17,7 @@ export default function LoginForm() {
     const { login } = useAuth()
     const form = useForm()
 
+    // Initialiser les données du formulaire de connexion
     const [dataLogin, setDataLogin] = useState({
         email: '',
         password: ''

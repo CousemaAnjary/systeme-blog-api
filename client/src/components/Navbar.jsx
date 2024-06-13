@@ -11,8 +11,7 @@ export default function Navbar() {
      * ! STATE (état, données) de l'application
      */
     const navigate = useNavigate()
-    const { logout } = useAuth()
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
 
 
     /**

@@ -27,8 +27,8 @@ export const login = async (dataLogin) => {
             localStorage.setItem('firstname', response.data.user.firstname)
             localStorage.setItem('lastname', response.data.user.lastname)
             localStorage.setItem('email', response.data.user.email)
-            localStorage.setItem('image', response.data.user.image)
-            localStorage.setItem('coverPhoto', response.data.user.coverPhoto)
+            localStorage.setItem('image', response.data.user.image || 'uploads/default.jpg')
+            localStorage.setItem('coverPhoto', response.data.user.coverPhoto || 'uploads/default.jpg')
         }
         return response.data // Retourner les données de la réponse de l'API
 
