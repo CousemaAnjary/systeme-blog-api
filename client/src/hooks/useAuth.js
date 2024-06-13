@@ -37,6 +37,7 @@ export default function useAuth() {
     }, [auth, setUser, navigate]) // Déclencher l'effet uniquement si l'authentification, l'utilisateur ou la navigation change
 
 
+    // Authentifier l'utilisateur
     const login = async (dataLogin) => {
         try {
             // Appeler le service d'authentification
@@ -61,8 +62,9 @@ export default function useAuth() {
             console.error('Login failed:', error)
             throw error;
         }
-    };
+    }
 
+    // Mettre à jour les informations de l'utilisateur
     const updateUser = async (userData) => {
         try {
             // Appeler le service de mise à jour de l'utilisateur
@@ -83,6 +85,7 @@ export default function useAuth() {
         }
     }
 
+    // Mettre à jour la photo de profil de l'utilisateur
     const updateUserPhoto = async (formData) => {
         try {
             // Appeler le service de mise à jour de la photo de profil
@@ -102,6 +105,7 @@ export default function useAuth() {
         }
     }
 
+    // Mettre à jour la photo de couverture de l'utilisateur
     const updateCoverPhoto = async (formData) => {
         try {
             // Appeler le service de mise à jour de la photo de couverture
@@ -121,6 +125,7 @@ export default function useAuth() {
         }
     }
 
+    // Déconnexion de l'utilisateur
     const logout = async () => {
         try {
             // Appeler le service de déconnexion

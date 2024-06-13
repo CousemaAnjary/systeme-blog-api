@@ -66,7 +66,7 @@ export const updateUserPhoto = async (formData) => {
     } catch (error) {
         throw error.response ? error.response.data : new Error('Something went wrong during updating profile photo');
     }
-};
+}
 
 export const updateCoverPhoto = async (formData) => {
     try {
@@ -86,15 +86,16 @@ export const updateCoverPhoto = async (formData) => {
 // Déconnecter un utilisateur
 export const logout = async () => {
     try {
-        const response = await api.post('/logout');
-        localStorage.removeItem('userToken');  // Supprimer le token de localStorage
-        localStorage.removeItem('firstname');  // Supprimer le prénom de localStorage
-        localStorage.removeItem('lastname');  // Supprimer le nom de localStorage
-        localStorage.removeItem('email');  // Supprimer l'email de localStorage
-        localStorage.removeItem('image');  // Supprimer l'image de localStorage
-        localStorage.removeItem('coverPhoto');  // Supprimer la photo de couverture de localStorage
-        return response.data;
+        // Supprimer les données utilisateur du stockage local
+        localStorage.removeItem('userToken')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('firstname')
+        localStorage.removeItem('lastname')
+        localStorage.removeItem('email')
+        localStorage.removeItem('image')
+        localStorage.removeItem('coverPhoto')
+
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during logout');
+        throw error
     }
 }
