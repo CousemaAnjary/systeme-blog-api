@@ -14,10 +14,10 @@ export const register = async (dataRegister) => {
 
 
 // Authentifier un utilisateur
-export const login = async (email, password) => {
+export const login = async (dataLogin) => {
     try {
         // Appel à l'API pour authentifier un utilisateur
-        const response = await api.post('/login', { email, password })
+        const response = await api.post('/login', dataLogin)
 
         // Si la réponse de l'API contient un token JWT 
         if (response.data.token) {
