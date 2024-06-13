@@ -1,32 +1,39 @@
-import {LogOut, Settings, User, MessageSquareMore, Search, Bell } from "lucide-react"
+import useAuth from '../hooks/useAuth'
+import { Input } from "@/components/ui/input"
+import { useNavigate, Link } from 'react-router-dom'
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { LogOut, Settings, User, MessageSquareMore, Search, Bell } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { useNavigate, Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-
 
 
 export default function Navbar() {
-    // state (état, données) de l'application
-    const navigate = useNavigate();
-    const { logout } = useAuth();
-    const { user } = useAuth();
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const navigate = useNavigate()
+    const { logout } = useAuth()
+    const { user } = useAuth()
 
-    // comportement
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
     const handleLogout = async () => {
         try {
-            await logout();
-            navigate('/login');
+            await logout()
+            // Déconnexion réussie, rediriger vers la page de connexion
+            navigate('/login')
 
         } catch (error) {
-            console.error('Logout failed:', error);
+            // Afficher le message d'erreur
+            console.error('Logout failed:', error)
         }
-    };
+    }
 
-    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
-
-    // affichage (render)
+    
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <nav className="bg-gray-800 p-4 shadow-md  sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
@@ -71,7 +78,7 @@ export default function Navbar() {
                     <DropdownMenu>
                         <DropdownMenuTrigger>
                             <Avatar>
-                                <AvatarImage src={imageURL} />
+                                <AvatarImage src={`http://localhost:3000/${user.image}`} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
