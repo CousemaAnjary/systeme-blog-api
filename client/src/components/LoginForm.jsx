@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
-import useAuth from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -9,19 +9,28 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import imageLogin from '../assets/images/login.svg'
 
 export default function LoginForm() {
-    // state (état, données) de l'application
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const { login } = useAuth();
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const navigate = useNavigate()
+    const { login } = useAuth()
     const form = useForm()
 
-    // comportement
+    const [dataLogin, setDataLogin] = useState({
+        email: '',
+        password: ''
+    })
+
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
     const handleLogin = async (e) => {
+        // Empêcher le rechargement de la page
         e.preventDefault()
 
         try {
-            await login(email, password)
+            await login(dataLogin)
             // Authentification réussie, rediriger vers la page tableau de bord
             navigate('/admin/dashboard')
 
@@ -30,7 +39,11 @@ export default function LoginForm() {
             console.error(err);
         }
     };
-    // affichage (render)
+
+    
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <Form {...form}>
             <form onSubmit={handleLogin}>
@@ -54,8 +67,8 @@ export default function LoginForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="email"
-                                                        value={email}
-                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        value={dataLogin.email}
+                                                        onChange={(e) => setDataLogin({ ...dataLogin, email: e.target.value })}
                                                         placeholder="Entrez votre email"
                                                         required
                                                     />
@@ -78,8 +91,8 @@ export default function LoginForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="password"
-                                                        value={password}
-                                                        onChange={(e) => setPassword(e.target.value)}
+                                                        value={dataLogin.password}
+                                                        onChange={(e) => setDataLogin({ ...dataLogin, password: e.target.value })}
                                                         placeholder="Entrez votre mot de passe"
                                                     />
                                                 </FormControl>
