@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         // Récupérer les données utilisateur depuis le localStorage uniquement lors de l'initialisation
         const userData = {
-            userId: localStorage.getItem('userId') || '',
+            userId: localStorage.getItem('userId') || '', // Récupérer l'ID utilisateur depuis le localStorage ou une chaîne vide
             firstname: localStorage.getItem('firstname') || '',
             lastname: localStorage.getItem('lastname') || '',
             email: localStorage.getItem('email') || '',
