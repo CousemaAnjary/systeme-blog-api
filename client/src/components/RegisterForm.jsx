@@ -15,13 +15,13 @@ export default function RegisterForm() {
     const navigate = useNavigate()
     const form = useForm()
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [lastname, setLastname] = useState('')
-    const [firstname, setFirstname] = useState('')
+    const [dataRegister, setDataRegister] = useState({
+        email: '',
+        password: '',
+        lastname: '',
+        firstname: ''
+    })
 
-    // Rassemblement des données dans un objet
-    const dataRegister = { email, password, lastname, firstname }
 
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
@@ -70,8 +70,8 @@ export default function RegisterForm() {
                                                     <FormControl>
                                                         <Input
                                                             type="text"
-                                                            value={lastname}
-                                                            onChange={(e) => setLastname(e.target.value)}
+                                                            value={dataRegister.lastname}
+                                                            onChange={(e) => setDataRegister({ ...dataRegister, lastname: e.target.value })}
                                                             placeholder="ABDILLAH"
                                                             required
                                                         />
@@ -92,8 +92,8 @@ export default function RegisterForm() {
                                                     <FormControl>
                                                         <Input
                                                             type="text"
-                                                            value={firstname}
-                                                            onChange={(e) => setFirstname(e.target.value)}
+                                                            value={dataRegister.firstname}
+                                                            onChange={(e) => setDataRegister({ ...dataRegister, firstname: e.target.value })}
                                                             placeholder="Cousema Anjary"
                                                             required
                                                         />
@@ -115,8 +115,8 @@ export default function RegisterForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="email"
-                                                        value={email}
-                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        value={dataRegister.email}
+                                                        onChange={(e) => setDataRegister({ ...dataRegister, email: e.target.value })}
                                                         placeholder="m@exemple.com"
                                                         required
                                                     />
@@ -137,8 +137,8 @@ export default function RegisterForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="password"
-                                                        value={password}
-                                                        onChange={(e) => setPassword(e.target.value)}
+                                                        value={dataRegister.password}
+                                                        onChange={(e) => setDataRegister({ ...dataRegister, password: e.target.value })}
                                                         placeholder="Entrez votre mot de passe"
                                                         required
                                                     />
