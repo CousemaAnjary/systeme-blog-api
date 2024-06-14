@@ -7,20 +7,29 @@ import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar"
 
 
 export default function CreatePost() {
-    const { user } = useAuth();
-    const navigate = useNavigate();
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const navigate = useNavigate()
+    const { user } = useAuth()
 
-    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
+    /**
+    * ! COMPORTEMENT (méthodes, fonctions) de l'application
+    */
     const openCreatePostPage = () => {
-        navigate('/admin/createPost');
-    };
+        navigate('/admin/createPost')
+    }
 
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-4">
             <div className="flex items-center space-x-4">
                 <Avatar>
-                    <AvatarImage src={imageURL} alt="User Avatar" />
+                    <AvatarImage src={`http://localhost:3000/${user.image}`} alt="User Avatar" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
 
