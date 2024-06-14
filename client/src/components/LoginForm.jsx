@@ -17,11 +17,11 @@ export default function LoginForm() {
     const { login } = useAuth()
     const form = useForm()
 
-    // Initialiser les données du formulaire de connexion
-    const [dataLogin, setDataLogin] = useState({
-        email: '',
-        password: ''
-    })
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    // Données à envoyer pour la connexion
+    const dataLogin = { email, password }
 
 
     /**
@@ -42,7 +42,7 @@ export default function LoginForm() {
         }
     };
 
-    
+
     /**
      * ! AFFICHAGE (render) de l'application
      */
@@ -69,8 +69,8 @@ export default function LoginForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="email"
-                                                        value={dataLogin.email}
-                                                        onChange={(e) => setDataLogin({ ...dataLogin, email: e.target.value })}
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
                                                         placeholder="Entrez votre email"
                                                         required
                                                     />
@@ -93,8 +93,8 @@ export default function LoginForm() {
                                                 <FormControl>
                                                     <Input
                                                         type="password"
-                                                        value={dataLogin.password}
-                                                        onChange={(e) => setDataLogin({ ...dataLogin, password: e.target.value })}
+                                                        value={password}
+                                                        onChange={(e) => setPassword(e.target.value)}
                                                         placeholder="Entrez votre mot de passe"
                                                     />
                                                 </FormControl>
