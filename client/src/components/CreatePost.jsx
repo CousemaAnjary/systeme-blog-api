@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import { Camera, Smile } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "./ui/button"
+import useAuth from '../hooks/useAuth'
+import { Camera, Smile } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { useNavigate } from 'react-router-dom'
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar"
+
 
 export default function CreatePost() {
     const { user } = useAuth();
