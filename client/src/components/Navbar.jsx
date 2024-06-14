@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { useNavigate, Link } from 'react-router-dom'
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { LogOut, Settings, User, MessageSquareMore, Search, Bell } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 
 export default function Navbar() {
