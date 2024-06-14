@@ -1,51 +1,64 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import { ThumbsUp, MessageSquare } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { getPublications } from "@/services/publicationService";
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { fr } from 'date-fns/locale'
+import { useState, useEffect } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { formatDistanceToNow } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
+import { ThumbsUp, MessageSquare } from "lucide-react"
+import { getPublications } from "@/services/publicationService"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
+
 
 const PostCard = () => {
-    const [publications, setPublications] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const navigate = useNavigate();
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const navigate = useNavigate()
+
+    const [publications, setPublications] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
+
+
+    /**
+    * ! COMPORTEMENT (méthodes, fonctions) de l'application
+    */
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value)
+    }
+
+    const filteredPublications = publications.filter((post) =>
+        post.category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
+    const handleClick = (id) => {
+        navigate(`/admin/showPost/${id}`)
+    }
+
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...'
+        }
+        return text
+    }
 
     useEffect(() => {
         const fetchPublications = async () => {
             try {
-                const data = await getPublications();
-                setPublications(data.publications);
+                const data = await getPublications()
+                setPublications(data.publications)
             } catch (error) {
-                console.error('Erreur lors de la récupération des publications:', error);
+                console.error('Erreur lors de la récupération des publications:', error)
             }
-        };
-
-        fetchPublications();
-    }, []);
-
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
-
-    const filteredPublications = publications.filter((post) =>
-        post.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const handleClick = (id) => {
-        navigate(`/admin/showPost/${id}`);
-    };
-
-    const truncateText = (text, maxLength) => {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength) + '...';
         }
-        return text;
-    };
 
+        fetchPublications()
+    }, [])
+
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div>
             <div className="mb-4">
@@ -85,7 +98,7 @@ const PostCard = () => {
                                 <ThumbsUp size={20} />
                                 <span>{post.likes} J’aime</span>
                             </button>
-                        
+
                             <div className="flex items-center space-x-1 text-gray-400">
                                 <MessageSquare size={20} />
                                 <span>{post.comments} commentaires</span>
