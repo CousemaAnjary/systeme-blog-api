@@ -70,6 +70,7 @@ const PostCard = () => {
                     className="rounded-full bg-gray-100 text-gray-800 pl-10 pr-4 py-2 shadow"
                 />
             </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPublications.map((post, index) => (
                     <Card key={index} className="shadow-md flex flex-col justify-between">
