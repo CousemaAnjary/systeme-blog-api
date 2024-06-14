@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Link, useNavigate } from 'react-router-dom'
-import { register } from '../services/authService'
 import { useForm } from "react-hook-form"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import { register } from '../services/authService'
+import { Link, useNavigate } from 'react-router-dom'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
 
 export default function RegisterForm() {
