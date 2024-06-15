@@ -8,7 +8,7 @@ export const register = async (dataRegister) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during registration');
+       console.error('Erreur lors de l\'inscription:', error)
     }
 }
 

@@ -26,15 +26,16 @@ const PostCard = () => {
     useEffect(() => {
         const fetchPublications = async () => {
             try {
+                // Récupérer les publications
                 const data = await getPublications()
-                setPublications(data.publications)
+                setPublications(data.publications) // Mettre à jour le state avec les publications
+
             } catch (error) {
                 console.error('Erreur lors de la récupération des publications:', error)
             }
         }
-
-        fetchPublications()
-    }, [])
+        fetchPublications() // Appeler la fonction pour récupérer les publications
+    }, []) // [] pour exécuter le code une seule fois après le premier rendu
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value)
