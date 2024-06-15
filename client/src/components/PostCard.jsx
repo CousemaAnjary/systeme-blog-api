@@ -27,8 +27,8 @@ const PostCard = () => {
         const fetchPublications = async () => {
             try {
                 // Récupérer les publications
-                const data = await getPublications()
-                setPublications(data.publications) // Mettre à jour le state avec les publications
+                const publicationData = await getPublications()
+                setPublications(publicationData.publications) // Mettre à jour le state avec les publications
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des publications:', error)
@@ -37,18 +37,22 @@ const PostCard = () => {
         fetchPublications() // Appeler la fonction pour récupérer les publications
     }, []) // [] pour exécuter le code une seule fois après le premier rendu
 
+    // Mettre à jour le state searchTerm avec la valeur de l'input de recherche
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value)
     }
 
+    // Filtrer les publications par catégorie
     const filteredPublications = publications.filter((post) =>
         post.category.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
+    // Rediriger vers la page de détails de la publication
     const handleClick = (id) => {
         navigate(`/admin/showPost/${id}`)
     }
 
+    // Tronquer le texte si la longueur dépasse maxLength
     const truncateText = (text, maxLength) => {
         if (text.length > maxLength) {
             return text.substring(0, maxLength) + '...'
