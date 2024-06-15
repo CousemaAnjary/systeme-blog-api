@@ -16,11 +16,9 @@ api.interceptors.request.use((config) => {
     const token = localStorage.getItem('userToken')
 
     if (token) {
-        config.headers = config.headers || {} // Créer un objet headers s'il n'existe pas
-        config.headers['Authorization'] = `Bearer ${token}` // Ajouter le token JWT à l'en-tête Authorization
-        config.headers['Content-Type'] = 'multipart/form-data' // Ajouter le type de contenu pour les requêtes multipart/form-data
+        // Ajouter le token JWT aux en-têtes d'authentification
+        config.headers.Authorization = `Bearer ${token}`
     }
-
     return config
 
 }, (error) => {
