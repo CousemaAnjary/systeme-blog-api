@@ -1,4 +1,4 @@
-import { fr } from 'date-fns/locale'
+import { de, fr } from 'date-fns/locale'
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -10,7 +10,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 
 
-const PostCard = () => {
+export default function PostCard() {
     /**
      * ! STATE (état, données) de l'application
      */
@@ -118,5 +118,3 @@ const PostCard = () => {
         </div>
     );
 };
-
-export default PostCard;
