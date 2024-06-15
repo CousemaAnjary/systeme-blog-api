@@ -1,33 +1,42 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
-import { ThumbsUp } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import { Button } from "./ui/button";
-import { showPublication } from "@/services/publicationService";
-import { createCommentaire, getCommentaires } from "@/services/commentaireService";
-import { toggleLike } from "@/services/likeService";
-import useAuth from '../hooks/useAuth';
+import { Button } from "./ui/button"
+import useAuth from '../hooks/useAuth'
+import { ThumbsUp } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Badge } from "@/components/ui/badge"
+import { toggleLike } from "@/services/likeService"
+import { useParams, useNavigate } from 'react-router-dom'
+import { showPublication } from "@/services/publicationService"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { createCommentaire, getCommentaires } from "@/services/commentaireService"
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 
-const PostDetail = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const { user } = useAuth();
 
-    const [post, setPost] = useState(null);
-    const [likes, setLikes] = useState(0);
-    const [liked, setLiked] = useState(false);
-    const [newComment, setNewComment] = useState("");
-    const [comments, setComments] = useState([]);
+export default function PostDetail() {
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const navigate = useNavigate()
+    const { user } = useAuth()
+    const { id } = useParams()
 
+    const [newComment, setNewComment] = useState("")
+    const [comments, setComments] = useState([])
+    const [liked, setLiked] = useState(false)
+    const [post, setPost] = useState(null)
+    const [likes, setLikes] = useState(0)
+    
+   
+    /**
+   * ! COMPORTEMENT (méthodes, fonctions) de l'application
+   */
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const postData = await showPublication(id);
-                setPost(postData.publication);
-                setLikes(postData.publication.likes || 0);
-                setLiked(postData.publication.liked); // Le backend doit inclure cette information
+                // Récupérer la publication
+                const postData = await showPublication(id)
+                setPost(postData.publication)
+                setLikes(postData.publication.likes || 0)
+                setLiked(postData.publication.liked)
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
@@ -88,6 +97,10 @@ const PostDetail = () => {
         return <div>Chargement...</div>;
     }
 
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div className="bg-gray-200 min-h-screen p-4">
             <button onClick={() => navigate(-1)} className="text-blue-500 mb-4">← Retour au blog</button>
@@ -158,4 +171,3 @@ const PostDetail = () => {
     );
 };
 
-export default PostDetail;
