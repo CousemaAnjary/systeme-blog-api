@@ -14,7 +14,7 @@ export const createPublication = async (publicationData) => {
         console.error('Error during creating publication:', error);
         throw error.response ? error.response.data : new Error('Something went wrong during creating publication');
     }
-};
+}
 
 export const getPublications = async () => {
     try {
@@ -25,7 +25,7 @@ export const getPublications = async () => {
     } catch (error) {
         console.error('Erreur lors de l\'obtention des publications:', error)
     }
-};
+}
 
 export const getPublication = async (id) => {
     const token = localStorage.getItem('userToken');

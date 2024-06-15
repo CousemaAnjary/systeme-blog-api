@@ -33,7 +33,7 @@ export const login = async (dataLogin) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during login');
+        console.error('Erreur lors de l\'authentification:', error)
     }
 }
 
