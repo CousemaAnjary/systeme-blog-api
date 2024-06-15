@@ -5,7 +5,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
-import { getPublication } from "@/services/publicationService";
+import { showPublication } from "@/services/publicationService";
 import { createCommentaire, getCommentaires } from "@/services/commentaireService";
 import { toggleLike } from "@/services/likeService";
 import useAuth from '../hooks/useAuth';
@@ -24,7 +24,7 @@ const PostDetail = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const postData = await getPublication(id);
+                const postData = await showPublication(id);
                 setPost(postData.publication);
                 setLikes(postData.publication.likes || 0);
                 setLiked(postData.publication.liked); // Le backend doit inclure cette information
