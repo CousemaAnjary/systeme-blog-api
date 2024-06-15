@@ -4,20 +4,17 @@ module.exports = {
     async store(req, res) {
         const { user_id, publication_id, content } = req.body;
 
-        // Vérifier que tous les champs nécessaires sont présents
         if (!user_id || !publication_id || !content) {
             return res.status(400).json({ error: "Tous les champs sont obligatoires" });
         }
 
         try {
-            // Créer un nouveau commentaire
             const commentaire = await Commentaire.create({
                 user_id,
                 publication_id,
                 content
             });
 
-            // Renvoyer une réponse réussie avec le commentaire créé
             return res.status(201).json({
                 commentaire: {
                     id: commentaire.id,

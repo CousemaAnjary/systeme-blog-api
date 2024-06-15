@@ -27,7 +27,7 @@ const PostDetail = () => {
                 const postData = await getPublication(id);
                 setPost(postData.publication);
                 setLikes(postData.publication.likes || 0);
-                setLiked(postData.publication.liked); // Assurez-vous que le backend inclut cette information
+                setLiked(postData.publication.liked);
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
@@ -77,8 +77,8 @@ const PostDetail = () => {
     const handleLikeClick = async () => {
         try {
             const response = await toggleLike({ user_id: user.userId, publication_id: post.id });
-            setLikes(response.data.liked ? likes + 1 : likes - 1);
-            setLiked(response.data.liked);
+            setLikes(response.liked ? likes + 1 : likes - 1);
+            setLiked(response.liked);
         } catch (error) {
             console.error('Erreur lors de la gestion du like:', error);
         }
