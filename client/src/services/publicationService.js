@@ -20,7 +20,7 @@ export const getPublications = async () => {
     try {
         // Appeler l'API pour récupérer les publications
         const response = await api.get('/publications')
-        return response.data.publications // Retourner les publications
+        return response.data.publications // Retourner les données de la réponse de l'API
 
     } catch (error) {
         console.error('Erreur lors de l\'obtention des publications:', error)

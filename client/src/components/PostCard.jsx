@@ -1,4 +1,4 @@
-import { de, fr } from 'date-fns/locale'
+import { fr } from 'date-fns/locale'
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
