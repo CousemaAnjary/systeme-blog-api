@@ -4,11 +4,11 @@ import { ThumbsUp } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 import { getPublication } from "@/services/publicationService";
 import { createCommentaire, getCommentaires } from "@/services/commentaireService";
 import { toggleLike } from "@/services/likeService";
-import useAuth from '@/hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 const PostDetail = () => {
     const { id } = useParams();
@@ -27,7 +27,7 @@ const PostDetail = () => {
                 const postData = await getPublication(id);
                 setPost(postData.publication);
                 setLikes(postData.publication.likes || 0);
-                setLiked(postData.publication.liked);
+                setLiked(postData.publication.liked); // Le backend doit inclure cette information
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
@@ -59,7 +59,7 @@ const PostDetail = () => {
                 const response = await createCommentaire(newCommentData);
                 const comment = {
                     user: {
-                        image: user.image,
+                        avatar: `http://localhost:3000/${user.image}`,
                         firstname: user.firstname,
                         lastname: user.lastname,
                         timestamp: "Maintenant"

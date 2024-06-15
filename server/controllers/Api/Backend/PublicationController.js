@@ -1,6 +1,5 @@
 const { Publication, User, Reaction, Commentaire } = require('../../../models');
 const { Op } = require('sequelize');
-
 module.exports = {
     async store(req, res) {
         const { title, content, category, user_id } = req.body;
@@ -37,11 +36,8 @@ module.exports = {
     },
 
     async index(req, res) {
-        const { user_id } = req.query;
         try {
-            const whereClause = user_id ? { user_id } : {};
             const publications = await Publication.findAll({
-                where: whereClause,
                 include: [
                     {
                         model: User,
@@ -86,57 +82,9 @@ module.exports = {
     },
 
 
-    async getUserPublications(req, res) {
-        const userId = req.user.id; // Use the authenticated user's ID
-        try {
-            const publications = await Publication.findAll({
-                where: { user_id: userId },
-                include: [
-                    {
-                        model: User,
-                        as: 'user',
-                        attributes: ['firstname', 'lastname', 'image']
-                    },
-                    {
-                        model: Reaction,
-                        as: 'reactions',
-                        attributes: ['type']
-                    },
-                    {
-                        model: Commentaire,
-                        as: 'commentaires',
-                        include: [
-                            {
-                                model: User,
-                                as: 'user',
-                                attributes: ['firstname', 'lastname', 'image']
-                            }
-                        ]
-                    }
-                ],
-                order: [['createdAt', 'DESC']]
-            });
-    
-            const formattedPublications = publications.map(publication => {
-                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
-                const comments = publication.commentaires.length;
-                return {
-                    ...publication.toJSON(),
-                    likes,
-                    comments
-                };
-            });
-    
-            return res.status(200).json({ publications: formattedPublications });
-        } catch (error) {
-            console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
-        }
-    },
-
     async show(req, res) {
         const { id } = req.params;
-        const userId = req.user.id;
+        const userId = req.user.id; // Assurez-vous que le middleware d'authentification ajoute l'ID de l'utilisateur à la requête
 
         try {
             const publication = await Publication.findByPk(id, {
@@ -153,6 +101,7 @@ module.exports = {
                 return res.status(404).json({ error: "Publication non trouvée" });
             }
 
+            // Compter les likes
             const likesCount = await Reaction.count({
                 where: {
                     publication_id: id,
@@ -160,6 +109,7 @@ module.exports = {
                 }
             });
 
+            // Vérifier si l'utilisateur a aimé cette publication
             const userLiked = await Reaction.findOne({
                 where: {
                     user_id: userId,
@@ -208,5 +158,28 @@ module.exports = {
         }
     },
 
+    async userPublications(req, res) {
+        const { id } = req.params;
 
+        try {
+            const publications = await Publication.findAll({
+                where: {
+                    user_id: id
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['firstname', 'image']
+                    }
+                ],
+                order: [['createdAt', 'DESC']]
+            });
+
+            return res.status(200).json({ publications });
+        } catch (error) {
+            console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+    }
 };

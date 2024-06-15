@@ -49,37 +49,22 @@ export const getPublication = async (id) => {
 
 };
 
-export const getUserPublications = async () => {
+export const getuserPublications = async (id) => {
     const token = localStorage.getItem('userToken');
+
     try {
-        const response = await api.get('/userPublications', {
+        const response = await api.get(`/user/${id}/publications`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
         return response.data;
     } catch (error) {
-        console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
-        throw error;
+        console.error('Error during getting user publications:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during getting user publications');
     }
 };
 
-
-
-export const deletePublication = async (id) => {
-    const token = localStorage.getItem('userToken');
-    try {
-        const response = await api.delete(`/publication/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Erreur lors de la suppression de la publication:', error);
-        throw error;
-    }
-};
 
 export const searchPublications = async (query) => {
     const token = localStorage.getItem('userToken');
