@@ -40,7 +40,7 @@ export default function LoginForm() {
             // Afficher le message d'erreur
             console.error(err);
         }
-    };
+    }
 
 
     /**
