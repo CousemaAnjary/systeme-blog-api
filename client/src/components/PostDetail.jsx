@@ -1,42 +1,33 @@
-import { Button } from "./ui/button"
-import useAuth from '../hooks/useAuth'
-import { ThumbsUp } from "lucide-react"
-import { useState, useEffect } from "react"
-import { Badge } from "@/components/ui/badge"
-import { toggleLike } from "@/services/likeService"
-import { useParams, useNavigate } from 'react-router-dom'
-import { showPublication } from "@/services/publicationService"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { createCommentaire, getCommentaires } from "@/services/commentaireService"
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
+import { ThumbsUp } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { getPublication } from "@/services/publicationService";
+import { createCommentaire, getCommentaires } from "@/services/commentaireService";
+import { toggleLike } from "@/services/likeService";
+import useAuth from '@/hooks/useAuth';
 
+const PostDetail = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { user } = useAuth();
 
-export default function PostDetail() {
-    /**
-     * ! STATE (état, données) de l'application
-     */
-    const navigate = useNavigate()
-    const { user } = useAuth()
-    const { id } = useParams()
+    const [post, setPost] = useState(null);
+    const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
+    const [newComment, setNewComment] = useState("");
+    const [comments, setComments] = useState([]);
 
-    const [newComment, setNewComment] = useState("")
-    const [comments, setComments] = useState([])
-    const [liked, setLiked] = useState(false)
-    const [post, setPost] = useState(null)
-    const [likes, setLikes] = useState(0)
-    
-   
-    /**
-   * ! COMPORTEMENT (méthodes, fonctions) de l'application
-   */
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                // Récupérer la publication
-                const postData = await showPublication(id)
-                setPost(postData.publication)
-                setLikes(postData.publication.likes || 0)
-                setLiked(postData.publication.liked)
+                const postData = await getPublication(id);
+                setPost(postData.publication);
+                setLikes(postData.publication.likes || 0);
+                setLiked(postData.publication.liked); // Assurez-vous que le backend inclut cette information
             } catch (error) {
                 console.error('Erreur lors de la récupération de la publication:', error);
             }
@@ -68,7 +59,7 @@ export default function PostDetail() {
                 const response = await createCommentaire(newCommentData);
                 const comment = {
                     user: {
-                        avatar: `http://localhost:3000/${user.image}`,
+                        image: user.image,
                         firstname: user.firstname,
                         lastname: user.lastname,
                         timestamp: "Maintenant"
@@ -86,8 +77,8 @@ export default function PostDetail() {
     const handleLikeClick = async () => {
         try {
             const response = await toggleLike({ user_id: user.userId, publication_id: post.id });
-            setLikes(response.liked ? likes + 1 : likes - 1);
-            setLiked(response.liked);
+            setLikes(response.data.liked ? likes + 1 : likes - 1);
+            setLiked(response.data.liked);
         } catch (error) {
             console.error('Erreur lors de la gestion du like:', error);
         }
@@ -97,10 +88,6 @@ export default function PostDetail() {
         return <div>Chargement...</div>;
     }
 
-
-    /**
-     * ! AFFICHAGE (render) de l'application
-     */
     return (
         <div className="bg-gray-200 min-h-screen p-4">
             <button onClick={() => navigate(-1)} className="text-blue-500 mb-4">← Retour au blog</button>
@@ -171,3 +158,4 @@ export default function PostDetail() {
     );
 };
 
+export default PostDetail;

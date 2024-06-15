@@ -37,66 +37,11 @@ module.exports = {
     },
 
     async index(req, res) {
-        const { user_id } = req.query // Extraire user_id des paramètres de requête
-
+        const { user_id } = req.query;
         try {
-            // Récupérer les publications de la base de données avec les utilisateurs, réactions et commentaires associés
+            const whereClause = user_id ? { user_id } : {};
             const publications = await Publication.findAll({
-
-                where: user_id ? { user_id } : {}, // Si user_id est fourni, filtrer par user_id
-
-                include: [
-                    {
-                        model: User,
-                        as: 'user',
-                        attributes: ['firstname', 'lastname', 'image'] // Sélectionner uniquement certains attributs de l'utilisateur
-                    },
-                    {
-                        model: Reaction,
-                        as: 'reactions',
-                        attributes: ['type'] // Sélectionner uniquement le type de réaction
-                    },
-                    {
-                        model: Commentaire,
-                        as: 'commentaires',
-                        include: [
-                            {
-                                model: User,
-                                as: 'user',
-                                attributes: ['firstname', 'lastname', 'image'] // Sélectionner uniquement certains attributs des utilisateurs ayant commenté
-                            }
-                        ]
-                    }
-                ],
-                order: [['createdAt', 'DESC']] // Ordonner les publications par date de création de manière décroissante
-            });
-
-            // Formater les publications pour inclure le nombre de likes et de commentaires
-            const formattedPublications = publications.map(publication => {
-
-                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length; // Compter les likes
-                const comments = publication.commentaires.length; // Compter les commentaires
-
-                return {
-                    ...publication.toJSON(), // Convertir l'instance du modèle Sequelize en objet simple
-                    likes, // Ajouter le nombre de likes
-                    comments // Ajouter le nombre de commentaires
-                }
-            })
-
-            // Répondre avec les publications formatées
-            return res.status(200).json({ publications: formattedPublications })
-
-        } catch (error) {
-            console.error('Erreur lors de la récupération des publications:', error)
-        }
-    },
-
-    async getUserPublications(req, res) {
-        const userId = req.user.id; // Use the authenticated user's ID
-        try {
-            const publications = await Publication.findAll({
-                where: { user_id: userId },
+                where: whereClause,
                 include: [
                     {
                         model: User,
@@ -133,6 +78,55 @@ module.exports = {
                 };
             });
 
+            return res.status(200).json({ publications: formattedPublications });
+        } catch (error) {
+            console.error('Erreur lors de la récupération des publications:', error);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
+
+
+    async getUserPublications(req, res) {
+        const userId = req.user.id; // Use the authenticated user's ID
+        try {
+            const publications = await Publication.findAll({
+                where: { user_id: userId },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['firstname', 'lastname', 'image']
+                    },
+                    {
+                        model: Reaction,
+                        as: 'reactions',
+                        attributes: ['type']
+                    },
+                    {
+                        model: Commentaire,
+                        as: 'commentaires',
+                        include: [
+                            {
+                                model: User,
+                                as: 'user',
+                                attributes: ['firstname', 'lastname', 'image']
+                            }
+                        ]
+                    }
+                ],
+                order: [['createdAt', 'DESC']]
+            });
+    
+            const formattedPublications = publications.map(publication => {
+                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
+                const comments = publication.commentaires.length;
+                return {
+                    ...publication.toJSON(),
+                    likes,
+                    comments
+                };
+            });
+    
             return res.status(200).json({ publications: formattedPublications });
         } catch (error) {
             console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);

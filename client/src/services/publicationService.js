@@ -1,38 +1,53 @@
-import api from './apiConfig'
+import api from './apiConfig';
 
-export const createPublication = async (dataPublication) => {
+export const createPublication = async (publicationData) => {
+    const token = localStorage.getItem('userToken');
+
     try {
-        // Appeler l'API pour créer une publication
-        const response = await api.post('/publication', dataPublication)
-        return response.data // Retourner les données de la réponse de l'API
-
+        const response = await api.post('/publication', publicationData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
     } catch (error) {
-        console.error('Erreur lors de la création de la publication:', error)
+        console.error('Error during creating publication:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during creating publication');
     }
-}
+};
 
 export const getPublications = async () => {
+    const token = localStorage.getItem('userToken');
+
     try {
-        // Appeler l'API pour récupérer les publications
-        const response = await api.get('/publications')
-        return response.data.publications // Retourner les données de la réponse de l'API
-
+        const response = await api.get('/publications', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
     } catch (error) {
-        console.error('Erreur lors de l\'obtention des publications:', error)
+        console.error('Error during getting publications:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during getting publications');
     }
-}
+};
 
-export const showPublication = async (id) => {
+export const getPublication = async (id) => {
+    const token = localStorage.getItem('userToken');
+
     try {
-        // Appeler l'API pour voir une publication
-        const response = await api.get(`/publication/${id}`)
-        return response.data // Retourner les données de la réponse de l'API
-
+        const response = await api.get(`/publication/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
     } catch (error) {
-        console.error('Erreur lors de l\'obtention de la publication :', error)
+        console.error('Error during getting publication:', error);
+        throw error.response ? error.response.data : new Error('Something went wrong during getting publication');
     }
 
-}
+};
 
 export const getUserPublications = async () => {
     const token = localStorage.getItem('userToken');

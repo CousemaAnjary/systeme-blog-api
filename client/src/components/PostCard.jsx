@@ -28,7 +28,7 @@ export default function PostCard() {
             try {
                 // Récupérer les publications
                 const publicationData = await getPublications()
-                setPublications(publicationData) // Mettre à jour le state avec les publications
+                setPublications(publicationData.publications) // Mettre à jour le state avec les publications
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des publications:', error)
