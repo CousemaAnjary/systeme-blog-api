@@ -49,6 +49,38 @@ export const getPublication = async (id) => {
 
 };
 
+export const getUserPublications = async () => {
+    const token = localStorage.getItem('userToken');
+    try {
+        const response = await api.get('/userPublications', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
+        throw error;
+    }
+};
+
+
+
+export const deletePublication = async (id) => {
+    const token = localStorage.getItem('userToken');
+    try {
+        const response = await api.delete(`/publication/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la suppression de la publication:', error);
+        throw error;
+    }
+};
+
 export const searchPublications = async (query) => {
     const token = localStorage.getItem('userToken');
 
@@ -64,4 +96,3 @@ export const searchPublications = async (query) => {
         throw error.response ? error.response.data : new Error('Quelque chose s\'est mal passé lors de la recherche');
     }
 };
-
