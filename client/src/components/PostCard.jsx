@@ -23,6 +23,19 @@ const PostCard = () => {
     /**
     * ! COMPORTEMENT (méthodes, fonctions) de l'application
     */
+    useEffect(() => {
+        const fetchPublications = async () => {
+            try {
+                const data = await getPublications()
+                setPublications(data.publications)
+            } catch (error) {
+                console.error('Erreur lors de la récupération des publications:', error)
+            }
+        }
+
+        fetchPublications()
+    }, [])
+
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value)
     }
@@ -42,19 +55,6 @@ const PostCard = () => {
         return text
     }
 
-    useEffect(() => {
-        const fetchPublications = async () => {
-            try {
-                const data = await getPublications()
-                setPublications(data.publications)
-            } catch (error) {
-                console.error('Erreur lors de la récupération des publications:', error)
-            }
-        }
-
-        fetchPublications()
-    }, [])
-
 
     /**
      * ! AFFICHAGE (render) de l'application
@@ -70,7 +70,7 @@ const PostCard = () => {
                     className="rounded-full bg-gray-100 text-gray-800 pl-10 pr-4 py-2 shadow"
                 />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPublications.map((post, index) => (
                     <Card key={index} className="shadow-md flex flex-col justify-between">
