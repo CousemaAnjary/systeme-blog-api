@@ -51,7 +51,6 @@ router.post("/updateCoverPhoto", auth, upload.single('coverPhoto'), DashboardCon
 router.get("/publications", auth, PublicationController.index);
 router.post("/publication", auth, uploadPublication.single('image'), PublicationController.store);
 router.get("/publication/:id", auth, PublicationController.show);
-router.get("/userPublications", auth, PublicationController.getUserPublications);
 router.post("/search", auth, PublicationController.search);
 
 // Routes d'API pour les commentaires

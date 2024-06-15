@@ -156,30 +156,5 @@ module.exports = {
             console.error('Erreur lors de la recherche des publications:', error);
             return res.status(500).json({ error: "Erreur serveur" });
         }
-    },
-
-    async userPublications(req, res) {
-        const { id } = req.params;
-
-        try {
-            const publications = await Publication.findAll({
-                where: {
-                    user_id: id
-                },
-                include: [
-                    {
-                        model: User,
-                        as: 'user',
-                        attributes: ['firstname', 'image']
-                    }
-                ],
-                order: [['createdAt', 'DESC']]
-            });
-
-            return res.status(200).json({ publications });
-        } catch (error) {
-            console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
-        }
     }
 };

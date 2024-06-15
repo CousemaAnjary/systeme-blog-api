@@ -49,23 +49,6 @@ export const getPublication = async (id) => {
 
 };
 
-export const getuserPublications = async (id) => {
-    const token = localStorage.getItem('userToken');
-
-    try {
-        const response = await api.get(`/user/${id}/publications`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error during getting user publications:', error);
-        throw error.response ? error.response.data : new Error('Something went wrong during getting user publications');
-    }
-};
-
-
 export const searchPublications = async (query) => {
     const token = localStorage.getItem('userToken');
 
@@ -81,3 +64,4 @@ export const searchPublications = async (query) => {
         throw error.response ? error.response.data : new Error('Quelque chose s\'est mal passé lors de la recherche');
     }
 };
+
