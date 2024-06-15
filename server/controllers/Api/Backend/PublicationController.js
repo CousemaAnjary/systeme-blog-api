@@ -37,21 +37,24 @@ module.exports = {
     },
 
     async index(req, res) {
-        const { user_id } = req.query;
+        const { user_id } = req.query // Extraire user_id des paramètres de requête
+
         try {
-            const whereClause = user_id ? { user_id } : {};
+            // Récupérer les publications de la base de données avec les utilisateurs, réactions et commentaires associés
             const publications = await Publication.findAll({
-                where: whereClause,
+
+                where: user_id ? { user_id } : {}, // Si user_id est fourni, filtrer par user_id
+
                 include: [
                     {
                         model: User,
                         as: 'user',
-                        attributes: ['firstname', 'lastname', 'image']
+                        attributes: ['firstname', 'lastname', 'image'] // Sélectionner uniquement certains attributs de l'utilisateur
                     },
                     {
                         model: Reaction,
                         as: 'reactions',
-                        attributes: ['type']
+                        attributes: ['type'] // Sélectionner uniquement le type de réaction
                     },
                     {
                         model: Commentaire,
@@ -60,31 +63,34 @@ module.exports = {
                             {
                                 model: User,
                                 as: 'user',
-                                attributes: ['firstname', 'lastname', 'image']
+                                attributes: ['firstname', 'lastname', 'image'] // Sélectionner uniquement certains attributs des utilisateurs ayant commenté
                             }
                         ]
                     }
                 ],
-                order: [['createdAt', 'DESC']]
+                order: [['createdAt', 'DESC']] // Ordonner les publications par date de création de manière décroissante
             });
 
+            // Formater les publications pour inclure le nombre de likes et de commentaires
             const formattedPublications = publications.map(publication => {
-                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
-                const comments = publication.commentaires.length;
-                return {
-                    ...publication.toJSON(),
-                    likes,
-                    comments
-                };
-            });
 
-            return res.status(200).json({ publications: formattedPublications });
+                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length; // Compter les likes
+                const comments = publication.commentaires.length; // Compter les commentaires
+
+                return {
+                    ...publication.toJSON(), // Convertir l'instance du modèle Sequelize en objet simple
+                    likes, // Ajouter le nombre de likes
+                    comments // Ajouter le nombre de commentaires
+                }
+            })
+
+            // Répondre avec les publications formatées
+            return res.status(200).json({ publications: formattedPublications })
+
         } catch (error) {
-            console.error('Erreur lors de la récupération des publications:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la récupération des publications:', error)
         }
     },
-
 
     async getUserPublications(req, res) {
         const userId = req.user.id; // Use the authenticated user's ID
@@ -116,7 +122,7 @@ module.exports = {
                 ],
                 order: [['createdAt', 'DESC']]
             });
-    
+
             const formattedPublications = publications.map(publication => {
                 const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
                 const comments = publication.commentaires.length;
@@ -126,7 +132,7 @@ module.exports = {
                     comments
                 };
             });
-    
+
             return res.status(200).json({ publications: formattedPublications });
         } catch (error) {
             console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);

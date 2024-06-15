@@ -28,7 +28,7 @@ const PostCard = () => {
             try {
                 // Récupérer les publications
                 const publicationData = await getPublications()
-                setPublications(publicationData.publications) // Mettre à jour le state avec les publications
+                setPublications(publicationData) // Mettre à jour le state avec les publications
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des publications:', error)
@@ -78,6 +78,7 @@ const PostCard = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPublications.map((post, index) => (
+
                     <Card key={index} className="shadow-md flex flex-col justify-between">
                         {post.image && <img src={`http://localhost:3000/${post.image}`} alt="Publication" className="rounded-t-lg w-full h-48 object-cover cursor-pointer" onClick={() => handleClick(post.id)} />}
                         <CardContent className="flex-1">
@@ -111,6 +112,7 @@ const PostCard = () => {
                             </div>
                         </CardFooter>
                     </Card>
+
                 ))}
             </div>
         </div>
