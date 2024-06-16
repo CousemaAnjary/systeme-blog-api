@@ -62,7 +62,7 @@ export default function Profile() {
         updateUserPhoto(formData).then(response => {
             if (response && response.user && response.user.image) {
                 localStorage.setItem('image', response.user.image);
-                window.location.reload();
+                window.location.reload(); 
             }
         }).catch(err => {
             console.error('Erreur lors de la mise à jour de la photo:', err);

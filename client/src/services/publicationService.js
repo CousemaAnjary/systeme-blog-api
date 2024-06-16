@@ -1,4 +1,4 @@
-import api from './apiConfig';
+import api from './apiConfig'
 
 export const createPublication = async (dataPublication) => {
     try {
@@ -7,14 +7,13 @@ export const createPublication = async (dataPublication) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        console.error('Error during creating publication:', error);
-
+        console.error('Erreur lors de la création de la publication :', error);
     }
 }
 
 export const getPublications = async () => {
     try {
-        // Récupérer les publications depuis l'API
+        // Appel à l'API pour obtenir les publications
         const response = await api.get('/publications')
         return response.data.publications // Retourner les publications de la réponse de l'API
 
@@ -24,21 +23,15 @@ export const getPublications = async () => {
 }
 
 export const getPublication = async (id) => {
-    const token = localStorage.getItem('userToken');
-
     try {
-        const response = await api.get(`/publication/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
+        // Récupérer la publication depuis l'API
+        const response = await api.get(`/publication/${id}`)
+        return response.data.publication // Retourner les données de la réponse de l'API
+
     } catch (error) {
         console.error('Error during getting publication:', error);
-        throw error.response ? error.response.data : new Error('Something went wrong during getting publication');
     }
-
-};
+}
 
 export const getUserPublications = async () => {
     const token = localStorage.getItem('userToken');
