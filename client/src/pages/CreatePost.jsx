@@ -52,9 +52,6 @@ export default function CreatePost() {
         setFile(event.target.files[0])
     }
 
-    const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
-
-
 
     /**
     * ! AFFICHAGE (render) de l'application
