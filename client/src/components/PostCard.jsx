@@ -26,9 +26,9 @@ export default function PostCard() {
     useEffect(() => {
         const fetchPublications = async () => {
             try {
-                // Récupérer les publications
-                const publicationData = await getPublications()
-                setPublications(publicationData.publications) // Mettre à jour le state avec les publications
+                // Récupérer les publications depuis l'API
+                const dataPublications = await getPublications()
+                setPublications(dataPublications) // Mettre à jour le state avec les publications
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des publications:', error)
@@ -57,7 +57,7 @@ export default function PostCard() {
         if (text.length > maxLength) {
             return text.substring(0, maxLength) + '...'
         }
-        return text
+        return text // Retourner le texte complet
     }
 
 
