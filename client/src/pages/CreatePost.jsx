@@ -1,57 +1,63 @@
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useForm } from "react-hook-form";
-import useAuth from '../hooks/useAuth';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { createPublication } from '../services/publicationService';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import Navbar from "@/components/Navbar";
-import QuillEditor from "@/components/QuillEditor"; // Assurez-vous que le chemin est correct
+import { useState } from "react"
+import useAuth from '../hooks/useAuth'
+import Navbar from "@/components/Navbar"
+import { useForm } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import QuillEditor from "@/components/QuillEditor"
+import { createPublication } from '../services/publicationService'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function CreatePost() {
-    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage", "Bien-être", "Décoration", "Bricolage", "Informatique", "Sport", "Actualités", "Autres"];
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [category, setCategory] = useState('');
-    const [file, setFile] = useState(null);
-    const { user } = useAuth();
-    const navigate = useNavigate();
-    const form = useForm();
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const navigate = useNavigate()
+    const { user } = useAuth()
+    const form = useForm()
 
+    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage", "Bien-être", "Décoration", "Bricolage", "Informatique", "Sport", "Actualités", "Autres"]
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [category, setCategory] = useState('')
+    const [file, setFile] = useState(null)
+
+
+    // Données à envoyer pour la création de la publication
+    const dataPublication = { user_id: user.userId, title, content, category, image: file }
+
+
+    /**
+    * ! COMPORTEMENT (méthodes, fonctions) de l'application
+    */
     const handleCreatePost = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('user_id', user.userId);
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('category', category);
-        if (file) {
-            formData.append('image', file);
-        }
+        // Empêcher le rechargement de la page
+        e.preventDefault()
 
         try {
-            const response = await createPublication(formData);
+            await createPublication(dataPublication)
+            // Publication créée, rediriger vers la page d'accueil
+            navigate('/admin/dashboard')
 
-            if (response) {
-                setTitle('');
-                setContent('');
-                setCategory('');
-                setFile(null);
-                navigate('/admin/dashboard');
-            }
-        } catch (error) {
-            console.error('Erreur lors de la création du post:', error);
+        } catch (err) {
+            // Afficher le message d'erreur
+            console.error(err)
         }
-    };
+    }
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-    };
+    }
 
     const imageURL = user.image ? `http://localhost:3000/${user.image}` : "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
+
+
+    /**
+    * ! AFFICHAGE (render) de l'application
+    */
     return (
         <div className="bg-gray-100 min-h-screen ">
             <Navbar />
