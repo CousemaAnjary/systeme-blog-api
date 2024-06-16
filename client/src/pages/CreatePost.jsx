@@ -48,8 +48,8 @@ export default function CreatePost() {
     }
 
     // Gérer le changement de fichier
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0])
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0])
     }
 
 
