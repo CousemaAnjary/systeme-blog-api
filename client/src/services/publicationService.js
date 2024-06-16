@@ -1,18 +1,14 @@
 import api from './apiConfig';
 
 export const createPublication = async (dataPublication) => {
-    const token = localStorage.getItem('userToken');
-
     try {
-        const response = await api.post('/publication', dataPublication, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return response.data;
+        // Appel à l'API pour créer une nouvelle publication
+        const response = await api.post('/publication', dataPublication, { headers: { 'Content-Type': 'multipart/form-data' } })
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
         console.error('Error during creating publication:', error);
-        throw error.response ? error.response.data : new Error('Something went wrong during creating publication');
+
     }
 }
 

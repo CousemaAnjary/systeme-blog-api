@@ -19,6 +19,7 @@ api.interceptors.request.use((config) => {
         // Ajouter le token JWT aux en-têtes d'authentification
         config.headers.Authorization = `Bearer ${token}`
     }
+
     return config
 
 }, (error) => {
