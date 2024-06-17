@@ -18,7 +18,7 @@ export default function CreatePost() {
     const { user } = useAuth()
     const form = useForm()
 
-    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage", "Bien-être", "Décoration", "Bricolage", "Informatique", "Sport", "Actualités", "Autres"]
+    const categories = ["Cuisine", "Loisirs", "Jardinage", "Voyage", "Bien-être", "Décoration", "Bricolage", "Informatique", "Sport", "Actualités", "Autres","fffff"]
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [category, setCategory] = useState('')
