@@ -11,7 +11,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { getUserPublications, deletePublication } from "@/services/publicationService";
+import { getUserPublications } from "@/services/publicationService";
 import useAuth from '../hooks/useAuth';
 import Navbar from "@/components/Navbar";
 import UpdateProfileForm from "@/components/UpdateProfileForm";
