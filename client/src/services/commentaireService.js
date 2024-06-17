@@ -13,11 +13,11 @@ export const createCommentaire = async (dataCommentaire) => {
 
 export const getCommentaires = async (id) => {
     try {
+        // Appel à l'API pour récupérer les commentaires d'un article
         const response = await api.get(`/commentaires/${id}`)
-        return response.data.commentaires
+        return response.data.commentaires // Retourner les données de la réponse de l'API
     }
     catch (error) {
         console.error('Erreur lors de la récupération des commentaires:', error);
-        throw error.response ? error.response.data : new Error('Quelque chose s\'est mal passé lors de la récupération des commentaires');
     }
 }
