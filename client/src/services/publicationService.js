@@ -1,5 +1,6 @@
 import api from './apiConfig'
 
+// Créer une nouvelle publication
 export const createPublication = async (dataPublication) => {
     try {
         // Appel à l'API pour créer une nouvelle publication
@@ -7,10 +8,11 @@ export const createPublication = async (dataPublication) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        console.error('Erreur lors de la création de la publication :', error);
+        console.error('Erreur lors de la création de la publication :', error)
     }
 }
 
+// Liste des publications
 export const getPublications = async () => {
     try {
         // Appel à l'API pour obtenir les publications
@@ -22,6 +24,7 @@ export const getPublications = async () => {
     }
 }
 
+// Obtenir une publication
 export const getPublication = async (id) => {
     try {
         // Récupérer la publication depuis l'API
@@ -29,54 +32,29 @@ export const getPublication = async (id) => {
         return response.data.publication // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        console.error('Error during getting publication:', error);
+        console.error('Erreur lors de l\'obtention de la publication :', error)
     }
 }
 
 export const getUserPublications = async () => {
-    const token = localStorage.getItem('userToken');
     try {
-        const response = await api.get('/userPublications', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
+        // Appel à l'API pour obtenir les publications de l'utilisateur
+        const response = await api.get('/userPublications')
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
-        console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
-        throw error;
+        console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error)
     }
-};
+}
 
-
-
-export const deletePublication = async (id) => {
-    const token = localStorage.getItem('userToken');
-    try {
-        const response = await api.delete(`/publication/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Erreur lors de la suppression de la publication:', error);
-        throw error;
-    }
-};
 
 export const searchPublications = async (query) => {
-    const token = localStorage.getItem('userToken');
-
     try {
-        const response = await api.post('/search', { query }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.data;
+        // Appel à l'API pour rechercher des publications
+        const response = await api.post('/search', { query })
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
-        console.error('Erreur lors de la recherche:', error);
-        throw error.response ? error.response.data : new Error('Quelque chose s\'est mal passé lors de la recherche');
+        console.error('Erreur lors de la recherche:', error)
     }
 };
