@@ -1,34 +1,49 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import useAuth from '../hooks/useAuth';
+import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
+import { useForm } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
+
 
 export default function UpdateProfileForm() {
-    const { user, updateUser } = useAuth();
-    const [firstname, setFirstname] = useState(user.firstname);
-    const [lastname, setLastname] = useState(user.lastname);
-    const [email, setEmail] = useState(user.email);
-    const navigate = useNavigate();
-    const form = useForm();
+    /**
+    * ! STATE (état, données) de l'application
+    */
+    const navigate = useNavigate()
+    const { user, updateUser } = useAuth()
+    const form = useForm()
 
+    const [firstname, setFirstname] = useState(user.firstname)
+    const [lastname, setLastname] = useState(user.lastname)
+    const [email, setEmail] = useState(user.email)
+
+    // Donnée à envoyer pour la mise à jour
+    const dataUser = { firstname, lastname, email }
+
+    /**
+    * ! COMPORTEMENT (méthodes, fonctions) de l'application
+    */
     const handleUpdate = async (e) => {
-        e.preventDefault();
-
-        const userData = { firstname, lastname, email };
-        console.log('Updating user with data:', userData);
+        // Empêcher le rechargement de la page
+        e.preventDefault()
 
         try {
-            await updateUser(userData);
-            navigate('/admin/dashboard');
-        } catch (err) {
-            console.error('Erreur lors de la mise à jour:', err);
 
+            await updateUser(dataUser)
+            // Mise à jour réussie, rediriger vers le dashboard
+            navigate('/admin/dashboard')
         }
-    };
+        catch (err) {
+            console.error('Erreur lors de la mise à jour:', err)
+        }
+    }
 
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div className="p-4 bg-white shadow-md rounded-lg">
             <h2 className="text-xl font-bold mb-4">Modifier les informations de l'utilisateur</h2>
