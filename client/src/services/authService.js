@@ -8,7 +8,7 @@ export const register = async (dataRegister) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-       console.error('Erreur lors de l\'inscription:', error)
+        console.error('Erreur lors de l\'inscription:', error)
     }
 }
 
@@ -38,17 +38,14 @@ export const login = async (dataLogin) => {
 }
 
 // Mettre à jour les informations de l'utilisateur  
-export const updateUser = async (userData) => {
+export const updateUser = async (dataUser) => {
     try {
-        const token = localStorage.getItem('userToken');
-        const response = await api.put('/updateProfile', userData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data;
+        // Appel à l'API pour mettre à jour les informations de l'utilisateur
+        const response = await api.put('/updateProfile', dataUser)
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during updating profile');
+        console.error('Erreur lors de la mise à jour:', error)
     }
 }
 
