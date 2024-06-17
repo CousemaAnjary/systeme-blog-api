@@ -98,7 +98,7 @@ const PostDetail = () => {
         try {
             // Appel à l'API pour gérer le like
             const response = await toggleLike(dataLike) 
-            setLikes(response.likes) // Mettre à jour le state avec le nombre de likes
+            setLikes(response.likes ? likes + 1 : likes - 1) // Mettre à jour le state avec le nombre de likes
             setLiked(response.liked) // Mettre à jour le state avec le statut du like
 
         } catch (error) {
