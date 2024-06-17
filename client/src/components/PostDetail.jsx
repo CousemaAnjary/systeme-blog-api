@@ -28,7 +28,7 @@ const PostDetail = () => {
     const [newComment, setNewComment] = useState('')
 
     // Données à envoyer pour le like
-     const dataLike = { user_id: user.userId, publication_id: post.id, }
+     const dataLike = { user_id: user.userId, publication_id: post.id }
 
     // Données à envoyer pour la création du commentaire
     const dataCommentaire = { user_id: user.userId, publication_id: post.id, content: newComment }
