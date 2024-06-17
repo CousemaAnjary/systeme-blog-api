@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
             coverPhoto: localStorage.getItem('coverPhoto') || ''
         };
         // Mettre à jour les données utilisateur dans le contexte
-        setUser(userData);
+        setUser(userData)
     }, []);
 
     return (
