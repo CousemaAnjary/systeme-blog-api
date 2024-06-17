@@ -1,4 +1,4 @@
-import api from './apiConfig';
+import api from './apiConfig'
 
 // Inscrire un nouvel utilisateur
 export const register = async (dataRegister) => {
@@ -52,31 +52,24 @@ export const updateUser = async (dataUser) => {
 // Mettre à jour la photo de profil de l'utilisateur
 export const updateUserPhoto = async (formData) => {
     try {
-        const token = localStorage.getItem('userToken');
-        const response = await api.post('/updateProfilePhoto', formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
+        // Appel à l'API pour mettre à jour la photo de profil de l'utilisateur
+        const response = await api.post('/updateProfilePhoto', formData, {  headers: { 'Content-Type': 'multipart/form-data' } })
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during updating profile photo');
+        console.error('Erreur lors de la mise à jour de la photo de profil:', error)
     }
 }
 
+// Mettre à jour la photo de couverture de l'utilisateur
 export const updateCoverPhoto = async (formData) => {
     try {
-        const token = localStorage.getItem('userToken');
-        const response = await api.post('/updateCoverPhoto', formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
+        // Appel à l'API pour mettre à jour la photo de couverture de l'utilisateur
+        const response = await api.post('/updateCoverPhoto', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+        return response.data // Retourner les données de la réponse de l'API
+
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Something went wrong during updating cover photo');
+        console.error('Erreur lors de la mise à jour de la photo de couverture:', error)
     }
 };
 
@@ -93,6 +86,6 @@ export const logout = async () => {
         localStorage.removeItem('coverPhoto')
 
     } catch (error) {
-        throw error
+        console.error('Erreur lors de la déconnexion:', error)
     }
 }
