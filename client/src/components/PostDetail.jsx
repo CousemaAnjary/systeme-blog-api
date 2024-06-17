@@ -27,8 +27,8 @@ const PostDetail = () => {
     const [comments, setComments] = useState([])
     const [newComment, setNewComment] = useState('')
 
-    // // Données à envoyer pour le like
-    // const dataLike = { user_id: user.userId, publication_id: post.id }
+    // Données à envoyer pour le like
+     const dataLike = { user_id: user.userId, publication_id: post.id, }
 
     // Données à envoyer pour la création du commentaire
     const dataCommentaire = { user_id: user.userId, publication_id: post.id, content: newComment }
@@ -89,27 +89,25 @@ const PostDetail = () => {
 
         } catch (err) {
             // Afficher le message d'erreur
-            console.error(err)
+            console.error('Erreur lors de la création du commentaire:', err)
         }
 
     }
 
     const handleLikeClick = async () => {
         try {
-            const response = await toggleLike({ user_id: user.userId, publication_id: post.id });
-            setLikes(response.liked ? likes + 1 : likes - 1);
-            setLiked(response.liked);
+            // Appel à l'API pour gérer le like
+            const response = await toggleLike(dataLike) 
+            setLikes(response.likes) // Mettre à jour le state avec le nombre de likes
+            setLiked(response.liked) // Mettre à jour le state avec le statut du like
+
         } catch (error) {
-            console.error('Erreur lors de la gestion du like:', error);
+            console.error('Erreur lors de la gestion du like:', error)
         }
     }
 
 
-    const handleCommentChange = (e) => setNewComment(e.target.value);
-
-    const isValidDate = (date) => {
-        return date instanceof Date && !isNaN(date);
-    }
+    const handleCommentChange = (e) => setNewComment(e.target.value)
 
     /**
     * ! AFFICHAGE (render) de l'application
