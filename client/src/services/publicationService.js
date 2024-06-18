@@ -40,7 +40,7 @@ export const getUserPublications = async () => {
     try {
         // Appel à l'API pour obtenir les publications de l'utilisateur
         const response = await api.get('/userPublications')
-        return response.data // Retourner les données de la réponse de l'API
+        return response.data.publications // Retourner les données de la réponse de l'API
 
     } catch (error) {
         console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error)

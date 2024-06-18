@@ -1,112 +1,134 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Camera, Pencil, Trash } from "lucide-react";
-import 'yet-another-react-lightbox/styles.css';
-import Lightbox from 'yet-another-react-lightbox';
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import { getUserPublications } from "@/services/publicationService";
-import useAuth from '../hooks/useAuth';
-import Navbar from "@/components/Navbar";
-import UpdateProfileForm from "@/components/UpdateProfileForm";
-import UpdatePasswordForm from "@/components/UpdatePasswordForm";
+import { fr } from 'date-fns/locale'
+import useAuth from '../hooks/useAuth'
+import Navbar from "@/components/Navbar"
+import { Badge } from "@/components/ui/badge"
+import { useNavigate } from 'react-router-dom'
+import 'yet-another-react-lightbox/styles.css'
+import { formatDistanceToNow } from 'date-fns'
+import { Button } from "@/components/ui/button"
+import Lightbox from 'yet-another-react-lightbox'
+import { useState, useEffect, useRef } from "react"
+import { Camera, Pencil, Trash } from "lucide-react"
+import UpdateProfileForm from "@/components/UpdateProfileForm"
+import UpdatePasswordForm from "@/components/UpdatePasswordForm"
+import { getUserPublications } from "@/services/publicationService"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
+
 
 export default function Profile() {
-    const { user, updateUserPhoto, updateCoverPhoto } = useAuth();
-    const fileInputRef = useRef(null);
-    const coverFileInputRef = useRef(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [lightboxImage, setLightboxImage] = useState('');
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [publications, setPublications] = useState([]);
-    const navigate = useNavigate();
+    /**
+    * ! STATE (état, données) de l'application
+    */
+    const { user, updateUserPhoto, updateCoverPhoto } = useAuth()
+    const navigate = useNavigate()
 
-    const coverPhotoURL = user.coverPhoto ? `http://localhost:3000/${user.coverPhoto}` : null;
+    const fileInputRef = useRef(null)
+    const coverFileInputRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [lightboxImage, setLightboxImage] = useState('')
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [publications, setPublications] = useState([])
 
+
+    /**
+    * ! COMPORTEMENT (méthodes, fonctions) de l'application
+    */
     useEffect(() => {
         const fetchPublications = async () => {
             try {
-                const data = await getUserPublications();
-                console.log("Fetched publications:", data.publications); // Log data
-                setPublications(data.publications || []);
+                // Récupérer les publications de l'utilisateur
+                const dataPublications = await getUserPublications()
+                setPublications(dataPublications || 'Tu n\'as pas encore de publications.') 
+
             } catch (error) {
-                console.error('Erreur lors de la récupération des publications:', error);
+                console.error('Erreur lors de la récupération des publications:', error)
             }
         };
 
-        fetchPublications();
-    }, []);
+        fetchPublications()
+    }, [])
 
+    // Ouvrir le file input pour choisir une photo
     const handleChangePhoto = () => {
-        fileInputRef.current.click();
-    };
+        fileInputRef.current.click()
+    }
 
+    // Ouvrir le file input pour choisir une photo de couverture
     const handleChangeCoverPhoto = () => {
-        coverFileInputRef.current.click();
-    };
+        coverFileInputRef.current.click()
+    }
 
+    // Mettre à jour la photo de profil
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setSelectedFile(file);
+        const file = e.target.files[0] // Récupérer le fichier sélectionné
+        setSelectedFile(file) // Mettre à jour le state avec le fichier sélectionné
 
-        const formData = new FormData();
-        formData.append('photo', file);
+        const formData = new FormData() 
+        formData.append('photo', file) 
 
         updateUserPhoto(formData).then(response => {
+            // Mettre à jour le localStorage avec la nouvelle photo
             if (response && response.user && response.user.image) {
-                localStorage.setItem('image', response.user.image);
-                window.location.reload(); 
+                localStorage.setItem('image', response.user.image) 
+                window.location.reload()
             }
+
         }).catch(err => {
-            console.error('Erreur lors de la mise à jour de la photo:', err);
-        });
-    };
+            console.error('Erreur lors de la mise à jour de la photo:', err)
+        })
+    }
 
+    // Mettre à jour la photo de couverture
     const handleCoverFileChange = (e) => {
-        const file = e.target.files[0];
-        setSelectedFile(file);
+        const file = e.target.files[0]
+        setSelectedFile(file)
 
-        const formData = new FormData();
-        formData.append('coverPhoto', file);
+        const formData = new FormData()
+        formData.append('coverPhoto', file)
 
         updateCoverPhoto(formData).then(response => {
             if (response && response.user && response.user.coverPhoto) {
-                localStorage.setItem('coverPhoto', response.user.coverPhoto);
-                window.location.reload();
+                localStorage.setItem('coverPhoto', response.user.coverPhoto)
+                window.location.reload()
             }
         }).catch(err => {
-            console.error('Erreur lors de la mise à jour de la photo de couverture:', err);
-        });
-    };
-
-    const handleImageClick = (imageURL) => {
-        setLightboxImage(imageURL);
-        setIsOpen(true);
-    };
-
-    const handleClick = (id) => {
-        navigate(`/admin/showPost/${id}`);
+            console.error('Erreur lors de la mise à jour de la photo de couverture:', err)
+        })
     }
 
-    const truncateText = (text, maxLength) => {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength) + '...';
-        }
-        return text;
-    };
+    // Ouvrir le lightbox pour afficher l'image en grand
+    const handleImageClick = (imageURL) => {
+        setLightboxImage(imageURL) // Mettre à jour le state avec l'URL de l'image
+        setIsOpen(true) // Ouvrir le lightbox
+    }
 
+    // Rediriger vers la page de détails de la publication
+    const handleClick = (id) => {
+        navigate(`/admin/showPost/${id}`)
+    }
+
+    // Tronquer le texte si la longueur dépasse maxLength
+    const truncateText = (text, maxLength) => {
+        // Vérifier si la longueur du texte est supérieure à maxLength
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...'
+        }
+        return text // Retourner le texte complet
+    }
+
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+    */
     return (
         <>
             <Navbar />
             <div className="bg-gray-100 min-h-screen">
-                <div className="relative h-64 bg-cover bg-center cursor-pointer" style={{ backgroundImage: `url('${coverPhotoURL}')` }} onClick={() => handleImageClick(coverPhotoURL)}>
+                <div className="relative h-64 bg-cover bg-center cursor-pointer" style={{ backgroundImage: `url('${`http://localhost:3000/${user.coverPhoto}`}')` }} onClick={() => handleImageClick(coverPhotoURL)}>
                     <Button className="absolute bottom-4 right-4" onClick={handleChangeCoverPhoto}>Changer la photo de couverture</Button>
                     <input
                         type="file"
