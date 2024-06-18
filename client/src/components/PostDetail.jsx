@@ -1,7 +1,7 @@
 import { fr } from 'date-fns/locale'
 import { Button } from "./ui/button"
 import useAuth from '../hooks/useAuth'
-import { ThumbsUp } from "lucide-react"
+import { ThumbsUp , Heart , MessageCircle } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from 'date-fns'
@@ -28,7 +28,7 @@ const PostDetail = () => {
     const [newComment, setNewComment] = useState('')
 
     // Données à envoyer pour le like
-     const dataLike = { user_id: user.userId, publication_id: post.id }
+    const dataLike = { user_id: user.userId, publication_id: post.id }
 
     // Données à envoyer pour la création du commentaire
     const dataCommentaire = { user_id: user.userId, publication_id: post.id, content: newComment }
@@ -97,7 +97,7 @@ const PostDetail = () => {
     const handleLikeClick = async () => {
         try {
             // Appel à l'API pour gérer le like
-            const response = await toggleLike(dataLike) 
+            const response = await toggleLike(dataLike)
             setLikes(response.liked ? likes + 1 : likes - 1) // Mettre à jour le state avec le nombre de likes
             setLiked(response.liked) // Mettre à jour le state avec le statut du like
 
@@ -148,14 +148,23 @@ const PostDetail = () => {
                                         <AvatarImage className="w-8 h-8 rounded-full" src={`http://localhost:3000/${comment.user?.image}`} />
                                         <AvatarFallback>U</AvatarFallback>
                                     </Avatar>
-                                    <div>
-                                        <h5 className="font-bold">{comment.user?.firstname} {comment.user?.lastname}</h5>
-                                        <p className="text-gray-500 text-xs">
-                                            {comment.createdAt}
-                                        </p>
+
+                                    <div className="flex items-center ">
+                                        <span className="font-semibold mr-2">{comment.user?.lastname} {comment.user?.firstname}</span>
+                                        <span className="text-gray-500 text-sm">1 week ago</span>
                                     </div>
                                 </div>
-                                <p className="mt-2">{comment.content}</p>
+                                <p className="text-gray-700 ms-12 mb-2">{comment.content}</p>
+                                <div className="flex items-center  ms-12">
+                                    <Button variant="ghost" size="sm" className="mr-2">
+                                       <Heart size={16} className="mr-1" />
+                                        Like
+                                    </Button>
+                                    <Button variant="ghost" size="sm">
+                                     <MessageCircle size={16} className="mr-1" />
+                                        Répondre
+                                    </Button>
+                                </div>
                             </div>
                         ))}
                         <div className="flex items-center space-x-4 mt-2">
