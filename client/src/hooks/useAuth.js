@@ -29,12 +29,9 @@ export default function useAuth() {
                 coverPhoto: localStorage.getItem('coverPhoto'),
                 userId: localStorage.getItem('userId')
             });
-        } else {
-            // Rediriger vers la page de connexion si l'utilisateur n'est pas authentifié
-            navigate('/login');
-        }
+        } 
 
-    }, [auth, setUser, navigate]) // Déclencher l'effet uniquement si l'authentification, l'utilisateur ou la navigation change
+    }, [auth, setUser]) // Déclencher l'effet uniquement si l'authentification, l'utilisateur ou la navigation change
 
 
     // Authentifier l'utilisateur
@@ -56,7 +53,7 @@ export default function useAuth() {
                     coverPhoto: localStorage.getItem('coverPhoto'),
                     userId: localStorage.getItem('userId')
                 });
-            }
+            } 
 
         } catch (error) {
             console.error('Login failed:', error)

@@ -31,7 +31,7 @@ module.exports = {
             }
 
             // Génération d'un token JWT
-            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' })
+            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '12h' })
 
             // Renvoi d'une réponse réussie avec les informations de l'utilisateur et le token
             return res.status(200).json({

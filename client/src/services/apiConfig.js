@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { removeToken } from '../utils/auth';
 
 // Récupérer l'URL de base de l'API à partir des variables d'environnement
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
@@ -25,5 +26,19 @@ api.interceptors.request.use((config) => {
 }, (error) => {
     return Promise.reject(error)
 });
+
+
+// Ajouter un intercepteur de réponse pour gérer les erreurs d'authentification
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            // Token expiré ou non valide, supprimer le token et rediriger l'utilisateur
+            removeToken();
+            window.location.href = '/login'; // Rediriger vers la page de connexion
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default api;
