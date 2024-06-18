@@ -97,7 +97,7 @@ export default function PostCard() {
 
                             <Badge className="px-3 py-1 bg-cyan-900 font-bold mt-2">{post.category}</Badge>
 
-                            <CardTitle className="mt-2 cursor-pointer" onClick={() => handleClick(post.id)}>{post.title}</CardTitle>
+                            <CardTitle className="font-bold text-xl mb-2 mt-2 cursor-pointer text-gray-700" onClick={() => handleClick(post.id)}>{post.title}</CardTitle>
                             <CardDescription className="leading-7 mt-2" dangerouslySetInnerHTML={{ __html: truncateText(post.content, 200) }} />
                         </CardContent>
                         <CardFooter className="flex justify-between items-center mt-1">
