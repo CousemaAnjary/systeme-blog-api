@@ -1,7 +1,7 @@
 import { fr } from 'date-fns/locale'
 import { Button } from "./ui/button"
 import useAuth from '../hooks/useAuth'
-import { ThumbsUp , Heart , MessageCircle } from "lucide-react"
+import { ThumbsUp, Heart, MessageCircle } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from 'date-fns'
@@ -107,8 +107,6 @@ const PostDetail = () => {
     }
 
 
-    const handleCommentChange = (e) => setNewComment(e.target.value)
-
     /**
     * ! AFFICHAGE (render) de l'application
     */
@@ -157,11 +155,11 @@ const PostDetail = () => {
                                 <p className="text-gray-700 ms-12 mb-2">{comment.content}</p>
                                 <div className="flex items-center  ms-12">
                                     <Button variant="ghost" size="sm" className="mr-2">
-                                       <Heart size={16} className="mr-1" />
+                                        <Heart size={16} className="mr-1" />
                                         Like
                                     </Button>
                                     <Button variant="ghost" size="sm">
-                                     <MessageCircle size={16} className="mr-1" />
+                                        <MessageCircle size={16} className="mr-1" />
                                         Répondre
                                     </Button>
                                 </div>
@@ -176,7 +174,7 @@ const PostDetail = () => {
                                 placeholder="Écrivez un commentaire..."
                                 className="flex-1 bg-gray-200 rounded-full px-4 py-2 outline-none"
                                 value={newComment}
-                                onChange={handleCommentChange}
+                                onChange={(e) => setNewComment(e.target.value)}
                                 rows="1"
                             />
                             <Button
