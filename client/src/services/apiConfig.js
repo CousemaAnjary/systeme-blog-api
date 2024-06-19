@@ -12,6 +12,7 @@ const api = axios.create({
     }
 });
 
+
 // Ajouter un intercepteur de requête pour inclure le token JWT dans les en-têtes d'authentification
 api.interceptors.request.use((config) => {
     // Récupérer le token JWT de localStorage
