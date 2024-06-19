@@ -2,10 +2,10 @@ const { Commentaire, User } = require('../../../models');
 
 module.exports = {
     async store(req, res) {
-        const { user_id, publication_id, content } = req.body;
+        const { user_id, publication_id, content } = req.body
 
         if (!user_id || !publication_id || !content) {
-            return res.status(400).json({ error: "Tous les champs sont obligatoires" });
+            return res.status(400).json({ error: "Tous les champs sont obligatoires" })
         }
 
         try {
@@ -25,8 +25,8 @@ module.exports = {
                 message: "Commentaire créé avec succès"
             });
         } catch (error) {
-            console.error('Erreur lors de la création du commentaire:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la création du commentaire:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
@@ -48,8 +48,8 @@ module.exports = {
 
             return res.status(200).json({ commentaires });
         } catch (error) {
-            console.error('Erreur lors de la récupération des commentaires:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la récupération des commentaires:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     }
 };
