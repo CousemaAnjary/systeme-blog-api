@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { removeToken } from '../utils/auth';
+import { removeToken } from '../utils/auth'
 
 
 // Récupérer l'URL de base de l'API à partir des variables d'environnement
@@ -10,7 +10,7 @@ const api = axios.create({
     headers: {
         "Content-Type": "application/json"
     }
-});
+})
 
 
 // Ajouter un intercepteur de requête pour inclure le token JWT dans les en-têtes d'authentification
@@ -27,7 +27,7 @@ api.interceptors.request.use((config) => {
 
 }, (error) => {
     return Promise.reject(error)
-});
+})
 
 
 // Ajouter un intercepteur de réponse pour gérer les erreurs d'authentification
@@ -41,6 +41,7 @@ api.interceptors.response.use(
         }
         return Promise.reject(error);
     }
-);
+)
+
 
 export default api;
