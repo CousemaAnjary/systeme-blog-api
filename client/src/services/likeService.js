@@ -7,6 +7,6 @@ export const toggleLike = async (dataLike) => {
         return response.data // Retourner les données de la réponse de l'API
 
     } catch (error) {
-        console.error('Erreur lors de la gestion du like:', error);
+        console.error('Erreur lors de la gestion du like:', error)
     }
-};
+}
