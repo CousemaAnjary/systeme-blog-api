@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { removeToken } from '../utils/auth';
 
+
 // Récupérer l'URL de base de l'API à partir des variables d'environnement
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
