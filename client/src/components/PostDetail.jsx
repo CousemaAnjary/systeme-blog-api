@@ -188,8 +188,8 @@ const PostDetail = () => {
                 </CardContent>
             </Card>
         </div>
-    );
-};
+    )
+}
 
 export default PostDetail;
 
