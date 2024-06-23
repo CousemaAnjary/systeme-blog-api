@@ -1,4 +1,4 @@
-const { Commentaire, User } = require('../../../models');
+const { Commentaire, User } = require('../../../models')
 
 module.exports = {
     async store(req, res) {
@@ -31,7 +31,7 @@ module.exports = {
     },
 
     async getByPublication(req, res) {
-        const { publication_id } = req.params;
+        const { publication_id } = req.params
 
         try {
             const commentaires = await Commentaire.findAll({
@@ -46,7 +46,7 @@ module.exports = {
                 order: [['createdAt', 'ASC']]
             });
 
-            return res.status(200).json({ commentaires });
+            return res.status(200).json({ commentaires })
         } catch (error) {
             console.error('Erreur lors de la récupération des commentaires:', error)
             return res.status(500).json({ error: "Erreur serveur" })
