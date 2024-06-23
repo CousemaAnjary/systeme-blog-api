@@ -1,5 +1,5 @@
-const { Publication, User, Reaction, Commentaire } = require('../../../models');
-const { Op } = require('sequelize');
+const { Publication, User, Reaction, Commentaire } = require('../../../models')
+const { Op } = require('sequelize')
 
 module.exports = {
     async store(req, res) {
