@@ -42,7 +42,7 @@ module.exports = {
         try {
             const user = await User.findByPk(userId)
             if (!user) {
-                return res.status(404).json({ error: 'Utilisateur non trouvé' });
+                return res.status(404).json({ error: 'Utilisateur non trouvé' })
             }
 
             user.image = photoPath
@@ -65,7 +65,7 @@ module.exports = {
 
     // Nouvelle méthode pour mettre à jour la photo de couverture
     updateCoverPhoto: async (req, res) => {
-        const userId = req.user.id;
+        const userId = req.user.id
         const coverPhotoPath = `uploads/${req.file.filename}`
 
         try {
