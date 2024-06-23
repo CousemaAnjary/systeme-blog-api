@@ -3,11 +3,11 @@ const { Op } = require('sequelize');
 
 module.exports = {
     async store(req, res) {
-        const { title, content, category, user_id } = req.body;
+        const { title, content, category, user_id } = req.body
         const image = req.file ? req.file.path : null;
 
         if (!content || !user_id) {
-            return res.status(400).json({ error: "Tous les champs sont obligatoires" });
+            return res.status(400).json({ error: "Tous les champs sont obligatoires" })
         }
 
         try {
@@ -31,15 +31,15 @@ module.exports = {
                 message: "Publication créée avec succès"
             });
         } catch (error) {
-            console.error('Erreur lors de la création de la publication:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la création de la publication:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
     async index(req, res) {
-        const { user_id } = req.query;
+        const { user_id } = req.query
         try {
-            const whereClause = user_id ? { user_id } : {};
+            const whereClause = user_id ? { user_id } : {}
             const publications = await Publication.findAll({
                 where: whereClause,
                 include: [
@@ -69,8 +69,8 @@ module.exports = {
             });
 
             const formattedPublications = publications.map(publication => {
-                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
-                const comments = publication.commentaires.length;
+                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length
+                const comments = publication.commentaires.length
                 return {
                     ...publication.toJSON(),
                     likes,
@@ -78,9 +78,9 @@ module.exports = {
                 };
             });
 
-            return res.status(200).json({ publications: formattedPublications });
+            return res.status(200).json({ publications: formattedPublications })
         } catch (error) {
-            console.error('Erreur lors de la récupération des publications:', error);
+            console.error('Erreur lors de la récupération des publications:', error)
             return res.status(500).json({ error: "Erreur serveur" });
         }
     },
@@ -118,7 +118,7 @@ module.exports = {
             });
     
             const formattedPublications = publications.map(publication => {
-                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length;
+                const likes = publication.reactions.filter(reaction => reaction.type === 'like').length
                 const comments = publication.commentaires.length;
                 return {
                     ...publication.toJSON(),
@@ -127,10 +127,10 @@ module.exports = {
                 };
             });
     
-            return res.status(200).json({ publications: formattedPublications });
+            return res.status(200).json({ publications: formattedPublications })
         } catch (error) {
-            console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la récupération des publications de l\'utilisateur:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
@@ -150,7 +150,7 @@ module.exports = {
             });
 
             if (!publication) {
-                return res.status(404).json({ error: "Publication non trouvée" });
+                return res.status(404).json({ error: "Publication non trouvée" })
             }
 
             const likesCount = await Reaction.count({
@@ -176,13 +176,13 @@ module.exports = {
                 }
             });
         } catch (error) {
-            console.error('Erreur lors de la récupération de la publication:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la récupération de la publication:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
     async search(req, res) {
-        const { query } = req.body;
+        const { query } = req.body
 
         try {
             const publications = await Publication.findAll({
@@ -203,8 +203,8 @@ module.exports = {
 
             return res.status(200).json({ publications });
         } catch (error) {
-            console.error('Erreur lors de la recherche des publications:', error);
-            return res.status(500).json({ error: "Erreur serveur" });
+            console.error('Erreur lors de la recherche des publications:', error)
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
