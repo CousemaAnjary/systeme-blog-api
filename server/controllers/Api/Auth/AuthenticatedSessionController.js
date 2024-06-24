@@ -1,7 +1,7 @@
-const { User } = require('../../../models');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { secretKey } = require('../../../config');
+const { User } = require('../../../models')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { secretKey } = require('../../../config')
 
 module.exports = {
     async store(req, res) {
