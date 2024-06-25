@@ -1,4 +1,4 @@
-const { Reaction } = require('../../../models');
+const { Reaction } = require('../../../models')
 
 module.exports = {
     async like(req, res) {

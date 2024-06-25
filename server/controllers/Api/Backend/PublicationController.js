@@ -4,7 +4,7 @@ const { Op } = require('sequelize')
 module.exports = {
     async store(req, res) {
         const { title, content, category, user_id } = req.body
-        const image = req.file ? req.file.path : null;
+        const image = req.file ? req.file.path : null
 
         if (!content || !user_id) {
             return res.status(400).json({ error: "Tous les champs sont obligatoires" })
@@ -75,13 +75,13 @@ module.exports = {
                     ...publication.toJSON(),
                     likes,
                     comments
-                };
-            });
+                }
+            })
 
             return res.status(200).json({ publications: formattedPublications })
         } catch (error) {
             console.error('Erreur lors de la récupération des publications:', error)
-            return res.status(500).json({ error: "Erreur serveur" });
+            return res.status(500).json({ error: "Erreur serveur" })
         }
     },
 
@@ -135,8 +135,8 @@ module.exports = {
     },
 
     async show(req, res) {
-        const { id } = req.params;
-        const userId = req.user.id;
+        const { id } = req.params
+        const userId = req.user.id
 
         try {
             const publication = await Publication.findByPk(id, {
@@ -147,7 +147,7 @@ module.exports = {
                         attributes: ['firstname', 'image']
                     }
                 ]
-            });
+            })
 
             if (!publication) {
                 return res.status(404).json({ error: "Publication non trouvée" })
@@ -158,7 +158,7 @@ module.exports = {
                     publication_id: id,
                     type: 'like'
                 }
-            });
+            })
 
             const userLiked = await Reaction.findOne({
                 where: {
@@ -166,7 +166,7 @@ module.exports = {
                     publication_id: id,
                     type: 'like'
                 }
-            });
+            })
 
             return res.status(200).json({
                 publication: {
@@ -174,7 +174,7 @@ module.exports = {
                     likes: likesCount,
                     liked: !!userLiked
                 }
-            });
+            })
         } catch (error) {
             console.error('Erreur lors de la récupération de la publication:', error)
             return res.status(500).json({ error: "Erreur serveur" })
@@ -208,5 +208,4 @@ module.exports = {
         }
     },
 
-
-};
+}

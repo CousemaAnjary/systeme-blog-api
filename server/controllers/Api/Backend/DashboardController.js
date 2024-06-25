@@ -1,8 +1,8 @@
-const { User } = require('../../../models');
+const { User } = require('../../../models')
 
 module.exports = {
     async update(req, res) {
-        const userId = req.user.id;
+        const userId = req.user.id
         const { firstname, lastname, email } = req.body
 
         try {
@@ -31,7 +31,7 @@ module.exports = {
             });
         } catch (error) {
             console.error('Erreur lors de la mise à jour des informations utilisateur:', error)
-            return res.status(500).json({ error: 'Erreur interne du serveur' });
+            return res.status(500).json({ error: 'Erreur interne du serveur' })
         }
     },
 
