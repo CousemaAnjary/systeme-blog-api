@@ -1,13 +1,13 @@
-import { Route, Routes } from "react-router-dom";
-import PrivateRoute from "./components/routes/PrivateRoute";
-import PublicRoute from "./components/routes/PublicRoute";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { UserProvider } from "./contexts/UserContext";
-import Profile from "./pages/Profile";
-import ShowPost from "./pages/ShowPost";
-import CreatePost from "./pages/CreatePost";
+import { Route, Routes } from "react-router-dom"
+import PrivateRoute from "./components/routes/PrivateRoute"
+import PublicRoute from "./components/routes/PublicRoute"
+import Dashboard from "./pages/Dashboard"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import { UserProvider } from "./contexts/UserContext"
+import Profile from "./pages/Profile"
+import ShowPost from "./pages/ShowPost"
+import CreatePost from "./pages/CreatePost"
 
 export default function App() {
   return (
