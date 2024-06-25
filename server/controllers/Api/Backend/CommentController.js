@@ -13,7 +13,7 @@ module.exports = {
                 user_id,
                 publication_id,
                 content
-            });
+            })
 
             return res.status(201).json({
                 commentaire: {
@@ -23,7 +23,7 @@ module.exports = {
                     content: commentaire.content,
                 },
                 message: "Commentaire créé avec succès"
-            });
+            })
         } catch (error) {
             console.error('Erreur lors de la création du commentaire:', error)
             return res.status(500).json({ error: "Erreur serveur" })
@@ -44,7 +44,7 @@ module.exports = {
                     }
                 ],
                 order: [['createdAt', 'ASC']]
-            });
+            })
 
             return res.status(200).json({ commentaires })
         } catch (error) {
@@ -52,4 +52,4 @@ module.exports = {
             return res.status(500).json({ error: "Erreur serveur" })
         }
     }
-};
+}
