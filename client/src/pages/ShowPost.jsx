@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
-import PostDetail from "@/components/PostDetail";
+import Navbar from "@/components/Navbar"
+import PostDetail from "@/components/PostDetail"
 
 const ShowPost = () => {
     return (
@@ -12,4 +12,4 @@ const ShowPost = () => {
     );
 };
 
-export default ShowPost;
+export default ShowPost
